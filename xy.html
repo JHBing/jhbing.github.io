@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祝欣欣生日快乐！</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF7EB9',
+                        secondary: '#FFD1DC',
+                        accent: '#FFB6C1',
+                        beach: '#FFF0F5',
+                        ocean: '#87CEFA'
+                    },
+                    fontFamily: {
+                        cute: ['"Comic Sans MS"', '"Marker Felt"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .float-delay-1 {
+                animation: float 3s ease-in-out 0.5s infinite;
+            }
+            .float-delay-2 {
+                animation: float 3s ease-in-out 1s infinite;
+            }
+            .confetti {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: #f44336;
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        body {
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle, #FFB6C1 2px, transparent 2px),
+                radial-gradient(circle, #FFD1DC 2px, transparent 2px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFD1DC" fill-opacity="0.7" d="M0,192L48,181.3C96,171,192,149,288,149.3C384,149,480,171,576,181.3C672,192,768,192,864,181.3C960,171,1056,149,1152,144C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: 1440px 100px;
+            background-repeat: repeat-x;
+        }
+
+        .wave-2 {
+            bottom: 10px;
+            opacity: 0.5;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FF7EB9" fill-opacity="0.5" d="M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,181.3C672,181,768,203,864,208C960,213,1056,213,1152,197.3C1248,181,1344,149,1392,133.3L1440,117L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+        }
+    </style>
+</head>
+<body class="relative min-h-screen font-cute text-gray-800">
+    <!-- 装饰元素 -->
+    <div class="absolute top-10 left-5 w-16 h-16 rounded-full bg-primary/30 float"></div>
+    <div class="absolute top-20 right-10 w-12 h-12 rounded-full bg-accent/40 float-delay-1"></div>
+    <div class="absolute bottom-40 left-20 w-10 h-10 rounded-full bg-ocean/30 float-delay-2"></div>
+    <div class="absolute top-1/3 right-20 w-14 h-14 rounded-full bg-secondary/50 float"></div>
+    
+    <!-- 主容器 -->
+    <div class="container mx-auto px-4 py-16 relative z-10">
+        <!-- 标题区域 -->
+        <header class="text-center mb-16">
+            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold text-primary mb-4 animate-pulse text-shadow">生日快乐！</h1>
+            <div class="flex justify-center gap-3 my-6">
+                <i class="fa fa-birthday-cake text-3xl text-primary float"></i>
+                <i class="fa fa-gift text-3xl text-accent float-delay-1"></i>
+                <i class="fa fa-star text-3xl text-primary float-delay-2"></i>
+            </div>
+        </header>
+
+        <!-- 主要祝福 -->
+        <div class="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-16 transform transition-all hover:scale-[1.02]">
+            <p class="text-xl md:text-2xl mb-6 text-center">
+                祝甘肃人在海南、海口甜妹、星巴克常驻顾客欣欣：
+            </p>
+            <p class="text-2xl md:text-3xl text-center font-bold text-primary my-8">
+                朝朝暮暮总如意，<br>岁岁常欢皆心意
+            </p>
+            <p class="text-right text-lg text-gray-600">
+                By 饼饼
+            </p>
+        </div>
+
+        <!-- 海滩和咖啡元素区域 -->
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="bg-beach/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg transform transition-all hover:rotate-1 hover:shadow-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fa fa-coffee text-2xl text-primary mr-3"></i>
+                    <h3 class="text-xl font-bold">To 欣仪</h3>
+                </div>
+                <p class="text-lg">
+                    想念海南的碧海晴空和半夜的肯悦咖啡，来一根，下一程依旧辽阔^ ̳> ·̫ < ̳^
+                </p>
+                <div class="mt-4 w-full h-40 rounded-lg overflow-hidden">
+                    <img src="https://picsum.photos/id/1036/600/400" alt="海南海滩" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <div class="bg-ocean/20 backdrop-blur-sm rounded-3xl p-8 shadow-lg transform transition-all hover:-rotate-1 hover:shadow-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fa fa-cutlery text-2xl text-primary mr-3"></i>
+                    <h3 class="text-xl font-bold">To 张女士</h3>
+                </div>
+                <p class="text-lg">
+                    感谢上次的招待！海鲜排骨汤好好喝！有机会来东部另一个岛上玩(σ≧︎▽︎≦︎)σ。
+                </p>
+                <div class="mt-4 w-full h-40 rounded-lg overflow-hidden">
+                    <img src="https://picsum.photos/id/488/600/400" alt="海鲜汤" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部装饰 -->
+        <div class="text-center mb-20">
+            <button id="celebrate" class="bg-primary hover:bg-primary/80 text-white font-bold py-3 px-8 rounded-full text-lg transition-all transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-primary/50">
+                <i class="fa fa-party-horn mr-2"></i>点击庆祝
+            </button>
+        </div>
+    </div>
+
+    <!-- 波浪装饰 -->
+    <div class="wave wave-2"></div>
+    <div class="wave"></div>
+
+    <script>
+        // 庆祝按钮效果
+        document.getElementById('celebrate').addEventListener('click', function() {
+            createConfetti();
+            
+            // 播放庆祝音效
+            const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-party-horn-sound-1123.mp3');
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log('无法播放音效:', e));
+            
+            // 按钮动画
+            this.classList.add('animate-bounce');
+            setTimeout(() => this.classList.remove('animate-bounce'), 1000);
+        });
+
+        // 创建彩色纸屑效果
+        function createConfetti() {
+            const colors = ['#FF7EB9', '#FFD1DC', '#FFB6C1', '#FFF0F5', '#87CEFA', '#FFC0CB'];
+            const container = document.body;
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = `-${Math.random() * 20 + 10}px`;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                
+                container.appendChild(confetti);
+                
+                // 移除纸屑元素
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // 添加下落动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 页面加载时的动画
+        window.addEventListener('load', function() {
+            // 随机漂浮几个装饰元素
+            for (let i = 0; i < 5; i++) {
+                const floatEl = document.createElement('div');
+                floatEl.className = `absolute rounded-full float-delay-${i%3}`;
+                floatEl.style.width = `${Math.random() * 15 + 5}px`;
+                floatEl.style.height = floatEl.style.width;
+                floatEl.style.backgroundColor = ['#FF7EB9', '#FFD1DC', '#87CEFA'][Math.floor(Math.random() * 3)];
+                floatEl.style.opacity = Math.random() * 0.5 + 0.2;
+                floatEl.style.left = `${Math.random() * 100}vw`;
+                floatEl.style.top = `${Math.random() * 100}vh`;
+                document.body.appendChild(floatEl);
+            }
+        });
+    </script>
+</body>
+</html>
