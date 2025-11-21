@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❄️ 像素风「小雪」生日限定！</title>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <style>
+        /* CSS RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 全局样式：像素字体、雪白色背景、模拟屏幕边框 */
+        body {
+            font-family: 'DotGothic16', sans-serif; /* 像素字体 */
+            background-color: #000000; /* 纯黑背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #FFFFFF; /* 白色文字 */
+            overflow: hidden; /* 隐藏溢出，保持整洁 */
+            font-size: 16px;
+        }
+
+        /* 游戏界面/主窗口容器 */
+        .game-screen {
+            width: 90%;
+            max-width: 800px;
+            min-height: 500px;
+            background: linear-gradient(135deg, #1A1A40, #3B4D8D); /* 渐变深蓝色，代表冬夜 */
+            border: 8px solid #E0FFFF; /* 冰晶边框色 */
+            box-shadow: 
+                0 0 0 4px #000, /* 屏幕外层黑边 */
+                0 0 20px rgba(184, 255, 255, 0.8), /* 柔和蓝光 */
+                inset 0 0 10px rgba(0, 0, 0, 0.5); /* 内部阴影，增加深度 */
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            animation: screen-in 1s ease-out;
+            cursor: default; /* 模拟鼠标指针样式 */
+        }
+
+        /* 屏幕进入动画 */
+        @keyframes screen-in {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* 标题：像游戏Logo或关卡名 */
+        .title {
+            font-size: 3.5rem; /* 大字号 */
+            color: #FF69B4; /* 少女粉/二次元配色 */
+            text-shadow: 
+                -2px -2px 0 #FFF, 
+                2px 2px 0 #FFF, 
+                4px 4px 0 #4B0082; /* 霓虹紫立体像素阴影 */
+            margin-bottom: 10px;
+            animation: title-glitch 0.5s infinite alternate; /* 标题轻微闪烁/故障效果 */
+        }
+
+        @keyframes title-glitch {
+            0% { transform: translate(1px, 1px); }
+            100% { transform: translate(-1px, -1px); }
+        }
+
+        /* 副标题/信息栏 */
+        .subtitle {
+            font-size: 1.2rem;
+            color: #FFD700; /* 金色 */
+            padding: 5px 10px;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明黑底 */
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 2px solid #FFD700;
+        }
+
+        /* 核心祝福文本区：像对话框 */
+        .message-box {
+            background-color: rgba(255, 255, 255, 0.95); /* 近白色背景 */
+            color: #333333;
+            padding: 20px;
+            border: 4px solid #4B0082; /* 紫色边框 */
+            text-align: left;
+            margin-bottom: 30px;
+            min-height: 150px;
+            position: relative;
+        }
+
+        /* 对话框中的文字：打字机效果 */
+        #typing-text {
+            overflow: hidden; /* 隐藏多余文字 */
+            border-right: .15em solid orange; /* 模拟光标 */
+            white-space: nowrap; /* 不换行 */
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: 
+                typing 3s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+
+        /* 打字机动画 */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* 光标闪烁动画 */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #FF69B4; }
+        }
+
+        /* 底部操作面板/按钮 */
+        .action-panel {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        /* 按钮样式：游戏UI按钮 */
+        .pixel-button {
+            background-color: #FFD700; /* 金色按钮背景 */
+            color: #4B0082; /* 紫色文字 */
+            padding: 10px 20px;
+            border: 4px solid #4B0082;
+            cursor: pointer;
+            transition: background-color 0.1s;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 4px 4px 0 #4B0082; /* 按钮立体阴影 */
+        }
+
+        .pixel-button:hover {
+            background-color: #FFA500; /* 鼠标悬停变橙色 */
+            transform: translate(2px, 2px); /* 轻微按下效果 */
+            box-shadow: 2px 2px 0 #4B0082;
+        }
+
+        /* 装饰元素：像素雪花动画 */
+        .snowflake {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #E0FFFF;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: falling linear infinite;
+        }
+
+        @keyframes falling {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        
+        /* 针对设计师的彩蛋区 */
+        .designer-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(255, 105, 180, 0.2); /* 粉色透明底 */
+            border: 1px dashed #FF69B4;
+            font-size: 0.9rem;
+            color: #FFB6C1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-screen">
+        <div class="title">LEVEL UP! 🎂</div>
+        <div class="subtitle">小雪节气限定版 v.2025</div>
+        
+        <div class="message-box">
+            <div id="typing-text">
+                [系统消息]：玩家 **周小雪** 已成功进入新的人生阶段！<br><br>
+                ✨ 亲爱的小雪：<br>
+                生日快乐！<br>
+                你像这个节气一样，**看似温柔，实则蕴含着强大而清晰的力量**。<br>
+                愿你未来一年的设计灵感如同漫天飞雪般源源不断，<br>
+                每一个创意都能像**CMYK四色叠加**一样，展现出最饱满、最惊艳的色彩！<br>
+                愿你的生活自带**高饱和度滤镜**，幸福感**分辨率**超高！<br>
+                <br>
+                —— 最真诚的祝福 <br>
+            </div>
+        </div>
+
+        <div class="designer-info">
+            **🎨 DESIGNER'S FUN FACTS**<br>
+            你的本命色：**#E0FFFF (冰晶蓝)**<br>
+            本年关键词：**高自由度，无限图层**
+        </div>
+
+        <div class="action-panel">
+            <button class="pixel-button" onclick="alert('恭喜你，获得一个隐藏的「创意无限」Buff！')">启动灵感引擎</button>
+            <a href="#" class="pixel-button" onclick="alert('任务完成，继续下一关！'); return false;">继续冒险 >></a>
+        </div>
+    </div>
+
+    <script>
+        // 1. 像素雪花生成脚本
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            // 随机位置
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            // 随机大小 (模拟远近)
+            snowflake.style.width = snowflake.style.height = (Math.random() * 3 + 2) + 'px';
+            // 随机动画时长 (模拟速度)
+            snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's'; 
+            // 随机延迟 (错开出现时间)
+            snowflake.style.animationDelay = (Math.random() * 5) + 's';
+            
+            document.body.appendChild(snowflake);
+
+            // 移除屏幕外的雪花，避免过多DOM元素
+            setTimeout(() => {
+                snowflake.remove();
+            }, 10000);
+        }
+
+        // 每隔0.2秒生成一片雪花
+        setInterval(createSnowflake, 200);
+
+        // 2. 打字机效果脚本 (通过CSS实现，JS仅作占位)
+        // 核心的打字机动画已通过CSS的 @keyframes typing 实现，这里不需要额外的JS来控制文字输入速度。
+    </script>
+</body>
+</html>
