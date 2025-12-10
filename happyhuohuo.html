@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王老师生日快乐鸭！</title>
+    <style>
+        :root {
+            --primary-color: #ff9a9e;
+            --secondary-color: #a18cd1;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #2c3e50;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 雪花背景动画 */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            user-select: none;
+            z-index: 1;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+
+        /* 主卡片：磨砂玻璃风格 */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 450px;
+            padding: 40px 30px;
+            background: var(--glass-bg);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-dark);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: floatUp 1s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* 头像/图标区域 */
+        .avatar-area {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .phd-hat {
+            position: absolute;
+            top: -15px;
+            right: -5px;
+            font-size: 40px;
+            transform: rotate(15deg);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #4a4a4a;
+        }
+
+        .tags {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .message {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #444;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #d63384;
+            font-weight: bold;
+        }
+
+        /* 按钮 */
+        .btn {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 底部签名 */
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 画布用于彩带特效 */
+        #confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        /* 装饰元素 */
+        .deco {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.8;
+            animation: spin 3s linear infinite;
+        }
+        .deco.ski { top: 20px; left: 20px; animation-duration: 5s;}
+        .deco.music { bottom: 20px; right: 20px; animation-duration: 4s;}
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 雪花生成容器 -->
+    <div id="snow-container"></div>
+
+    <!-- 装饰图标 -->
+    <div class="deco ski">🎿</div>
+    <div class="deco music">🎵</div>
+
+    <!-- 主要内容卡片 -->
+    <div class="card">
+        <div class="avatar-area">
+            🐱
+            <div class="phd-hat">🎓</div>
+        </div>
+        
+        <h1>Happy Birthday</h1>
+        
+        <div class="tags">
+            <span class="tag">#Nature候选人</span>
+            <span class="tag">#组里唯一正常人</span>
+            <span class="tag">#爱猫猫</span>
+            <span class="tag">#滑雪小乌龟</span>
+            <span class="tag">#DancingQueen</span>
+        </div>
+
+        <div class="message">
+            王老师~：<br><br>
+            生日快乐！祝你在新的一岁里：<br>
+            科研如<strong>滑雪</strong>般丝滑，即使遇到 steep slope 也能优雅回转；<br>
+            生活像<strong>撸猫</strong>般治愈，所有的 stress 都在呼噜声中消散；<br>
+            心情如<strong>跳舞</strong>般飞扬，永远踩在快乐的节拍上！<br><br>
+            ㊗️你的论文 <strong>Accept</strong> 拿到手软，<br>
+            愿你的冬天永远有最棒的<strong>粉色雪花</strong>！
+        </div>
+
+        <button class="btn" onclick="celebrate()">✨ 接收专属祝福 ✨</button>
+
+        <div class="footer">
+            From 饼饼🍪
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        // 1. 雪花特效逻辑
+        function createSnow() {
+            const snowContainer = document.getElementById('snow-container');
+            const flakes = 30; // 雪花数量
+            for (let i = 0; i < flakes; i++) {
+                let flake = document.createElement('div');
+                flake.innerHTML = '❄';
+                flake.className = 'snowflake';
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                flake.style.opacity = Math.random();
+                flake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                snowContainer.appendChild(flake);
+            }
+        }
+        createSnow();
+
+        // 2. 按钮点击彩带特效 (Confetti)
+        function celebrate() {
+            const button = document.querySelector('.btn');
+            button.innerText = "🎂 生日快乐，发 Paper 必中！ 🎂";
+            button.style.background = "linear-gradient(45deg, #a18cd1, #fbc2eb)";
+            
+            // 简单的彩带粒子效果
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ['#ff9a9e', '#a18cd1', '#fad0c4', '#ffd1ff', '#ffffff'];
+
+            for(let i=0; i<150; i++){
+                particles.push({
+                    x: window.innerWidth / 2,
+                    y: window.innerHeight / 2,
+                    w: Math.random() * 10 + 5,
+                    h: Math.random() * 10 + 5,
+                    speedX: Math.random() * 10 - 5,
+                    speedY: Math.random() * 10 - 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    gravity: 0.1
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.speedY += p.gravity;
+                    
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, p.w, p.h);
+
+                    if(p.y > canvas.height) particles.splice(index, 1);
+                });
+
+                if(particles.length > 0) requestAnimationFrame(draw);
+            }
+            
+            draw();
+        }
+
+        // 窗口大小改变时重置 Canvas
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
