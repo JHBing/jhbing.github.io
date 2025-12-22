@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Journey in Alishan | 致国恩</title>
+    
+    <!-- 引入Google字体，使用优雅的衬线体提升气质 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+TC:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0f1215; /* 深邃夜色 */
+            --accent-gold: #D4AF37; /* 香槟金 */
+            --text-main: #E0E0E0;
+            --text-dim: #8b9bb4;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-light: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif; /* 繁体中文衬线体 */
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* 背景飘雪层 */
+        #snow-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #1a252f 0%, #0a0c10 100%);
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 头部 Hero Section */
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .sub-title {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .sub-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--accent-gold);
+            margin: 20px auto 0;
+        }
+
+        /* 内容卡片 */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 4px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 5px 15px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            border-radius: 50px;
+            margin-right: 10px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* 圣诞祝福部分 */
+        .christmas-section {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .merry-xmas {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #D4AF37, #F2E3B8, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .signature {
+            margin-top: 50px;
+            text-align: right;
+            font-style: italic;
+            color: var(--text-dim);
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .card { padding: 30px 20px; }
+            .merry-xmas { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="snow-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Alishan Memory</h1>
+            <div class="sub-title">2025 · 阿里山 · 遇见美好</div>
+        </header>
+
+        <section class="content">
+            <!-- 印象卡片 -->
+            <div class="card reveal-on-scroll">
+                <span class="tag">Guide & Driver</span>
+                <span class="tag">Cool Vibes</span>
+                <h2>To: 国恩</h2>
+                <p>
+                    阿里山的云雾很美，但旅途中最鲜活的记忆，往往来自于人。
+                </p>
+                <p>
+                    感谢你这位<span class="highlight">30岁的潇洒向导</span>。从蜿蜒的山路到深藏的景点，你握着方向盘的样子，有着属于这一代人的专注与酷劲。
+                </p>
+            </div>
+
+            <!-- 气质描述卡片 -->
+            <div class="card reveal-on-scroll">
+                <h2>The "Wilber Pan" of Alishan</h2>
+                <p>
+                    大家都说阿里山有神木，没想到还有一位“阿里山潘玮柏”。
+                </p>
+                <p>
+                    不只是长相上的几分神似，更是那种言谈间流露出的<span class="highlight">松弛感与生活态度</span>。听你分享台湾的生活点滴，让这趟原本也是走马观花的旅程，变得有了温度和厚度。
+                </p>
+                <p>很开心能遇见这么有型又专业的你。</p>
+            </div>
+
+            <!-- 圣诞祝福 -->
+            <div class="christmas-section reveal-on-scroll">
+                <div class="merry-xmas">Merry Christmas</div>
+                <p style="text-align: center; color: var(--text-dim);">
+                    愿你的生活永远如山间清风般自由，<br>
+                    愿你的每一程，都是风景。
+                </p>
+            </div>
+
+            <div class="signature">
+                <p>— 来自 2025年的一位旅客</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 1. 简单的滚动显现动画逻辑
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 2. 高级飘雪/微粒效果 (Canvas)
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        // 粒子类
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * -height; // 从上方开始
+                this.velocity = Math.random() * 2 + 0.5; // 下落速度
+                this.size = Math.random() * 2 + 0.5; // 大小
+                this.opacity = Math.random() * 0.5 + 0.1; // 透明度
+                this.drift = Math.random() * 1 - 0.5; // 左右飘动
+            }
+
+            update() {
+                this.y += this.velocity;
+                this.x += this.drift;
+
+                if (this.y > height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = width < 768 ? 50 : 100; // 移动端减少粒子数
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+                // 初始随机分布在屏幕上，不仅仅是上方
+                particles[i].y = Math.random() * height;
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            initParticles();
+        });
+
+        resize();
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>
