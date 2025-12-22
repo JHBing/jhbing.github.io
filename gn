@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Journey in Alishan | 致国恩</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+TC:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent-gold: #D4AF37; /* 香槟金 */
+            --accent-gold-dim: rgba(212, 175, 55, 0.3);
+            --text-main: #E0E0E0;
+            --text-dim: #aebacf;
+            --card-bg: rgba(0, 0, 0, 0.45);
+            --border-light: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.8;
+            min-height: 100vh;
+            /* 依然保持背景图设置 */
+            background-image: url('bg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #0f1215;
+        }
+
+        /* 遮罩层 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 18, 21, 0.65); /* 稍微调亮一点点，让背景透出来 */
+            z-index: -2;
+        }
+
+        /*Canvas 飘雪 */
+        #snow-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- 新增装饰 1：四角金边 --- */
+        .frame-corner {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-color: var(--accent-gold);
+            border-style: solid;
+            z-index: 10;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        .top-left { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+        .top-right { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+        .bottom-left { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+        .bottom-right { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+        /* --- 新增装饰 2：呼吸光斑 (纯CSS动画) --- */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(20px);
+            z-index: -1;
+            animation: floatGlow 15s infinite ease-in-out;
+            pointer-events: none;
+        }
+        .orb-1 { width: 300px; height: 300px; top: -50px; left: -50px; animation-delay: 0s; }
+        .orb-2 { width: 200px; height: 200px; bottom: 10%; right: -50px; animation-delay: -5s; background: radial-gradient(circle, rgba(78, 205, 196, 0.2) 0%, rgba(0,0,0,0) 70%); /* 加一点点青色呼应山林 */ }
+        .orb-3 { width: 150px; height: 150px; top: 40%; left: 20%; opacity: 0.5; animation-delay: -8s; }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            50% { transform: translate(20px, -30px) scale(1.1); opacity: 0.8; }
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            height: 85vh; /* 稍微拉长一点 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            background: linear-gradient(to bottom, #D4AF37, #F9F1D0, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 6px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            filter: drop-shadow(0 0 10px rgba(212,175,55,0.3));
+        }
+
+        .sub-title {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* 标题两侧的装饰线 */
+        .sub-title::before, .sub-title::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent-gold);
+            opacity: 0.5;
+        }
+
+        /* 卡片样式优化 */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-light);
+            padding: 45px;
+            margin-bottom: 50px;
+            border-radius: 2px; /* 更锐利的圆角显高级 */
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 卡片顶部的金色细条 */
+        .card::top {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+        }
+
+        .card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 标题前的小装饰 */
+        .card h2::before {
+            content: '✦';
+            font-size: 1rem;
+            margin-right: 10px;
+            opacity: 0.6;
+            color: var(--text-main);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 6px 16px;
+            border: 1px solid var(--accent-gold-dim);
+            background: rgba(212, 175, 55, 0.05);
+            color: var(--accent-gold);
+            margin-right: 10px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-weight: 300;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: #fff;
+            background: linear-gradient(120deg, transparent 0%, transparent 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 1px;
+            background-position: 0 100%;
+            border-bottom: 1px solid var(--accent-gold);
+        }
+
+        /* 圣诞区域 */
+        .christmas-section {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        /* 圣诞树极简图标 */
+        .xmas-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            opacity: 0.8;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(212,175,55,0.4));
+        }
+
+        .merry-xmas {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .signature {
+            margin-top: 60px;
+            text-align: center;
+            font-style: italic;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+        
+        .signature span {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .card { padding: 30px 20px; }
+            .merry-xmas { font-size: 2rem; }
+            .frame-corner { width: 20px; height: 20px; }
+            .top-left { top: 15px; left: 15px; }
+            .top-right { top: 15px; right: 15px; }
+            .bottom-left { bottom: 15px; left: 15px; }
+            .bottom-right { bottom: 15px; right: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 装饰1：四角金边 -->
+    <div class="frame-corner top-left"></div>
+    <div class="frame-corner top-right"></div>
+    <div class="frame-corner bottom-left"></div>
+    <div class="frame-corner bottom-right"></div>
+
+    <!-- 装饰2：氛围光斑 -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+
+    <!-- 黑色遮罩 -->
+    <div class="overlay"></div>
+    
+    <!-- 飘雪 Canvas -->
+    <canvas id="snow-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <div style="font-size: 1.5rem; color: var(--accent-gold); margin-bottom: 10px;">✦</div>
+            <h1>Alishan Memory</h1>
+            <div class="sub-title">2025 · 阿里山 · 遇见美好</div>
+        </header>
+
+        <section class="content">
+            <div class="card reveal-on-scroll">
+                <span class="tag">Guide & Driver</span>
+                <span class="tag">Cool Vibes</span>
+                <h2>To: 国恩</h2>
+                <p>
+                    阿里山的云雾很美，但旅途中最鲜活的记忆，往往来自于人。
+                </p>
+                <p>
+                    感谢你这位<span class="highlight">30岁的潇洒向导</span>。从蜿蜒的山路到深藏的景点，你握着方向盘的样子，有着属于这一代人的专注与酷劲。
+                </p>
+            </div>
+
+            <div class="card reveal-on-scroll">
+                <span class="tag">Talented</span>
+                <span class="tag">Warm Heart</span>
+                <h2>The "Wilber Pan" of Alishan</h2>
+                <p>
+                    大家都说阿里山有神木，没想到还有一位“阿里山潘玮柏”。
+                </p>
+                <p>
+                    不只是长相上的几分神似，更是那种言谈间流露出的<span class="highlight">松弛感与生活态度</span>。听你分享台湾的生活点滴，让这趟原本也是走马观花的旅程，变得有了温度和厚度。
+                </p>
+                <p>很开心能遇见这么有型又专业的你。</p>
+            </div>
+
+            <div class="christmas-section reveal-on-scroll">
+                <!-- 装饰3：圣诞极简图标 -->
+                <div class="xmas-icon">❄</div>
+                <div class="merry-xmas">Merry Christmas</div>
+                <p style="text-align: center; color: var(--text-dim); line-height: 2;">
+                    愿你的生活永远如山间清风般自由<br>
+                    愿你的每一程，都是风景<br>
+                    <span style="color: var(--accent-gold); font-size: 1.2rem;">✦</span>
+                </p>
+            </div>
+
+            <div class="signature">
+                <p>— 来自 2025年的一位旅客</p>
+                <span>For a wonderful trip.</span>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * -height;
+                this.velocity = Math.random() * 2 + 0.5;
+                this.size = Math.random() * 2 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.drift = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.y += this.velocity;
+                this.x += this.drift;
+                if (this.y > height) this.reset();
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = width < 768 ? 50 : 100;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+                particles[i].y = Math.random() * height;
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => { resize(); initParticles(); });
+        resize(); initParticles(); animate();
+    </script>
+</body>
+</html>
