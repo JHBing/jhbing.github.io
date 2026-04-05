@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小鱼喵喵叫教主 - 生日快乐！</title>
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --bg-color: #1a0b2e;
+            --card-bg-front: linear-gradient(135deg, #2b124c, #10051e);
+            --card-bg-back: linear-gradient(135deg, #10051e, #3a1c5e);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, var(--bg-color), #000000);
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* 背景动态漂浮物 */
+        .floating-element {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            opacity: 0.4;
+            animation: floatUp linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 塔罗牌容器与翻转动画 */
+        .tarot-container {
+            position: relative;
+            width: 340px;
+            height: 520px;
+            perspective: 1200px;
+            z-index: 10;
+        }
+
+        .tarot-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 1.2s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+        }
+
+        .tarot-container:hover .tarot-card {
+            transform: rotateY(180deg) scale(1.05);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.4);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            border: 2px solid var(--primary-gold);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 牌面正面：神秘感 */
+        .card-front {
+            background: var(--card-bg-front);
+        }
+
+        .card-front::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px dashed var(--primary-gold);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .roman-numeral {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            color: var(--primary-gold);
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+            letter-spacing: 3px;
+        }
+
+        .card-subtitle {
+            color: #bfa7e6;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        /* 牌面背面：祝福内容 */
+        .card-back {
+            background: var(--card-bg-back);
+            transform: rotateY(180deg);
+        }
+
+        .back-title {
+            color: var(--primary-gold);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        .blessing-text {
+            color: #eaddf8;
+            font-size: 1rem;
+            line-height: 1.8;
+            font-family: "Microsoft YaHei", sans-serif;
+            text-align: left;
+            width: 90%;
+        }
+
+        .highlight {
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="particles"></div>
+
+    <div class="tarot-container">
+        <div class="tarot-card">
+            <div class="card-face card-front">
+                <div class="roman-numeral">XXVI</div>
+                <div style="font-size: 4rem; margin: 10px 0;">🔮</div>
+                <div class="card-title">THE EMPRESS</div>
+                <div style="color: #fff; font-family: 'Microsoft YaHei'; letter-spacing: 2px; margin-top: 10px;">
+                    小鱼喵喵叫 专属命运牌
+                </div>
+                <div class="card-subtitle">- Hover to Reveal / 悬浮翻牌 -</div>
+            </div>
+
+            <div class="card-face card-back">
+                <div class="back-title">✨ 26岁，生辰吉乐 ✨</div>
+                <div class="blessing-text">
+                    致敬爱的 <span class="highlight">小鱼教 & 喵喵教</span> 两教之主：<br><br>
+                    东北的风，赐予你豪爽与澄澈；<br>
+                    心理学的海，赋予你洞察人心的深邃；<br>
+                    塔罗牌的星轨，早已写满你26岁的璀璨。<br><br>
+                    愿你新的一岁：<br>
+                    如 <span class="highlight">女皇牌</span> 般富足丰盛，<br>
+                    如 <span class="highlight">愚人牌</span> 般自由勇敢。<br>
+                    小鱼教如鱼得水，喵喵教吸猫成仙！<br><br>
+                    <div style="text-align: center; margin-top: 15px; font-size: 1.2rem;">
+                        🐟 👑 🐱
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 动态生成符合人设的漂浮元素
+        const particlesContainer = document.getElementById('particles');
+        const emojis = ['🐟', '🐱', '🐾', '🔮', '✨', '❄️', '🌟']; // 鱼、猫、塔罗、东北雪花、星星
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'floating-element';
+            particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // 随机位置、动画时长和延迟
+            const leftPosition = Math.random() * 100; // 0% 到 100%
+            const animationDuration = Math.random() * 8 + 6; // 6s 到 14s
+            const animationDelay = Math.random() * 5; // 0s 到 5s
+            
+            particle.style.left = `${leftPosition}vw`;
+            particle.style.animationDuration = `${animationDuration}s`;
+            particle.style.animationDelay = `${animationDelay}s`;
+            
+            // 随机大小
+            const scale = Math.random() * 0.5 + 0.8;
+            particle.style.transform = `scale(${scale})`;
+
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
