@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Card - Happy Birthday</title>
+    <!-- 引入思源宋体、优雅英文字体，以及核心的【8-bit 像素字体】 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=Great+Vibes&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #ff758c;
+            --secondary: #ff7eb3;
+            --accent: #a18cd1;
+            --gold: #ffd700;
+            --magic-glow: rgba(255, 215, 0, 0.6);
+            --text-main: #2c3e50;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            overflow: hidden; background-color: #fcedf2; color: var(--text-main);
+        }
+
+        /* --- 1. 流体极光背景 (保留原版美感) --- */
+        .blob-container { position: absolute; width: 100vw; height: 100vh; overflow: hidden; z-index: 0; filter: blur(60px); }
+        .blob { position: absolute; border-radius: 50%; animation: moveBlobs 15s infinite alternate ease-in-out; opacity: 0.8; }
+        .blob-1 { width: 500px; height: 500px; background: rgba(255, 117, 140, 0.6); top: -10%; left: -10%; animation-delay: 0s; }
+        .blob-2 { width: 600px; height: 600px; background: rgba(161, 140, 209, 0.5); bottom: -20%; right: -10%; animation-delay: -5s; }
+        .blob-3 { width: 450px; height: 450px; background: rgba(255, 215, 0, 0.4); top: 40%; left: 40%; animation-delay: -10s; } /* 加入一点魔法金 */
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(150px, -100px) scale(1.2); }
+        }
+
+        /* --- 2. 萤火虫/星光粒子 --- */
+        .particles { position: absolute; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .particle { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.8); animation: rise infinite ease-in; }
+        @keyframes rise {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* --- 3. 漂浮装饰 (融入魔法与像素元素) --- */
+        .floating-element { position: absolute; animation: floatObj 8s ease-in-out infinite; font-size: 35px; z-index: 2; filter: drop-shadow(0 10px 15px rgba(255, 117, 140, 0.4)); }
+        .icon-1 { top: 12%; left: 15%; animation-delay: 0s; transform: rotate(-15deg); font-size: 45px; } /* 魔法月亮 */
+        .icon-2 { top: 75%; right: 12%; animation-delay: 1.5s; font-size: 40px; } /* 尤克里里 */
+        .icon-3 { top: 25%; right: 15%; animation-delay: 3s; font-size: 30px; font-family: 'Press Start 2P', cursive; color: var(--primary); } /* 像素红心 */
+        .icon-4 { bottom: 15%; left: 15%; animation-delay: 4.5s; font-size: 40px; } /* 蝴蝶结/魔法杖 */
+
+        @keyframes floatObj {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(15deg) scale(1.1); }
+        }
+
+        /* ================= 4. 魔法卡片核心结构 ================= */
+        .scene {
+            width: 90%; max-width: 460px; /* 卡牌比例偏长 */
+            height: 650px;
+            z-index: 10; perspective: 1500px;
+        }
+
+        .card-container {
+            width: 100%; height: 100%; position: relative;
+            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* 魔法召唤的果冻弹性翻转 */
+            transform-style: preserve-3d;
+        }
+
+        .scene.is-flipped .card-container { transform: rotateY(180deg); }
+
+        /* 卡牌通用的高级玻璃材质 */
+        .card-face {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+            backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(255, 117, 140, 0.2), inset 0 0 20px rgba(255,255,255,0.8);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+
+        /* --- 【正面】：美少女战士魔法卡封印 --- */
+        .card-front { transform: rotateY(0deg); border: 2px solid var(--primary); padding: 20px; }
+        
+        /* 魔法卡片内边框 */
+        .magic-border {
+            position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid var(--gold); border-radius: 12px; pointer-events: none;
+            box-shadow: inset 0 0 15px var(--magic-glow);
+        }
+
+        /* 纯CSS绘制星月魔法阵 */
+        .magic-circle {
+            width: 180px; height: 180px;
+            border: 2px dashed var(--gold); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            position: relative; margin-bottom: 40px;
+            animation: spin 15s linear infinite;
+            box-shadow: 0 0 30px var(--magic-glow);
+        }
+        .magic-circle::before {
+            content: ''; position: absolute; width: 150px; height: 150px;
+            border: 1px solid var(--primary); border-radius: 50%;
+            animation: spin 10s linear infinite reverse;
+        }
+        .magic-icon {
+            font-size: 70px; color: var(--gold); text-shadow: 0 0 20px var(--primary);
+            animation: pulseObj 2s infinite;
+        }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulseObj { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        .magic-title {
+            font-family: 'Great Vibes', cursive; font-size: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; transform: translateZ(30px);
+        }
+
+        /* 【像素风按钮】 GBA掌机复古感 */
+        .pixel-btn {
+            font-family: 'Press Start 2P', cursive; /* 像素字体 */
+            background: var(--primary); color: white;
+            border: 3px solid #fff; outline: 2px solid var(--primary);
+            padding: 15px 20px; font-size: 11px; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 4px 4px 0px rgba(255, 117, 140, 0.4);
+            transition: all 0.1s ease; margin-top: 20px;
+            transform: translateZ(20px);
+        }
+        .pixel-btn:active { box-shadow: 0px 0px 0px rgba(255, 117, 140, 0.4); transform: translate(4px, 4px) translateZ(20px); }
+        .pixel-btn:hover { background: var(--secondary); }
+
+        /* --- 【反面】：内容揭秘与 RPG 元素 --- */
+        .card-back { transform: rotateY(180deg); padding: 45px 35px; border: 1px solid rgba(255,255,255,0.9); }
+
+        h1 { font-size: 28px; font-weight: 900; margin-bottom: 20px; letter-spacing: 2px; }
+        .name-highlight { color: var(--primary); position: relative; display: inline-block; }
+        .name-highlight::after {
+            content: ''; position: absolute; bottom: 2px; left: 0; width: 100%; height: 8px;
+            background-color: rgba(255, 215, 0, 0.4); z-index: -1; border-radius: 4px;
+        }
+
+        /* 像素风 RPG 状态栏标签 */
+        .pixel-tags { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
+        .ptag {
+            background: rgba(255, 255, 255, 0.8); padding: 6px 10px; border-radius: 4px;
+            font-family: 'Press Start 2P', cursive; font-size: 8px; /* 像素字体必须设小一点 */
+            color: var(--primary); border: 1px dashed var(--accent);
+            letter-spacing: 1px; line-height: 1.5;
+        }
+
+        .content { font-size: 15px; line-height: 2.1; color: #4a4a4a; text-align: justify; margin-bottom: 30px; }
+        .text-bold { color: var(--primary); font-weight: 600; }
+        .magic-text { font-family: 'Great Vibes', cursive; font-size: 24px; color: var(--accent); padding: 0 5px;}
+
+        /* 打字机浮现动画 */
+        .reveal-text { opacity: 0; transform: translateY(15px); }
+        .scene.is-flipped .reveal-text:nth-child(1) { animation: fadeUp 0.6s forwards 0.5s; }
+        .scene.is-flipped .reveal-text:nth-child(2) { animation: fadeUp 0.6s forwards 1.1s; }
+        .scene.is-flipped .reveal-text:nth-child(3) { animation: fadeUp 0.6s forwards 1.7s; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* 卡片内部元素 */
+        .eng-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 46px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 10px rgba(255, 117, 140, 0.2);
+            transform: translateZ(30px); /* 3D 浮出效果 */
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .scene { height: 600px; width: 88%; }
+            .eng-title { font-size: 38px; }
+            .card-back { padding: 40px 25px; }
+            .magic-circle { width: 140px; height: 140px; }
+            .magic-circle::before { width: 120px; height: 120px; }
+            .pixel-btn { font-size: 9px; padding: 12px 15px; }
+            .content { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 极光背景 -->
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- 星光粒子 -->
+    <div class="particles" id="particles"></div>
+
+    <!-- 魔法漂浮物 (月亮、像素心、尤克里里、蝴蝶结) -->
+    <div class="floating-element icon-1">🌙</div>
+    <div class="floating-element icon-2">🎸</div>
+    <div class="floating-element icon-3">🎂</div>
+    <div class="floating-element icon-4">🎀</div>
+
+    <!-- 3D 悬浮卡牌容器 -->
+    <div class="scene" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3" data-tilt-scale="1.02">
+        <div class="card-container">
+            
+            <!-- 【正面：美少女战士魔法卡】 -->
+            <div class="card-face card-front">
+                <div class="magic-border"></div>
+                
+                <div class="magic-circle">
+                    <div class="magic-icon">☾</div>
+                </div>
+
+                <div class="magic-title">Moon Prism Power</div>
+                <div style="font-size: 12px; color: #888; margin-bottom: 20px; letter-spacing: 2px;">魔法封印待解除...</div>
+                
+                <button class="pixel-btn" onclick="flipCard()">> START MAGIC _</button>
+            </div>
+
+            <!-- 【反面：唯美祝福 + 像素点缀】 -->
+            <div class="card-face card-back">
+                <div class="eng-title">A New Chapter</div>
+                <h1>祝 <span class="name-highlight">湘湘</span> 生日快乐！</h1>
+                
+                <!-- RPG 游戏风的标签 -->
+                <div class="pixel-tags">
+                    <span class="ptag">🐦‍🔥 Lv.99 DANCER</span>
+                    <span class="ptag">🎸 ITEM: UKULELE</span>
+                    <span class="ptag">🎇 CLASS: HK MASTER</span>
+                </div>
+
+                <div class="content">
+                    <p class="reveal-text">Ivyyyyy：<br>从秀美的江西到繁华的香港，从校园里并肩的同学到职场上共同奋斗的伙伴，很开心能见证你的成长与闪耀。</p>
+                    <p class="reveal-text"><span class="text-bold">青春正好，韶华如歌。</span>无论是在舞蹈室里起舞的自信，还是拨动尤克里里时的灵动，都是你独有的<span class="magic-text">Magic Power</span>。</p>
+                    <p class="reveal-text">愿新的一岁，你的生活如舞蹈般轻盈，如琴声般欢快。在这座城市里，继续做那个施展魔法、闪闪发光的女孩！</p>
+                </div>
+
+                <button class="pixel-btn" style="background: var(--accent); outline-color: var(--accent);" onclick="triggerFinale()">> ACCEPT GIFT _</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 1. 初始化 3D 反光倾斜
+        VanillaTilt.init(document.querySelector(".scene"), {
+            max: 6, speed: 400, glare: true, "max-glare": 0.4, gyroscope: true
+        });
+
+        // 2. 注入背景发光粒子 (萤火虫魔法阵)
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 35; i++) {
+            let particle = document.createElement('div');
+            particle.classList.add('particle');
+            let size = Math.random() * 4 + 2;
+            particle.style.width = `${size}px`; particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDuration = `${Math.random() * 5 + 4}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            particlesContainer.appendChild(particle);
+        }
+
+        // 3. 翻转魔法卡核心逻辑
+        function flipCard() {
+            const scene = document.querySelector('.scene');
+            // 触发 180 度翻转
+            scene.classList.add('is-flipped');
+
+            // 配合翻转的彩带喷射 (魔法解除特效)
+            setTimeout(() => {
+                confetti({ particleCount: 80, spread: 70, origin: { x: 0, y: 0.6 }, colors: ['#ff758c', '#ffd700', '#ffffff'] });
+                confetti({ particleCount: 80, spread: 70, origin: { x: 1, y: 0.6 }, colors: ['#ff758c', '#ffd700', '#ffffff'] });
+            }, 400); 
+        }
+
+        // 4. 收下礼物的终极特效
+        function triggerFinale() {
+            var duration = 3000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 8, angle: 60, spread: 55,
+                    origin: { x: Math.random(), y: Math.random() - 0.2 },
+                    colors: ['#ff758c', '#ff7eb3', '#ffd700', '#ffffff'] // 加入金色碎片
+                });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+
+            // 按钮状态更新为通关状态
+            const btn = document.querySelector('.card-back .pixel-btn');
+            btn.innerHTML = "MISSION CLEARED ★";
+            btn.style.background = "#ffd700";
+            btn.style.color = "#333";
+            btn.style.outlineColor = "#ffd700";
+            btn.style.pointerEvents = "none";
+        }
+    </script>
+</body>
+</html>
