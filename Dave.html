@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>iTracker - 潜水员状态日志</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        :root {
+            --dave-bg: #0d1e30;       
+            --ui-blue: #132b45;       
+            --ui-border: #55c9f5;     
+            --ui-white: #f1f8fc;      
+            --dave-yellow: #ffcc00;   
+            --dave-red: #ff4a5a;      
+            --dave-green: #3ce56f;    
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100vh; overflow: hidden;
+            background-color: var(--dave-bg);
+            font-family: 'Press Start 2P', 'SimSun', '宋体', monospace; 
+            -webkit-font-smoothing: none; 
+            color: var(--ui-white); user-select: none;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        /* 背景 */
+        .ocean-bg { position: absolute; width: 100%; height: 100%; background: linear-gradient(180deg, #054a7c 0%, #081a2d 60%, #020a13 100%); z-index: 1; }
+        .dither-overlay { position: absolute; width: 100%; height: 100%; z-index: 2; pointer-events: none; background-image: radial-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%), repeating-linear-gradient(transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px); }
+        .bubble-container { position: absolute; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+        .pixel-bubble { position: absolute; bottom: -20px; background: transparent; box-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 -2px 0 #fff, 0 2px 0 #fff; width: 4px; height: 4px; animation: floatUp linear infinite; }
+        @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-120vh); opacity: 0; } }
+
+        /* 登录遮罩 */
+        #login-mask { position: fixed; width: 100%; height: 100%; background: #000; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .blinking-text { color: var(--dave-yellow); font-size: 16px; animation: blink 1s steps(2, start) infinite; margin-top: 20px;}
+        @keyframes blink { 50% { opacity: 0; } }
+        .start-btn { padding: 15px 30px; font-size: 16px; color: #fff; background: var(--ui-blue); border: 4px solid #fff; outline: 2px solid #000; cursor: pointer; text-shadow: 2px 2px 0 #000; font-family: inherit; display: flex; align-items: center; gap: 10px; }
+        .start-btn:hover { background: var(--ui-border); color: #000; text-shadow: none; }
+        .key-hint { background: #fff; color: #000; padding: 2px 6px; border-radius: 2px; font-size: 12px; border-bottom: 2px solid #aaa; text-shadow: none;}
+
+        /* 主界面容器 */
+        #vision-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 10; opacity: 0; visibility: hidden; }
+        
+        /* 核心窗体：加大尺寸，严控布局 */
+        .dave-window { background-color: var(--ui-blue); border: 4px solid var(--ui-border); outline: 2px solid #000; box-shadow: inset 0 0 0 2px #fff, 8px 8px 0px rgba(0,0,0,0.6); position: relative; display: flex; flex-direction: column; }
+        .main-ui { width: 1020px; height: 620px; } /* 加大长宽 */
+
+        .window-header { background: var(--ui-border); color: #000; padding: 5px 15px; font-size: 14px; font-weight: bold; text-shadow: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #fff; height: 30px; box-sizing: border-box;}
+
+        /* 内容区容器：严禁溢出 */
+        .ui-content { display: flex; flex: 1; padding: 20px; gap: 20px; height: calc(100% - 30px); box-sizing: border-box; overflow: hidden;}
+        
+        /* ============ 左侧：固定宽度，防止被挤压 ============ */
+        .left-panel { width: 330px; flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; }
+        
+        .cooksta-card { background: #1e3a58; border: 2px solid #335980; padding: 15px; position: relative; box-shadow: inset 2px 2px 0 rgba(255,255,255,0.1); }
+        .rank-badge { position: absolute; top: -10px; right: -10px; width: 45px; height: 45px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,5 95,25 95,75 50,95 5,75 5,25" fill="%23ffcc00" stroke="%23fff" stroke-width="4"/></svg>') no-repeat; display: flex; justify-content: center; align-items: center; font-size: 20px; filter: drop-shadow(2px 2px 0 #000); animation: float 2s infinite ease-in-out;}
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        .avatar-area { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .avatar-box { width: 60px; height: 60px; background: #000; border: 2px solid var(--ui-white); display: flex; justify-content: center; align-items: center; font-size: 35px; flex-shrink: 0;}
+        .cooksta-name { font-size: 18px; color: var(--dave-yellow); margin-bottom: 5px;}
+        .cooksta-followers { font-size: 10px; color: #aaa; }
+
+        .dave-stat { margin-bottom: 15px; }
+        /* 强制不换行，文字缩小适应宽度 */
+        .dave-stat-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; white-space: nowrap; }
+        .dave-bar-bg { width: 100%; height: 16px; background: #000; border: 2px solid #555; padding: 2px; box-sizing: border-box; }
+        .dave-bar-fill { height: 100%; }
+        .fill-green { background: var(--dave-green); border-right: 2px solid #fff; border-bottom: 2px solid #1f8a41;}
+        .fill-yellow { background: var(--dave-yellow); border-right: 2px solid #fff; border-bottom: 2px solid #a68500;}
+
+        /* 按钮固定在底部 */
+        .action-btn-container { margin-top: auto; text-align: center; }
+        .item-btn { width: 100%; justify-content: center; padding: 15px 10px; background: var(--dave-yellow); color: #000; font-size: 14px; border: 2px solid #fff; outline: 2px solid #000; text-shadow: none; font-weight: bold; cursor: pointer; font-family: inherit; box-shadow: 4px 4px 0 #000; position: relative; display: flex; align-items: center; gap: 10px; }
+        .item-btn:hover { background: #ffe066; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+        .item-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+        .new-tag { position: absolute; top: -12px; left: -10px; background: var(--dave-red); color: #fff; font-size: 10px; padding: 2px 4px; border: 2px solid #fff; outline: 2px solid #000; transform: rotate(-10deg); animation: pop 1s infinite alternate; box-shadow: 2px 2px 0 #000; text-shadow: 1px 1px 0 #000;}
+        @keyframes pop { 0% { transform: rotate(-10deg) scale(1); } 100% { transform: rotate(-10deg) scale(1.1); } }
+
+        /* ============ 右侧：自适应宽度，独立滚动 ============ */
+        .right-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; } /* 解决挤压核心 */
+        
+        .dialogue-wrapper { flex: 1; background: #0a1724; border: 2px solid #335980; padding: 15px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 15px; }
+        
+        .npc-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; border-bottom: 2px dashed #335980; padding-bottom: 10px; flex-shrink: 0;}
+        .npc-avatar { width: 45px; height: 45px; background: #222; border: 2px solid var(--ui-border); display: flex; justify-content: center; align-items: center; font-size: 26px; flex-shrink: 0;}
+        .npc-name { color: var(--ui-border); font-size: 16px; margin-bottom: 5px;}
+
+        /* 文字区独立滚动，绝对不会顶爆父容器 */
+        .dialogue-text { flex: 1; font-size: 14px; line-height: 1.8; color: var(--ui-white); overflow-y: auto; padding-right: 10px; }
+        .dialogue-text::-webkit-scrollbar { width: 8px; }
+        .dialogue-text::-webkit-scrollbar-track { background: #000; }
+        .dialogue-text::-webkit-scrollbar-thumb { background: #555; border: 1px solid #000; }
+
+        .highlight { color: var(--dave-yellow); }
+        .highlight-blue { color: var(--ui-border); }
+        .cursor { display: inline-block; width: 8px; height: 14px; background: var(--ui-white); animation: blink 0.8s steps(2, start) infinite; vertical-align: middle; margin-left: 2px;}
+
+        /* 底部深度计：强制高度和位置 */
+        .depth-meter { display: flex; background: #000; border: 2px solid #555; padding: 10px 15px; align-items: center; justify-content: space-between; flex-shrink: 0; height: 60px; box-sizing: border-box;}
+        .depth-point { display: flex; flex-direction: column; align-items: center; gap: 4px; position: relative; z-index: 2;}
+        .dp-icon { width: 24px; height: 24px; background: var(--ui-blue); border: 2px solid #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px; box-shadow: 2px 2px 0 #000;}
+        .dp-text { font-size: 10px; color: #888; text-shadow: none; }
+        .dp-title { font-size: 12px; color: #fff; }
+        .depth-line { flex: 1; height: 4px; background: #333; position: relative; top: -8px; z-index: 1; margin: 0 -10px; }
+        
+        .dp-icon.active { border-color: var(--ui-border); background: #054a7c;}
+        .dp-icon.future { border-color: var(--dave-red); background: #300;}
+
+        /* 获得物品弹窗 */
+        #item-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; }
+        .item-box { width: 420px; background: #1a1a1a; border: 4px solid var(--dave-yellow); outline: 2px solid #000; box-shadow: inset 0 0 50px rgba(255, 204, 0, 0.2), 10px 10px 0 #000; text-align: center; position: relative; transform: scale(0.9); transition: transform 0.2s steps(3); }
+        .item-box.show { transform: scale(1); }
+        .item-box-header { background: var(--dave-yellow); color: #000; padding: 10px; font-size: 16px; text-shadow: none; font-weight: bold; border-bottom: 2px solid #fff;}
+        .item-content { padding: 25px 20px; }
+        .item-icon-bg { width: 80px; height: 80px; background: repeating-linear-gradient(45deg, #333 0, #333 10px, #222 10px, #222 20px); margin: 0 auto 15px; border: 4px solid #fff; display: flex; justify-content: center; align-items: center; font-size: 40px; box-shadow: 4px 4px 0 #000;}
+        .item-name { color: var(--dave-yellow); font-size: 16px; margin-bottom: 15px;}
+        .item-desc { font-size: 13px; line-height: 1.6; color: #ddd; text-align: left; background: #000; padding: 15px; border: 2px solid #444; }
+        .close-hint { margin-top: 15px; font-size: 12px; color: #888; text-shadow: none;}
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" src="dave_bgm.mp3" loop></audio>
+
+    <div class="ocean-bg"></div>
+    <div class="dither-overlay"></div>
+    <div class="bubble-container" id="bubble-container"></div>
+
+    <div id="login-mask">
+        <div style="font-size: 40px; margin-bottom: 10px;">🌊</div>
+        <div style="font-size: 24px; color: var(--ui-border); margin-bottom: 40px;">DIVER OS V26.0</div>
+        <button class="start-btn" onclick="systemStart()">
+            <span class="key-hint">SPACE</span> 潜入蓝洞
+        </button>
+        <div class="blinking-text">WAITING FOR DIVER...</div>
+    </div>
+
+    <div id="vision-container">
+        <div class="dave-window main-ui">
+            <div class="window-header">
+                <span>📱 iTRACKER // STATUS</span>
+                <span>📶 100% 🔋</span>
+            </div>
+
+            <div class="ui-content">
+                <!-- 左侧 -->
+                <div class="left-panel">
+                    <div class="cooksta-card">
+                        <div class="rank-badge">💎</div>
+                        <div class="avatar-area">
+                            <div class="avatar-box">🤿</div>
+                            <div>
+                                <div class="cooksta-name">FEIGE</div>
+                                <div class="cooksta-followers">❤ 13 Yrs Followers</div>
+                            </div>
+                        </div>
+
+                        <div class="dave-stat">
+                            <div class="dave-stat-header">
+                                <span style="color:var(--ui-border)">[职业]</span>
+                                <span>研二法师(CS)</span>
+                            </div>
+                        </div>
+
+                        <div class="dave-stat">
+                            <div class="dave-stat-header">
+                                <span>O2(代码供氧)</span>
+                                <span class="highlight">999/999</span>
+                            </div>
+                            <div class="dave-bar-bg"><div class="dave-bar-fill fill-green" style="width: 100%;"></div></div>
+                        </div>
+                        
+                        <div class="dave-stat">
+                            <div class="dave-stat-header">
+                                <span>WEIGHT(发量)</span>
+                                <span><span class="highlight">26kg</span>/99kg</span>
+                            </div>
+                            <div class="dave-bar-bg"><div class="dave-bar-fill fill-yellow" style="width: 26%;"></div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-btn-container">
+                        <button class="item-btn" onclick="drawSSR()">
+                            <div class="new-tag">NEW!</div>
+                            <span class="key-hint" style="background:#000; color:#fff; border-color:#555;">ESC</span> 开启生日补给箱
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 右侧 -->
+                <div class="right-panel">
+                    <div class="dialogue-wrapper">
+                        <div class="npc-header">
+                            <div class="npc-avatar">🧔🏾</div>
+                            <div>
+                                <div class="npc-name">小豪 (HotDoger)</div>
+                                <div style="font-size: 10px; color:#aaa;">INCOMING MESSAGE...</div>
+                            </div>
+                        </div>
+                        
+                        <div class="dialogue-text" id="dialogue-box">
+                            <span id="story-text"></span><span class="cursor" id="cursor"></span>
+                        </div>
+                    </div>
+
+                    <!-- 潜水深度计 -->
+                    <div class="depth-meter">
+                        <div class="depth-point">
+                            <div class="dp-title">相识13年</div>
+                            <div class="dp-icon active">✓</div>
+                            <div class="dp-text">浅滩 0m</div>
+                        </div>
+                        <div class="depth-line"></div>
+                        <div class="depth-point">
+                            <div class="dp-title highlight-blue">青岛深造</div>
+                            <div class="dp-icon active" style="border-color:var(--ui-border); box-shadow: 0 0 10px var(--ui-border)">📍</div>
+                            <div class="dp-text highlight-blue">中层 50m</div>
+                        </div>
+                        <div class="depth-line" style="background: repeating-linear-gradient(90deg, #333, #333 5px, transparent 5px, transparent 10px);"></div>
+                        <div class="depth-point">
+                            <div class="dp-title highlight">江苏定居</div>
+                            <div class="dp-icon future">❓</div>
+                            <div class="dp-text">深海区 ???m</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div id="item-modal" onclick="closeSSR()">
+        <div class="item-box" id="chest-modal-element">
+            <div class="item-box-header">ITEM ACQUIRED !</div>
+            <div class="item-content">
+                <div class="item-icon-bg">🍣</div>
+                <div class="item-name">特级羁绊寿司套餐 x1</div>
+                <div class="item-desc">
+                    <span style="color:var(--dave-yellow)">[描述]</span> 飞哥，26岁生日快乐！<br><br>
+                    不管现在在青岛捞鱼(写代码)，还是未来去江苏开分店，只要蓝洞还在，咱俩的联机记录永不打烊！<br><br>
+                    <span style="color:var(--dave-green)">[增益]</span> 暴富率+200%，脱发率-99%，脱单概率UP，Paper必中！
+                </div>
+                <div class="close-hint"><span class="key-hint" style="background:#555; color:#fff; border:none;">CLICK</span> 放入背包</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const bubbleContainer = document.getElementById('bubble-container');
+        for(let j=0; j<25; j++){
+            let bubble = document.createElement('div');
+            bubble.className = 'pixel-bubble';
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.animationDuration = Math.random() * 6 + 3 + 's';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            bubbleContainer.appendChild(bubble);
+        }
+
+        function systemStart() {
+            document.getElementById('login-mask').style.display = 'none';
+            document.getElementById('vision-container').style.visibility = 'visible';
+            document.getElementById('vision-container').style.opacity = '1';
+            const bgm = document.getElementById('bgm');
+            bgm.volume = 0.5;
+            bgm.play().catch(e => console.log("等待交互"));
+            setTimeout(typeWriter, 500); 
+        }
+
+        // 修改了换行逻辑：不再使用双换行，节约垂直空间
+        const textToType = "哟，飞哥！听班乔说今天是你 <span class='highlight'>26岁</span> 的生日？\n系统扫描到你已经成功度过了25岁的浅滩区。\n回想这10年，咱们一起下海摸鱼，代码敲得比班乔切鱼还快。\n\n目前你正在 <span class='highlight-blue'>[青岛海域]</span> 闭关读研，氧气槽(代码量)很足嘛！\n系统预判，不久后你将前往深水区 <span class='highlight-blue'>[江苏地图]</span> 开启新任务。\n\n别管未来的Bug有多像深海巨鱿，老伙计永远在船上支援你！\n\n> 记得查收你的生日补给箱！";
+        
+        let i = 0;
+        let isTag = false;
+        let htmlBuffer = ""; 
+        let textElement = document.getElementById("story-text");
+        let scrollBox = document.getElementById("dialogue-box");
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                let char = textToType.charAt(i);
+                if (char === '<') { isTag = true; }
+                if (isTag) {
+                    htmlBuffer += char; 
+                    if (char === '>') {
+                        isTag = false;
+                        textElement.innerHTML += htmlBuffer; 
+                        htmlBuffer = ""; 
+                    }
+                    i++;
+                    typeWriter(); 
+                } else {
+                    if (char === '\n') {
+                        // 插入单换行加一点小间距，而不是夸张的双换行
+                        textElement.innerHTML += '<br><div style="height:6px"></div>'; 
+                    } else {
+                        textElement.innerHTML += char;
+                    }
+                    i++;
+                    scrollBox.scrollTop = scrollBox.scrollHeight;
+                    setTimeout(typeWriter, Math.random() * 20 + 20); 
+                }
+            }
+        }
+
+        function drawSSR() {
+            const modal = document.getElementById('item-modal');
+            const chestModal = document.getElementById('chest-modal-element');
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            setTimeout(() => { chestModal.classList.add('show'); }, 50);
+        }
+
+        function closeSSR() {
+            const modal = document.getElementById('item-modal');
+            const chestModal = document.getElementById('chest-modal-element');
+            chestModal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.opacity = '0';
+                setTimeout(() => { modal.style.visibility = 'hidden'; }, 200);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
