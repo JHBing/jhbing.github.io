@@ -2,104 +2,373 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>SYSTEM UPDATE - V26.0</title>
+    <title>【系统提示】玩家 飞鸽儿 升级至 Lv.26</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-        body { margin: 0; overflow: hidden; background-color: #0b0220; color: #0ff; font-family: 'Courier New', Courier, monospace; height: 100vh; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
-        
-        /* CRT 扫描线特效 */
-        body::after { content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none; }
-        
-        /* 蒸汽波网格地板 */
-        .grid { position: absolute; bottom: -30%; left: -50%; width: 200%; height: 80%; background-image: linear-gradient(transparent 65%, rgba(255, 0, 255, 0.8) 70%, transparent 75%), linear-gradient(90deg, transparent 45%, rgba(0, 255, 255, 0.8) 50%, transparent 55%); background-size: 40px 40px; transform: rotateX(75deg); animation: moveGrid 2s linear infinite; z-index: 0; box-shadow: inset 0 200px 200px #0b0220; }
-        @keyframes moveGrid { 0% { background-position: 0 0; } 100% { background-position: 0 40px; } }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap');
 
-        /* 终端启动屏幕 */
-        #boot-screen { position: absolute; z-index: 10; cursor: pointer; text-align: center; }
-        .blink { animation: blinker 1s linear infinite; font-size: 24px; font-weight: bold; text-shadow: 0 0 10px #f0f; color: #f0f; }
-        @keyframes blinker { 50% { opacity: 0; } }
-
-        /* 主视窗 */
-        #os-window { display: none; position: relative; z-index: 5; background: rgba(11, 2, 32, 0.85); border: 2px solid #0ff; box-shadow: 0 0 20px #0ff, inset 0 0 20px #0ff; padding: 30px; width: 600px; max-width: 90%; }
-        .title-bar { background: #0ff; color: #0b0220; padding: 5px 10px; font-weight: bold; margin: -30px -30px 20px -30px; display: flex; justify-content: space-between; }
-        
-        /* 故障文字特效 */
-        .glitch { font-size: 36px; font-weight: bold; text-transform: uppercase; position: relative; color: #fff; text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75); animation: glitch 500ms infinite; margin-bottom: 20px; }
-        @keyframes glitch { 
-            0% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75); }
-            14% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75); }
-            15% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
-            49% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
-            50% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
-            99% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
-            100% { text-shadow: -0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75); }
+        :root {
+            --primary: #00f0ff;
+            --secondary: #ff0055;
+            --accent: #b026ff;
+            --text-main: #e0e6ed;
+            --panel-bg: rgba(12, 16, 33, 0.65);
         }
 
-        .code-line { margin: 10px 0; font-size: 16px; line-height: 1.5; color: #f0f; }
-        .highlight { color: #0ff; font-weight: bold; }
-        .btn-run { display: inline-block; margin-top: 20px; padding: 10px 20px; background: transparent; border: 2px solid #f0f; color: #f0f; cursor: pointer; text-transform: uppercase; font-weight: bold; transition: all 0.3s; }
-        .btn-run:hover { background: #f0f; color: #0b0220; box-shadow: 0 0 15px #f0f; }
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100vh; overflow: hidden;
+            font-family: 'Noto Sans SC', sans-serif; 
+            color: var(--text-main); user-select: none;
+            background-color: #0b0c10;
+        }
 
-        #output { margin-top: 15px; color: #fff; display: none; }
+        /* ================= 绚丽背景特效 ================= */
+        /* 1. 星云渐变光晕 */
+        .nebula-bg {
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(176, 38, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 0, 85, 0.2) 0%, transparent 40%);
+            animation: auroraDrift 15s infinite alternate ease-in-out;
+            z-index: 1;
+            filter: blur(30px);
+        }
+        @keyframes auroraDrift {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(15deg) scale(1.1); }
+        }
+
+        /* 2. 3D 赛博网格地面 */
+        .cyber-grid {
+            position: absolute; bottom: 0; left: -50%; width: 200%; height: 50%;
+            background: 
+                linear-gradient(transparent 90%, rgba(0, 240, 255, 0.6) 100%),
+                linear-gradient(90deg, transparent 90%, rgba(0, 240, 255, 0.6) 100%);
+            background-size: 60px 60px;
+            transform: perspective(600px) rotateX(75deg);
+            transform-origin: bottom center;
+            animation: gridMove 3s linear infinite;
+            z-index: 2;
+            box-shadow: inset 0 200px 100px -50px #0b0c10; /* 边缘融合 */
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 60px; }
+        }
+
+        /* 3. 漂浮星光粒子 */
+        .stars { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+        .star { position: absolute; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #fff, 0 0 20px var(--primary); animation: twinkle linear infinite; }
+        @keyframes twinkle { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 50% { opacity: 1; transform: translateY(-20px) scale(1); } 100% { opacity: 0; transform: translateY(-40px) scale(0.5); } }
+
+        /* ================= 登录遮罩层 ================= */
+        #login-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s; }
+        .login-btn { padding: 15px 50px; font-size: 20px; font-weight: 900; color: #fff; background: transparent; border: 2px solid var(--primary); box-shadow: 0 0 15px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.3); cursor: pointer; text-transform: uppercase; transition: all 0.3s; letter-spacing: 2px; position: relative; overflow: hidden; z-index: 1000;}
+        .login-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.5s; }
+        .login-btn:hover::before { left: 100%; }
+        .login-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 30px var(--primary); }
+
+        /* ================= 主视界容器 ================= */
+        #vision-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; perspective: 1200px; z-index: 10; opacity: 0; visibility: hidden; }
+        
+        /* 核心卡片 UI (加大尺寸，解决拥挤) */
+        .player-card { width: 950px; height: 600px; background: var(--panel-bg); border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 15px; backdrop-filter: blur(15px); box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 30px rgba(0, 240, 255, 0.15); display: flex; flex-direction: row; padding: 35px; box-sizing: border-box; transform-style: preserve-3d; transition: transform 0.1s ease-out; position: relative; overflow: hidden; }
+        
+        /* 装饰性角标 */
+        .card-corner { position: absolute; width: 40px; height: 40px; border: 3px solid var(--primary); }
+        .corner-tl { top: 15px; left: 15px; border-right: none; border-bottom: none; }
+        .corner-br { bottom: 15px; right: 15px; border-left: none; border-top: none; }
+
+        /* 左侧：玩家头像与状态 */
+        .left-panel { flex: 1.2; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 35px; display: flex; flex-direction: column; transform: translateZ(30px); }
+        .avatar-box { width: 160px; height: 160px; margin: 10px auto 25px; border-radius: 50%; background: conic-gradient(from 0deg, var(--primary), var(--accent), var(--primary)); padding: 5px; animation: spinAvatar 5s linear infinite; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+        .avatar-inner { width: 100%; height: 100%; background-color: #1a1b26; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 60px; }
+        @keyframes spinAvatar { 100% { transform: rotate(360deg); } }
+        
+        .level-badge { text-align: center; color: var(--primary); font-size: 32px; font-weight: 900; text-shadow: 0 0 15px var(--primary); margin-bottom: 5px; font-family: monospace;}
+        .player-name { text-align: center; font-size: 34px; font-weight: 900; letter-spacing: 5px; margin-bottom: 25px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);}
+        
+        /* 属性条 */
+        .stat-row { margin-bottom: 15px; font-size: 15px; }
+        .stat-label { display: flex; justify-content: space-between; margin-bottom: 6px; color: #cbd5e1; font-weight: bold;}
+        .stat-bar-bg { width: 100%; height: 8px; background: rgba(0,0,0,0.5); border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);}
+        .stat-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #00ff88); position: relative; }
+        .stat-bar-fill::after { content: ''; position: absolute; top:0; right:0; bottom:0; left:0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); animation: shimmer 2s infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+        /* 右侧：剧情文案与主线任务 (优化排版) */
+        .right-panel { flex: 2; padding-left: 35px; display: flex; flex-direction: column; transform: translateZ(50px); height: 100%; }
+        
+        .sys-title { font-size: 15px; color: var(--secondary); letter-spacing: 2px; border-bottom: 1px solid rgba(255, 0, 85, 0.4); padding-bottom: 8px; margin-bottom: 15px; display: inline-block; text-shadow: 0 0 8px rgba(255, 0, 85, 0.5); font-weight: bold;}
+        
+        /* 剧情对话框 (完美解决溢出和滚动) */
+        .dialogue-box { 
+            flex: 1; /* 自动撑满剩余空间 */
+            background: rgba(0, 0, 0, 0.4); 
+            border: 1px solid rgba(0, 240, 255, 0.2); 
+            border-radius: 8px; 
+            padding: 20px; 
+            font-size: 16px; 
+            line-height: 1.8; 
+            color: #e2e8f0; 
+            position: relative; 
+            overflow-y: auto; /* 内容过多时自动滚动 */
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        /* 自定义赛博朋克滚动条 */
+        .dialogue-box::-webkit-scrollbar { width: 6px; }
+        .dialogue-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 3px; }
+        .dialogue-box::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; box-shadow: 0 0 5px var(--primary); }
+
+        .typewriter-text { margin-left: 5px; }
+        .highlight { color: var(--primary); font-weight: bold; text-shadow: 0 0 8px rgba(0,240,255,0.6); }
+        .highlight-red { color: var(--secondary); font-weight: bold; text-shadow: 0 0 8px rgba(255,0,85,0.6); }
+
+        /* 任务路线图 */
+        .quest-map { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 15px 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px;}
+        .quest-node { text-align: center; flex: 1;}
+        .node-icon { width: 45px; height: 45px; border-radius: 50%; background: #111; border: 2px solid #555; display: flex; justify-content: center; align-items: center; margin: 0 auto 10px; z-index: 2; position: relative; font-size: 18px;}
+        .node-icon.active { border-color: var(--primary); box-shadow: 0 0 20px var(--primary); color: var(--primary);}
+        .node-icon.future { border-color: var(--accent); border-style: dashed; color: var(--accent); box-shadow: 0 0 10px rgba(176, 38, 255, 0.3);}
+        .quest-line { flex: 1.5; height: 2px; background: repeating-linear-gradient(90deg, #555, #555 5px, transparent 5px, transparent 10px); position: relative; top: -15px; z-index: 1; margin: 0 -10px;}
+        
+        /* SSR 抽卡按钮 */
+        .gacha-btn { align-self: center; width: 80%; padding: 15px 0; background: linear-gradient(45deg, #ffaa00, #ffea00); color: #000; font-weight: 900; font-size: 18px; letter-spacing: 2px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 0 25px rgba(255, 170, 0, 0.5); transition: all 0.3s; position: relative; overflow: hidden;}
+        .gacha-btn::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(transparent, rgba(255,255,255,0.8), transparent); transform: rotate(45deg); animation: btnShine 3s infinite; }
+        @keyframes btnShine { 0% { left: -100%; } 100% { left: 100%; } }
+        .gacha-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 30px rgba(255, 170, 0, 0.8); }
+
+        /* ================= SSR 抽卡弹窗 ================= */
+        #ssr-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.5s; perspective: 1200px; }
+        .ssr-card { width: 340px; height: 500px; background: linear-gradient(135deg, #fff7cc, #ffaa00); border-radius: 20px; padding: 15px; transform: rotateY(90deg); transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 80px #ffd700, inset 0 0 20px #fff; text-align: center; color: #000; display: flex; flex-direction: column; justify-content: center; position: relative;}
+        .ssr-card::before { content:'SSR'; position: absolute; top: 10px; right: 15px; font-size: 24px; font-weight: 900; color: rgba(255,255,255,0.7); font-style: italic;}
+        .ssr-card h2 { font-size: 42px; margin: 0 0 15px 0; text-shadow: 2px 2px 0px #fff; letter-spacing: 5px;}
+        .ssr-card p { font-size: 18px; font-weight: 900; padding: 0 20px; color: #d32f2f;}
+
+        /* 点击粒子特效 */
+        .click-particle { position: absolute; pointer-events: none; width: 30px; height: 30px; border: 2px solid var(--primary); border-radius: 50%; transform: translate(-50%, -50%); animation: ripple 0.6s ease-out forwards; z-index: 9999;}
+        @keyframes ripple { 0% { width: 0; height: 0; opacity: 1; border-width: 4px;} 100% { width: 120px; height: 120px; opacity: 0; border-width: 0px;} }
     </style>
 </head>
 <body>
 
-    <!-- 背景音乐：建议找一首 Synthwave/蒸汽波 音乐，比如 Macintosh Plus -->
-    <audio id="synth-bgm" src="vaporwave.mp3" loop></audio>
+    <!-- 音乐文件保持同级目录并重命名，或替换src -->
+    <audio id="bgm" src="epic_anime_bgm.mp3" loop></audio>
 
-    <div class="grid"></div>
+    <!-- 绚丽背景层 -->
+    <div class="nebula-bg"></div>
+    <div class="cyber-grid"></div>
+    <div class="stars" id="star-container"></div>
 
-    <div id="boot-screen" onclick="bootSystem()">
-        <p class="blink">>>> CLICK TO BOOT SYSTEM_FEIGE_V26 <<<</p>
+    <!-- 登录遮罩 -->
+    <div id="login-mask">
+        <div style="color: var(--primary); margin-bottom: 30px; font-size: 26px; font-family: monospace; text-shadow: 0 0 10px var(--primary);">> INITIATING SOUL_LINK PROTOCOL...</div>
+        <button class="login-btn" onclick="systemStart()">Link Start !</button>
     </div>
 
-    <div id="os-window">
-        <div class="title-bar">
-            <span>root@friendship:~</span>
-            <span>_ □ X</span>
-        </div>
-        <div class="glitch">HAPPY BIRTHDAY<br>FEI_GE</div>
-        
-        <div class="code-line">> Initializing <span class="highlight">Friendship_Protocol.exe</span> ... [10 YEARS OK]</div>
-        <div class="code-line">> Current Directory: <span class="highlight">/Qingdao/Postgraduate/</span></div>
-        <div class="code-line">> Target Directory: <span class="highlight">/Jiangsu/Future_Life/</span></div>
-        <div class="code-line">> Compiling User Data: [Age: 26] [Date: 05-13]</div>
-        
-        <div class="code-line" style="margin-top: 20px;">
-            <span style="color:#fff">System Message:</span><br>
-            作为计算机系的战友，祝你未来的代码 0 Error 0 Warning。<br>
-            不管是在青岛的实验室，还是未来江苏的新生活，<br>
-            愿你的青春像霓虹一样耀眼，游戏上分如丝般顺滑！
-        </div>
+    <!-- 主视界容器 -->
+    <div id="vision-container">
+        <div class="player-card" id="card">
+            <div class="card-corner corner-tl"></div>
+            <div class="card-corner corner-br"></div>
 
-        <button class="btn-run" onclick="executeWishes()">> Execute Wishes.sh</button>
-        <div id="output">
-            Loading... 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 100%<br>
-            Output: 生日快乐，兄弟！人生这场游戏，祝你打出完美结局！🌴 🎮 💾
+            <!-- 左侧：状态面板 -->
+            <div class="left-panel">
+                <div class="level-badge">Lv . 26</div>
+                <div class="avatar-box">
+                    <div class="avatar-inner">😎</div>
+                </div>
+                <div class="player-name">飞哥_Figure</div>
+                
+                <div class="stat-row">
+                    <div class="stat-label"><span>[职阶]</span> <span style="color:var(--primary)">CS Mage / 大牛</span></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label"><span>代码爆肝力 (Code)</span> <span>999+</span></div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label"><span>游戏微操 (Gaming)</span> <span>MAX</span></div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label"><span>发际线防御力 (Hair)</span> <span style="color:#ffaa00">SSR级屏障</span></div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 88%; background: linear-gradient(90deg, var(--secondary), #ffaa00);"></div></div>
+                </div>
+                <div class="stat-row" style="margin-top: 25px;">
+                    <div class="stat-label"><span>羁绊值 (Friendship)</span> <span style="color:var(--primary); font-size:16px;">11 Years!</span></div>
+                    <div class="stat-bar-bg" style="height: 12px;"><div class="stat-bar-fill" style="width: 100%; background: linear-gradient(90deg, var(--accent), #ffaa00, #fff);"></div></div>
+                </div>
+            </div>
+
+            <!-- 右侧：剧情与任务 -->
+            <div class="right-panel">
+                <div class="sys-title">▶ SYSTEM MESSAGE // 主线剧情更新</div>
+                
+                <div class="dialogue-box" id="dialogue-box">
+                    <span class="typewriter-text" id="story-text"></span>
+                </div>
+
+                <div class="quest-map">
+                    <div class="quest-node">
+                        <div class="node-icon active">✓</div>
+                        <div style="font-size: 12px; color: #888;">新手村起点</div>
+                        <div style="font-size: 14px; font-weight: bold; color: #bbb">相识11年</div>
+                    </div>
+                    <div class="quest-line" style="background: repeating-linear-gradient(90deg, var(--primary), var(--primary) 5px, transparent 5px, transparent 10px);"></div>
+                    <div class="quest-node">
+                        <div class="node-icon active" style="box-shadow: 0 0 20px var(--primary); border-color: var(--primary);">🎓</div>
+                        <div style="font-size: 12px; color: var(--primary);">当前所在副本</div>
+                        <div style="font-size: 15px; font-weight: bold; color: var(--primary)">青岛·深造</div>
+                    </div>
+                    <div class="quest-line"></div>
+                    <div class="quest-node">
+                        <div class="node-icon future">🎯</div>
+                        <div style="font-size: 12px; color: var(--accent);">新版本前瞻</div>
+                        <div style="font-size: 14px; font-weight: bold; color: var(--accent)">江苏·未来</div>
+                    </div>
+                </div>
+
+                <button class="gacha-btn" onclick="drawSSR()">✨ 开启 26岁专属盲盒 ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SSR抽卡展示界面 -->
+    <div id="ssr-modal" onclick="closeSSR()">
+        <div class="ssr-card" id="ssr-card-element">
+            <div style="font-size: 70px; margin: 10px 0;">🎉</div>
+            <h2>生日快乐</h2>
+            <p>【绝版道具：Figure out 解决万难！】</p>
+            <div style="font-size: 15px; text-align: left; padding: 15px 20px; color: #222; font-weight: bold; line-height: 1.6;">
+                Figure，26岁生日快乐！<br><br>
+                不管未来在青岛写Bug，还是去江苏修Bug（最好是当省长），就算未来天各一方，只要有网，我们的游戏永不掉线，羁绊永不打烊！<br><br>
+
+            </div>
+            <div style="font-size: 13px; color: #777; margin-top: 20px;">(点击任意处关闭)</div>
         </div>
     </div>
 
     <script>
-        function bootSystem() {
-            document.getElementById('boot-screen').style.display = 'none';
-            document.getElementById('os-window').style.display = 'block';
-            document.getElementById('synth-bgm').play();
-            
-            // 简单的打字机效果延迟
-            let lines = document.querySelectorAll('.code-line');
-            lines.forEach((line, index) => {
-                line.style.opacity = 0;
-                setTimeout(() => {
-                    line.style.opacity = 1;
-                }, index * 800);
-            });
+        // 0. 生成背景星光粒子
+        const starContainer = document.getElementById('star-container');
+        for(let j=0; j<50; j++){
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 4 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDuration = Math.random() * 3 + 2 + 's';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starContainer.appendChild(star);
         }
 
-        function executeWishes() {
-            let output = document.getElementById('output');
-            output.style.display = 'block';
+        // 1. 系统启动与音乐播放
+        function systemStart() {
+            document.getElementById('login-mask').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('login-mask').style.display = 'none';
+                document.getElementById('vision-container').style.visibility = 'visible';
+                document.getElementById('vision-container').style.opacity = '1';
+                
+                const bgm = document.getElementById('bgm');
+                bgm.volume = 0.5;
+                bgm.play().catch(e => console.log("音频需交互"));
+                
+                typeWriter();
+            }, 800);
         }
+
+        // 2. 剧情打字机特效 (已完美修复 HTML 标签解析问题)
+        const textToType = "> 5月13日，服务器检测到玩家状态异动... \n\n> 系统确认：玩家 <span class='highlight'>[飞哥]</span> 已成功度过25级副本，正式进阶为 <span class='highlight-red'>Lv.26 资深法师</span>！\n\n> 数据回档中...\n> 过去的十一年，我们组队刷怪，代码写了成千上万行。如今你正在青岛副本闭关修炼(研ing)；系统预判，不久的将来，你将解锁[江苏地图]，开启全新的人生主线任务。\n\n> 无论版本怎么更新，AAA Hot Doger永远在你好友列表的第一页！\n> 祝你未来：Bug一秒就Debug，抽卡十连全是SSR！";
+        
+        let i = 0;
+        let isTag = false;
+        let htmlBuffer = ""; // 用于缓存整个 HTML 标签
+        let textElement = document.getElementById("story-text");
+        let scrollBox = document.getElementById("dialogue-box");
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                let char = textToType.charAt(i);
+
+                if (char === '<') {
+                    isTag = true;
+                }
+
+                if (isTag) {
+                    htmlBuffer += char; // 缓存标签内容
+                    if (char === '>') {
+                        isTag = false;
+                        textElement.innerHTML += htmlBuffer; // 一次性输出完整标签
+                        htmlBuffer = ""; 
+                    }
+                    i++;
+                    typeWriter(); // 标签不需要延迟，直接递归进入下一步
+                } else {
+                    if (char === '\n') {
+                        textElement.innerHTML += '<br>';
+                    } else {
+                        textElement.innerHTML += char;
+                    }
+                    i++;
+                    
+                    // 自动滚动到底部 (解决文字溢出遮挡)
+                    scrollBox.scrollTop = scrollBox.scrollHeight;
+                    
+                    setTimeout(typeWriter, 35); // 打字速度
+                }
+            }
+        }
+
+        // 3. 卡片 3D 悬浮视差
+        const container = document.getElementById('vision-container');
+        const card = document.getElementById('card');
+        
+        container.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 50; 
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        container.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+        container.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.5s ease';
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+
+        // 4. SSR 抽卡彩蛋
+        function drawSSR() {
+            const modal = document.getElementById('ssr-modal');
+            const ssrCard = document.getElementById('ssr-card-element');
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            setTimeout(() => { ssrCard.style.transform = 'rotateY(0deg)'; }, 300);
+        }
+
+        function closeSSR() {
+            const modal = document.getElementById('ssr-modal');
+            const ssrCard = document.getElementById('ssr-card-element');
+            ssrCard.style.transform = 'rotateY(90deg)';
+            setTimeout(() => {
+                modal.style.opacity = '0';
+                setTimeout(() => { modal.style.visibility = 'hidden'; }, 500);
+            }, 300);
+        }
+
+        // 5. 点击波纹特效
+        document.addEventListener('click', function(e) {
+            if(e.target.tagName === 'BUTTON') return;
+            let particle = document.createElement('div');
+            particle.className = 'click-particle';
+            particle.style.left = e.pageX + 'px';
+            particle.style.top = e.pageY + 'px';
+            document.body.appendChild(particle);
+            setTimeout(() => { particle.remove(); }, 600);
+        });
     </script>
 </body>
 </html>
