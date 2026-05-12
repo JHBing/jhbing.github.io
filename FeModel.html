@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>SYSTEM UPDATE - V26.0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        body { margin: 0; overflow: hidden; background-color: #0b0220; color: #0ff; font-family: 'Courier New', Courier, monospace; height: 100vh; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
+        
+        /* CRT 扫描线特效 */
+        body::after { content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none; }
+        
+        /* 蒸汽波网格地板 */
+        .grid { position: absolute; bottom: -30%; left: -50%; width: 200%; height: 80%; background-image: linear-gradient(transparent 65%, rgba(255, 0, 255, 0.8) 70%, transparent 75%), linear-gradient(90deg, transparent 45%, rgba(0, 255, 255, 0.8) 50%, transparent 55%); background-size: 40px 40px; transform: rotateX(75deg); animation: moveGrid 2s linear infinite; z-index: 0; box-shadow: inset 0 200px 200px #0b0220; }
+        @keyframes moveGrid { 0% { background-position: 0 0; } 100% { background-position: 0 40px; } }
+
+        /* 终端启动屏幕 */
+        #boot-screen { position: absolute; z-index: 10; cursor: pointer; text-align: center; }
+        .blink { animation: blinker 1s linear infinite; font-size: 24px; font-weight: bold; text-shadow: 0 0 10px #f0f; color: #f0f; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* 主视窗 */
+        #os-window { display: none; position: relative; z-index: 5; background: rgba(11, 2, 32, 0.85); border: 2px solid #0ff; box-shadow: 0 0 20px #0ff, inset 0 0 20px #0ff; padding: 30px; width: 600px; max-width: 90%; }
+        .title-bar { background: #0ff; color: #0b0220; padding: 5px 10px; font-weight: bold; margin: -30px -30px 20px -30px; display: flex; justify-content: space-between; }
+        
+        /* 故障文字特效 */
+        .glitch { font-size: 36px; font-weight: bold; text-transform: uppercase; position: relative; color: #fff; text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75); animation: glitch 500ms infinite; margin-bottom: 20px; }
+        @keyframes glitch { 
+            0% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75); }
+            14% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75); }
+            15% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
+            49% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
+            50% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
+            99% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
+            100% { text-shadow: -0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75); }
+        }
+
+        .code-line { margin: 10px 0; font-size: 16px; line-height: 1.5; color: #f0f; }
+        .highlight { color: #0ff; font-weight: bold; }
+        .btn-run { display: inline-block; margin-top: 20px; padding: 10px 20px; background: transparent; border: 2px solid #f0f; color: #f0f; cursor: pointer; text-transform: uppercase; font-weight: bold; transition: all 0.3s; }
+        .btn-run:hover { background: #f0f; color: #0b0220; box-shadow: 0 0 15px #f0f; }
+
+        #output { margin-top: 15px; color: #fff; display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 背景音乐：建议找一首 Synthwave/蒸汽波 音乐，比如 Macintosh Plus -->
+    <audio id="synth-bgm" src="vaporwave.mp3" loop></audio>
+
+    <div class="grid"></div>
+
+    <div id="boot-screen" onclick="bootSystem()">
+        <p class="blink">>>> CLICK TO BOOT SYSTEM_FEIGE_V26 <<<</p>
+    </div>
+
+    <div id="os-window">
+        <div class="title-bar">
+            <span>root@friendship:~</span>
+            <span>_ □ X</span>
+        </div>
+        <div class="glitch">HAPPY BIRTHDAY<br>FEI_GE</div>
+        
+        <div class="code-line">> Initializing <span class="highlight">Friendship_Protocol.exe</span> ... [10 YEARS OK]</div>
+        <div class="code-line">> Current Directory: <span class="highlight">/Qingdao/Postgraduate/</span></div>
+        <div class="code-line">> Target Directory: <span class="highlight">/Jiangsu/Future_Life/</span></div>
+        <div class="code-line">> Compiling User Data: [Age: 26] [Date: 05-13]</div>
+        
+        <div class="code-line" style="margin-top: 20px;">
+            <span style="color:#fff">System Message:</span><br>
+            作为计算机系的战友，祝你未来的代码 0 Error 0 Warning。<br>
+            不管是在青岛的实验室，还是未来江苏的新生活，<br>
+            愿你的青春像霓虹一样耀眼，游戏上分如丝般顺滑！
+        </div>
+
+        <button class="btn-run" onclick="executeWishes()">> Execute Wishes.sh</button>
+        <div id="output">
+            Loading... 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 100%<br>
+            Output: 生日快乐，兄弟！人生这场游戏，祝你打出完美结局！🌴 🎮 💾
+        </div>
+    </div>
+
+    <script>
+        function bootSystem() {
+            document.getElementById('boot-screen').style.display = 'none';
+            document.getElementById('os-window').style.display = 'block';
+            document.getElementById('synth-bgm').play();
+            
+            // 简单的打字机效果延迟
+            let lines = document.querySelectorAll('.code-line');
+            lines.forEach((line, index) => {
+                line.style.opacity = 0;
+                setTimeout(() => {
+                    line.style.opacity = 1;
+                }, index * 800);
+            });
+        }
+
+        function executeWishes() {
+            let output = document.getElementById('output');
+            output.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
