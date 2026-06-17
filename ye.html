@@ -2,516 +2,340 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>椰椰丸子 · 25岁专属宇宙</title>
-    <!-- 引入高端无衬线与衬线字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+SC:wght@300;500;700&family=Space+Grotesk:wght@300;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>椰椰丸子 25岁生日快乐！</title>
+    <!-- 引入炫酷的字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- 引入彩带特效库 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg-dark: #050505;
-            --bg-card: rgba(20, 20, 22, 0.7);
-            --stitch-cyan: #66FCF1;
-            --stitch-blue: #45A29E;
-            --stitch-dark: #1F2833;
-            --gold: #D4AF37;
-            --text-main: #EFEFEF;
-            --text-muted: #888888;
+            --stitch-blue: #0052A5;
+            --stitch-light: #5AA1E3;
+            --hawaii-pink: #FF6B81;
+            --hawaii-orange: #FFA502;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            cursor: none; /* 隐藏默认鼠标，使用自定义光标 */
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Noto Serif SC', serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(69, 162, 158, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(102, 252, 241, 0.05), transparent 25%);
-        }
-
-        /* 自定义跟随光标 */
-        .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0; left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 99999; /* 确保鼠标在最上层 */
-            pointer-events: none;
-        }
-        .cursor-dot {
-            width: 8px; height: 8px;
-            background-color: var(--stitch-cyan);
-        }
-        .cursor-outline {
-            width: 40px; height: 40px;
-            border: 1px solid rgba(102, 252, 241, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-
-        /* 加载屏 (已修改为点击交互) */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-dark);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);
-            cursor: none; /* 保持自定义鼠标 */
-        }
-        .loader-text {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2vw;
-            letter-spacing: 0.5em;
-            color: var(--stitch-cyan);
-            animation: pulse 1.5s infinite;
-            transition: color 0.5s;
-        }
-        .click-hint {
-            margin-top: 30px;
-            font-family: 'Noto Serif SC', serif;
-            font-size: 1rem;
-            color: var(--text-muted);
-            letter-spacing: 5px;
-            opacity: 0; /* 初始隐藏 */
-            transition: opacity 1s ease;
-        }
-
-        /* 首屏 Hero Section */
-        .hero {
+            font-family: 'ZCOOL KuaiLe', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
             height: 100vh;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-bg-text {
-            position: absolute;
-            font-family: 'Cinzel', serif;
-            font-size: 35vw;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.02);
-            z-index: 0;
-            white-space: nowrap;
-        }
-        .hero-content {
-            z-index: 1;
-            text-align: center;
-        }
-        .hero-title {
-            font-size: 6vw;
-            font-weight: 700;
-            background: linear-gradient(to right, #fff, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
-        }
-        .hero-subtitle {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            color: var(--gold);
-            letter-spacing: 5px;
-            opacity: 0;
-        }
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            opacity: 0;
-        }
-        .scroll-line {
-            width: 1px; height: 50px;
-            background: linear-gradient(to bottom, var(--stitch-cyan), transparent);
-            animation: scrollDown 2s infinite;
         }
 
-        /* 苹果风 Bento Box 网格布局 */
-        .bento-section {
-            padding: 100px 5vw;
-            max-width: 1400px;
-            margin: 0 auto;
+        /* 动态背景 */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background: linear-gradient(45deg, var(--stitch-blue), #1e3c72, var(--hawaii-pink), var(--hawaii-orange));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 300px;
-            gap: 20px;
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        
-        .bento-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 30px;
-            padding: 40px;
+
+        /* 漂浮元素 */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* 主容器 */
+        .container {
             position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
+            width: 90%;
+            max-width: 400px;
+            height: 75vh;
+            perspective: 1000px;
+            z-index: 10;
+        }
+
+        /* 卡片通用样式（高级毛玻璃） */
+        .card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease;
-        }
-        
-        /* 鼠标悬浮光影追踪效果 */
-        .bento-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(102, 252, 241, 0.06), transparent 40%);
-            z-index: 0;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
             pointer-events: none;
         }
 
-        .bento-card > * { position: relative; z-index: 1; }
-        
-        .card-large { grid-column: span 2; grid-row: span 2; }
-        .card-wide { grid-column: span 2; grid-row: span 1; }
-        
-        .card-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-        .bento-title {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-        .bento-desc {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-muted);
+        .card.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
         }
 
-        /* 特殊卡片：动态地理轨迹 */
-        .map-card { background: linear-gradient(135deg, #111, var(--stitch-dark)); }
-        .location-tag {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--stitch-cyan);
-            color: var(--stitch-cyan);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.9rem;
-            margin-right: 10px;
+        .card.out {
+            opacity: 0;
+            transform: translateY(-50px) scale(0.9);
+            pointer-events: none;
+        }
+
+        /* 文本与排版 */
+        h1 {
+            font-size: 28px;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: -webkit-linear-gradient(#fff, #ffe6e6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* 3D 悬浮交互卡片 (史迪奇主题) */
-        .interactive-section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1500px;
-        }
-        .tilt-card {
-            width: 400px; height: 550px;
-            background: linear-gradient(145deg, rgba(31, 40, 51, 0.9), rgba(11, 12, 16, 0.9));
-            border: 1px solid rgba(102, 252, 241, 0.3);
-            border-radius: 40px;
-            transform-style: preserve-3d;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px;
-            transition: transform 0.1s ease-out;
-        }
-        .tilt-card-inner {
-            transform: translateZ(60px);
-        }
-        .stitch-quote {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            color: var(--stitch-cyan);
-            margin: 30px 0;
-            line-height: 1.4;
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
         }
 
-        /* 底部互动点燃按钮 */
-        .footer-action {
-            height: 50vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .highlight {
+            color: #FFD700;
+            font-size: 22px;
         }
-        .ignite-btn {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--gold);
-            padding: 20px 50px;
+
+        /* 迪士尼/史迪奇元素 */
+        .stitch-ears {
+            font-size: 60px;
+            margin: 10px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* 交互按钮 */
+        .btn {
+            background: linear-gradient(45deg, var(--stitch-light), var(--stitch-blue));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
             border-radius: 50px;
-            font-size: 1.2rem;
-            font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: 2px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.4s;
+            box-shadow: 0 4px 15px rgba(0, 82, 165, 0.5);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            width: 80%;
+            margin-top: auto;
         }
-        .ignite-btn::before {
-            content: '';
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .img-placeholder {
+            font-size: 80px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+            margin: 20px 0;
+        }
+
+        /* 音乐播放器图标 */
+        #music-btn {
             position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--gold);
-            transition: 0.4s;
-            z-index: -1;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            font-size: 24px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            animation: spin 4s linear infinite;
         }
-        .ignite-btn:hover::before { left: 0; }
-        .ignite-btn:hover { color: var(--bg-dark); font-weight: 700; transform: scale(1.05); }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        @keyframes scrollDown {
-            0% { transform: translateY(-20px); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(20px); opacity: 0; }
-        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .paused { animation-play-state: paused !important; }
 
-        /* 响应式适配 */
-        @media (max-width: 1024px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); }
-            .card-large { grid-column: span 2; grid-row: span 1; }
-            .hero-title { font-size: 10vw; }
-            .loader-text { font-size: 4vw; }
-        }
-        @media (max-width: 768px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .card-large, .card-wide { grid-column: span 1; }
-            body { cursor: auto; }
-            .cursor-dot, .cursor-outline { display: none; }
-            .tilt-card { width: 90%; height: 450px; }
-            .loader-text { font-size: 6vw; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- 自定义光标 -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-outline" id="cursor-outline"></div>
+    <!-- 动态背景层 -->
+    <div class="bg-animation" id="bg-animation"></div>
 
-    <!-- 加载屏：修改为点击进入 -->
-    <div id="loader">
-        <div class="loader-text" id="loader-text">INITIALIZING...</div>
-        <div class="click-hint" id="click-hint">[ 点击屏幕任意处进入 ]</div>
+    <!-- 音乐控制 (你可以替换src为史迪奇主题曲《Hawaiian Roller Coaster Ride》的链接) -->
+    <div id="music-btn" class="paused">🎵</div>
+    <audio id="bg-music" loop>
+        <!-- 占位音频，由于浏览器限制，最好让用户点击后再播放 -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- 卡片交互区 -->
+    <div class="container">
+        <!-- 第一页：封面 -->
+        <div class="card active" id="card-0">
+            <div class="img-placeholder">🥥🍡</div>
+            <h1>To: 亲爱的椰椰丸子</h1>
+            <p>准备好接收你的<br>专属魔法生日信了吗？</p>
+            <div class="stitch-ears">✨🌺✨</div>
+            <button class="btn" onclick="nextCard(0)">点击开启惊喜 👆</button>
+        </div>
+
+        <!-- 第二页：回忆与毕业 -->
+        <div class="card" id="card-1">
+            <div class="img-placeholder">🎓🛳️</div>
+            <h1>25岁生日快乐！</h1>
+            <p>恭喜我们顺利港硕毕业！<br>从维多利亚港的晚风，<br>到一起熬夜赶的Due，<br>都是闪闪发光的回忆。</p>
+            <p class="highlight">山东老乡，缘分不浅呀！</p>
+            <button class="btn" onclick="nextCard(1)">继续翻页 👉</button>
+        </div>
+
+        <!-- 第三页：史迪奇祝福与潍坊 -->
+        <div class="card" id="card-2">
+            <div class="img-placeholder">🪁🌊</div>
+            <h1>下一站：鸢都</h1>
+            <p>马上就要回潍坊工作啦！<br>史迪奇说：<br><span class="highlight">"Ohana means family."</span><br>无论飞得多高多远，<br>家人和朋友永远是你的后盾。</p>
+            <button class="btn" onclick="nextCard(2)">最后一份礼物 🎁</button>
+        </div>
+
+        <!-- 第四页：最终祝福 -->
+        <div class="card" id="card-3">
+            <div class="img-placeholder">🎂👾</div>
+            <h1>Hello, 25岁！</h1>
+            <p>愿你的生活：<br>像史迪奇一样永远充满活力！<br>像夏威夷的阳光一样灿烂！<br>新工作一切顺利，<br>每天都要开心哦！💖</p>
+            <button class="btn" style="background: linear-gradient(45deg, #FF6B81, #FFA502);" onclick="celebrate()">🎉 点击放礼花 🎉</button>
+        </div>
     </div>
 
-    <!-- 1. Hero 视差首屏 -->
-    <section class="hero" id="hero">
-        <div class="hero-bg-text">25</div>
-        <div class="hero-content">
-            <h1 class="hero-title">椰椰丸子</h1>
-            <p class="hero-subtitle">HONG KONG · WEIFANG</p>
-        </div>
-        <div class="scroll-indicator">
-            SCROLL TO EXPLORE
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- 2. Bento Box 故事网格区 -->
-    <section class="bento-section">
-        <div class="bento-grid" id="bento-container">
-            <div class="bento-card card-large map-card bento-item">
-                <i class="fa-solid fa-route card-icon" style="color: var(--stitch-cyan);"></i>
-                <h2 class="bento-title">轨迹流转</h2>
-                <div style="margin-bottom: 20px;">
-                    <span class="location-tag">📍 HKG (香港)</span>
-                    <i class="fa-solid fa-arrow-right-long" style="color: #66FCF1; margin-right: 10px;"></i>
-                    <span class="location-tag">📍 WEF (潍坊)</span>
-                </div>
-                <p class="bento-desc">从维港湿润的晚风，到鸢都熟悉的微风。恭喜港硕通关，圆满毕业！外面的世界再大，现在，欢迎回家。开启人生职场新副本吧！</p>
-            </div>
-            
-            <div class="bento-card bento-item">
-                <i class="fa-solid fa-graduation-cap card-icon"></i>
-                <h2 class="bento-title">港硕同窗</h2>
-                <p class="bento-desc">那些为了Due熬过的夜，都变成了此刻闪闪发光的履历。很荣幸与你同窗。</p>
-            </div>
-
-            <div class="bento-card bento-item">
-                <i class="fa-solid fa-bowl-food card-icon"></i>
-                <h2 class="bento-title">吃货属性</h2>
-                <p class="bento-desc">愿你回到家乡，能吃遍天下好吃的肉丸子，做个快乐的干饭人。</p>
-            </div>
-
-            <div class="bento-card card-wide bento-item">
-                <i class="fa-solid fa-gem card-icon" style="color: var(--stitch-blue);"></i>
-                <h2 class="bento-title">25岁的奥义</h2>
-                <p class="bento-desc">二十五岁，不是青春的尾巴，而是真正掌控人生的开局。褪去青涩，带着高学历的光环，你在潍坊的每一天，都将大放异彩。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. 史迪奇重力感应 3D 卡片 -->
-    <section class="interactive-section">
-        <div class="tilt-card" id="tilt-card">
-            <div class="tilt-card-inner">
-                <i class="fa-solid fa-rocket" style="font-size: 3rem; color: var(--stitch-cyan);"></i>
-                <h3 class="stitch-quote">"Ohana means family."</h3>
-                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
-                    家人就是没有人会被抛弃。<br>
-                    在我心里，老乡亦是如此。<br><br>
-                    愿你像史迪奇一样，<br>
-                    拥有无坚不摧的强大力量，<br>
-                    也能永远被这个世界温柔以待。
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. 底部终极礼花 -->
-    <section class="footer-action">
-        <button class="ignite-btn" onclick="fireUltimateConfetti()">点击签收 25 岁的好运</button>
-    </section>
-
-    <!-- 引入高端前端库 -->
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // 1. 初始化 Lenis 丝滑滚动
-        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // 2. 自定义鼠标光标逻辑
-        const cursorDot = document.getElementById("cursor-dot");
-        const cursorOutline = document.getElementById("cursor-outline");
-        window.addEventListener("mousemove", (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
-            cursorOutline.style.left = `${posX}px`; cursorOutline.style.top = `${posY}px`;
-        });
-
-        // 鼠标悬停可交互元素时放大光标
-        document.querySelectorAll('button, .bento-card, .tilt-card, #loader').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.style.width = '60px'; cursorOutline.style.height = '60px';
-                cursorOutline.style.backgroundColor = 'rgba(102, 252, 241, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.style.width = '40px'; cursorOutline.style.height = '40px';
-                cursorOutline.style.backgroundColor = 'transparent';
-            });
-        });
-
-        // 3. 【修复项】：使用定时器强制就绪，避免网络卡顿
-        document.addEventListener("DOMContentLoaded", () => {
-            // 延迟1.5秒营造"加载中"的科技感，然后允许点击
-            setTimeout(() => {
-                const loaderText = document.getElementById('loader-text');
-                const clickHint = document.getElementById('click-hint');
-                
-                loaderText.innerText = "SYSTEM READY";
-                loaderText.style.color = "var(--gold)";
-                loaderText.style.animation = "none"; // 停止闪烁
-                
-                clickHint.style.opacity = "1"; // 显示点击提示
-                
-                // 绑定点击进入事件
-                document.getElementById('loader').addEventListener('click', enterUniverse);
-            }, 1500);
-        });
-
-        // 4. 点击进入宇宙 (启动动画)
-        function enterUniverse() {
-            const loader = document.getElementById('loader');
-            loader.style.pointerEvents = "none"; // 防止重复点击
-            loader.style.opacity = '0';
-            
-            setTimeout(() => { 
-                loader.style.display = 'none'; 
-                // 首屏文字入场
-                gsap.to(".hero-title", { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)", duration: 1.5, ease: "power4.out", delay: 0.2 });
-                gsap.to(".hero-subtitle", { opacity: 1, y: -20, duration: 1, delay: 0.8 });
-                gsap.to(".scroll-indicator", { opacity: 1, duration: 1, delay: 1.5 });
-            }, 1000);
+        // 生成背景漂浮的热带元素/星星
+        const bgContainer = document.getElementById('bg-animation');
+        const floatingItems = ['✨', '🌺', '🌊', '🥥', '🪁', '💙'];
+        
+        for(let i=0; i<20; i++) {
+            let el = document.createElement('div');
+            el.className = 'floating-element';
+            el.innerText = floatingItems[Math.floor(Math.random() * floatingItems.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            el.style.animationDelay = (Math.random() * 5) + 's';
+            bgContainer.appendChild(el);
         }
 
-        // 5. 首屏视差特效 (文字随滚动错位)
-        gsap.to(".hero-bg-text", { y: "30%", ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-        gsap.to(".hero-content", { y: "50%", opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-
-        // 6. Bento Box 卡片滚动入场 & 鼠标光影追踪
-        const cards = document.querySelectorAll('.bento-card');
-        gsap.from(".bento-item", {
-            y: 100, opacity: 0, duration: 0.8, stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: { trigger: ".bento-section", start: "top 70%" }
-        });
-
-        document.getElementById('bento-container').onmousemove = e => {
-            for(const card of cards) {
-                const rect = card.getBoundingClientRect(),
-                      x = e.clientX - rect.left,
-                      y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
+        // 翻页逻辑
+        function nextCard(currentIndex) {
+            // 尝试播放音乐（应对浏览器的自动播放限制）
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-btn');
+            if (music.paused) {
+                music.play().catch(e => console.log("等待用户交互后播放"));
+                musicBtn.classList.remove('paused');
             }
-        };
 
-        // 7. 3D 悬浮卡片感应逻辑
-        const tiltCard = document.getElementById('tilt-card');
-        document.querySelector('.interactive-section').addEventListener('mousemove', (e) => {
-            const innerWidth = window.innerWidth;
-            const innerHeight = window.innerHeight;
-            const xAxis = (innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (innerHeight / 2 - e.pageY) / 25;
-            tiltCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-        document.querySelector('.interactive-section').addEventListener('mouseleave', () => {
-            tiltCard.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
-
-        // 8. 终极礼花特效
-        function fireUltimateConfetti() {
-            var count = 300;
-            var defaults = { origin: { y: 0.8 }, colors: ['#D4AF37', '#66FCF1', '#45A29E', '#ffffff'] };
-
-            function fire(particleRatio, opts) {
-                confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(count * particleRatio) }));
-            }
-            fire(0.25, { spread: 26, startVelocity: 55 });
-            fire(0.2, { spread: 60 });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 120, startVelocity: 45 });
+            const currentCard = document.getElementById('card-' + currentIndex);
+            const nextCard = document.getElementById('card-' + (currentIndex + 1));
             
-            const btn = document.querySelector('.ignite-btn');
-            btn.innerHTML = "丸子，生日快乐！🎂";
-            btn.style.color = "#050505";
-            btn.style.background = "var(--gold)";
+            if(currentCard && nextCard) {
+                currentCard.classList.remove('active');
+                currentCard.classList.add('out');
+                
+                setTimeout(() => {
+                    nextCard.classList.add('active');
+                }, 300); // 稍微延迟，制造交替动画感
+            }
+        }
+
+        // 音乐按钮控制
+        document.getElementById('music-btn').addEventListener('click', function() {
+            const music = document.getElementById('bg-music');
+            if (music.paused) {
+                music.play();
+                this.classList.remove('paused');
+            } else {
+                music.pause();
+                this.classList.add('paused');
+            }
+        });
+
+        // 满屏彩带庆祝特效
+        function celebrate() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                // 使用史迪奇色系和落日色系的彩带
+                confetti(Object.assign({}, defaults, { 
+                    particleCount,
+                    colors: ['#0052A5', '#5AA1E3', '#FF6B81', '#FFA502', '#FFD700'],
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount,
+                    colors: ['#0052A5', '#5AA1E3', '#FF6B81', '#FFA502', '#FFD700'],
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 250);
+            
+            // 按钮文字变化
+            event.target.innerText = "愿你前程似锦！💕";
+            event.target.style.transform = "scale(1.05)";
         }
     </script>
 </body>
