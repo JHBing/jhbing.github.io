@@ -211,7 +211,7 @@
     <div id="music-btn" class="paused">🎵</div>
     <audio id="bg-music" loop>
         <!-- 占位音频，由于浏览器限制，最好让用户点击后再播放 -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        <source src="dave_bgm.mp3" type="audio/mp3">
     </audio>
 
     <!-- 卡片交互区 -->
@@ -219,8 +219,8 @@
         <!-- 第一页：封面 -->
         <div class="card active" id="card-0">
             <div class="img-placeholder">🥥🍡</div>
-            <h1>To: 亲爱的椰椰丸子</h1>
-            <p>准备好接收你的<br>专属魔法生日信了吗？</p>
+            <h1>To: 椰椰、萝卜和  丸子</h1>
+            <p>快来看看你们的<br>生日祝福信！</p>
             <div class="stitch-ears">✨🌺✨</div>
             <button class="btn" onclick="nextCard(0)">点击开启惊喜 👆</button>
         </div>
@@ -229,8 +229,8 @@
         <div class="card" id="card-1">
             <div class="img-placeholder">🎓🛳️</div>
             <h1>25岁生日快乐！</h1>
-            <p>恭喜我们顺利港硕毕业！<br>从维多利亚港的晚风，<br>到一起熬夜赶的Due，<br>都是闪闪发光的回忆。</p>
-            <p class="highlight">山东老乡，缘分不浅呀！</p>
+            <p>恭喜我们顺利港硕毕业！<br>从维多利亚港的晚风，<br>到疯狂赶Due的夜，<br>都是闪闪发光的回忆。</p>
+            <p class="highlight">不愧是山东考生，到哪里都是头部！</p>
             <button class="btn" onclick="nextCard(1)">继续翻页 👉</button>
         </div>
 
@@ -238,7 +238,7 @@
         <div class="card" id="card-2">
             <div class="img-placeholder">🪁🌊</div>
             <h1>下一站：鸢都</h1>
-            <p>马上就要回潍坊工作啦！<br>史迪奇说：<br><span class="highlight">"Ohana means family."</span><br>无论飞得多高多远，<br>家人和朋友永远是你的后盾。</p>
+            <p>马上就要回到潍坊开启职业新阶段！<br>史迪奇说：<br><span class="highlight">"Ohana means family."</span><br>无论飞得多高多远，<br>家人和朋友都是你的后盾！</p>
             <button class="btn" onclick="nextCard(2)">最后一份礼物 🎁</button>
         </div>
 
@@ -246,7 +246,7 @@
         <div class="card" id="card-3">
             <div class="img-placeholder">🎂👾</div>
             <h1>Hello, 25岁！</h1>
-            <p>愿你的生活：<br>像史迪奇一样永远充满活力！<br>像夏威夷的阳光一样灿烂！<br>新工作一切顺利，<br>每天都要开心哦！💖</p>
+            <p>祝宁的生活：<br>像史迪奇一样充满活力！<br>像夏威夷的阳光一样灿烂！<br>新工作一切顺利，<br>不满意咱就给他干倒闭！</p>
             <button class="btn" style="background: linear-gradient(45deg, #FF6B81, #FFA502);" onclick="celebrate()">🎉 点击放礼花 🎉</button>
         </div>
     </div>
@@ -254,7 +254,7 @@
     <script>
         // 生成背景漂浮的热带元素/星星
         const bgContainer = document.getElementById('bg-animation');
-        const floatingItems = ['✨', '🌺', '🌊', '🥥', '🪁', '💙'];
+        const floatingItems = ['✨', '🌺', '🌊', '🥥', '🪁', '🎓'];
         
         for(let i=0; i<20; i++) {
             let el = document.createElement('div');
@@ -334,7 +334,7 @@
             }, 250);
             
             // 按钮文字变化
-            event.target.innerText = "愿你前程似锦！💕";
+            event.target.innerText = "前程似锦，妙妙妙妙！";
             event.target.style.transform = "scale(1.05)";
         }
     </script>
