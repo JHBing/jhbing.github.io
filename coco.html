@@ -117,13 +117,13 @@
         }
 
         /* 文本与排版 */
-        h1 {
+h1 {
             font-size: 28px;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            background: -webkit-linear-gradient(#fff, #ffe6e6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff; /* 直接使用纯白字体，边缘最干净 */
+            /* 使用暖粉色阴影和白色发光，去掉原来的黑色阴影 */
+            text-shadow: 0 2px 6px rgba(255, 107, 129, 0.6), 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
         }
 
         p {
@@ -246,7 +246,7 @@
         <div class="card" id="card-3">
             <div class="img-placeholder">🎂👾</div>
             <h1>Hello, 25岁！</h1>
-            <p>祝宁的生活：<br>像史迪奇一样充满活力！<br>像夏威夷的阳光一样灿烂！<br>新工作一切顺利，<br>不满意咱就给他干倒闭！</p>
+            <p>祝宁的生活：<br>像史迪奇一样充满活力！<br>像夏威夷的阳光一样灿烂！<br>新工作一切顺利，<br>不满意咱就给他干倒闭！<br>（㊗️青大同学也一路繁花！）</p>
             <button class="btn" style="background: linear-gradient(45deg, #FF6B81, #FFA502);" onclick="celebrate()">🎉 点击放礼花 🎉</button>
         </div>
     </div>
