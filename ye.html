@@ -3,397 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>椰椰丸子 25岁生日快乐</title>
-    <!-- 引入思源宋体和Montserrat字体营造高级感 -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Noto+Serif+SC:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- 引入 FontAwesome 图标 -->
+    <title>椰椰丸子 · 25岁专属宇宙</title>
+    <!-- 引入高端无衬线与衬线字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+SC:wght@300;500;700&family=Space+Grotesk:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-bg: #0f172a; /* 深空蓝 */
-            --stitch-blue: #1e3a8a; /* 史迪奇蓝 */
-            --accent-gold: #fbbf24; /* 香槟金 */
-            --text-main: #f8fafc;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 22, 0.7);
+            --stitch-cyan: #66FCF1;
+            --stitch-blue: #45A29E;
+            --stitch-dark: #1F2833;
+            --gold: #D4AF37;
+            --text-main: #EFEFEF;
+            --text-muted: #888888;
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box;
+            cursor: none; /* 隐藏默认鼠标，使用自定义光标 */
         }
 
         body {
-            font-family: 'Noto Serif SC', 'Montserrat', serif;
-            background: linear-gradient(135deg, var(--primary-bg), var(--stitch-blue));
+            font-family: 'Noto Serif SC', serif;
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            min-height: 100vh;
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(69, 162, 158, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(102, 252, 241, 0.05), transparent 25%);
         }
 
-        /* 背景星空点缀 */
-        .stars {
+        /* 自定义跟随光标 */
+        .cursor-dot, .cursor-outline {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
             pointer-events: none;
-            background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            animation: twinkle 5s infinite linear;
-            z-index: 0;
+        }
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background-color: var(--stitch-cyan);
+        }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(102, 252, 241, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-
-        /* 欢迎遮罩层 (点击进入) */
-        #welcome-screen {
+        /* 加载屏 */
+        #loader {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--primary-bg);
+            inset: 0;
+            background: var(--bg-dark);
             z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .loader-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2vw;
+            letter-spacing: 0.5em;
+            color: var(--stitch-cyan);
+            animation: pulse 1.5s infinite;
         }
 
-        .btn-open {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-family: 'Noto Serif SC', serif;
-            color: var(--accent-gold);
-            background: transparent;
-            border: 1px solid var(--accent-gold);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 2px;
-        }
-
-        .btn-open:hover {
-            background: var(--accent-gold);
-            color: var(--primary-bg);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
-        }
-
-        /* 主内容区 */
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            padding: 40px 20px;
-            z-index: 1;
-            display: none; /* 初始隐藏 */
-            opacity: 0;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            margin-top: 40px;
-        }
-
-        .title-25 {
-            font-size: 5rem;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--accent-gold);
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fbbf24, #f59e0b);
-            -webkit-background-clip: text;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 400;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-        }
-
-        /* 拟玻璃态卡片布局 */
-        .story-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        /* 首屏 Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             position: relative;
             overflow: hidden;
         }
-
-        .glass-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            border-color: rgba(251, 191, 36, 0.3);
+        .hero-bg-text {
+            position: absolute;
+            font-family: 'Cinzel', serif;
+            font-size: 35vw;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.02);
+            z-index: 0;
+            white-space: nowrap;
+        }
+        .hero-content {
+            z-index: 1;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 6vw;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+        }
+        .hero-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 5px;
+            opacity: 0;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            opacity: 0;
+        }
+        .scroll-line {
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, var(--stitch-cyan), transparent);
+            animation: scrollDown 2s infinite;
         }
 
-        .glass-card i {
-            font-size: 2rem;
-            color: var(--accent-gold);
+        /* 苹果风 Bento Box 网格布局 */
+        .bento-section {
+            padding: 100px 5vw;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 300px;
+            gap: 20px;
+        }
+        
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 30px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+        
+        /* 鼠标悬浮光影追踪效果 */
+        .bento-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(102, 252, 241, 0.06), transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bento-card > * { position: relative; z-index: 1; }
+        
+        .card-large { grid-column: span 2; grid-row: span 2; }
+        .card-wide { grid-column: span 2; grid-row: span 1; }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
             margin-bottom: 20px;
         }
-
-        .glass-card h3 {
-            font-size: 1.5rem;
+        .bento-title {
+            font-size: 2rem;
             margin-bottom: 15px;
-            font-weight: 400;
+            font-weight: 500;
         }
-
-        .glass-card p {
-            font-size: 1rem;
+        .bento-desc {
+            font-size: 1.1rem;
             line-height: 1.8;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-muted);
         }
 
-        /* 3D 翻转卡片 (史迪奇专属) */
-        .flip-container {
-            width: 100%;
-            max-width: 600px;
-            height: 300px;
-            margin: 0 auto 60px;
-            perspective: 1000px;
-        }
-
-        .flip-card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .flip-card.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .flip-front, .flip-back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
+        /* 特殊卡片：动态地理轨迹 */
+        .map-card { background: linear-gradient(135deg, #111, var(--stitch-dark)); }
+        .location-tag {
+            display: inline-block;
+            padding: 8px 16px;
             border-radius: 20px;
+            border: 1px solid var(--stitch-cyan);
+            color: var(--stitch-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* 3D 悬浮交互卡片 (史迪奇主题) */
+        .interactive-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1500px;
+        }
+        .tilt-card {
+            width: 400px; height: 550px;
+            background: linear-gradient(145deg, rgba(31, 40, 51, 0.9), rgba(11, 12, 16, 0.9));
+            border: 1px solid rgba(102, 252, 241, 0.3);
+            border-radius: 40px;
+            transform-style: preserve-3d;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--accent-gold);
+            transition: transform 0.1s ease-out;
+        }
+        .tilt-card-inner {
+            transform: translateZ(60px); /* 悬浮层级 */
+        }
+        .stitch-quote {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--stitch-cyan);
+            margin: 30px 0;
+            line-height: 1.4;
         }
 
-        .flip-front {
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+        /* 底部互动点燃按钮 */
+        .footer-action {
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        .flip-back {
-            transform: rotateY(180deg);
-            background: rgba(30, 58, 138, 0.6); /* 史迪奇蓝背景 */
-            border-color: #60a5fa;
-        }
-
-        .stitch-text {
-            color: #93c5fd;
-            font-family: 'Montserrat', sans-serif;
+        .ignite-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--gold);
+            padding: 20px 50px;
+            border-radius: 50px;
             font-size: 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+        .ignite-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--gold);
+            transition: 0.4s;
+            z-index: -1;
+        }
+        .ignite-btn:hover::before { left: 0; }
+        .ignite-btn:hover { color: var(--bg-dark); font-weight: 700; transform: scale(1.05); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        @keyframes scrollDown {
+            0% { transform: translateY(-20px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(20px); opacity: 0; }
         }
 
-        .flip-back p {
-            line-height: 1.8;
-            font-size: 1.1rem;
+        /* 响应式适配 */
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .card-large { grid-column: span 2; grid-row: span 1; }
+            .hero-title { font-size: 10vw; }
         }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* 响应式 */
         @media (max-width: 768px) {
-            .title-25 { font-size: 3.5rem; }
-            h1 { font-size: 2rem; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .card-large, .card-wide { grid-column: span 1; }
+            body { cursor: auto; } /* 移动端恢复默认鼠标 */
+            .cursor-dot, .cursor-outline { display: none; }
+            .tilt-card { width: 90%; height: 450px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 粒子星空背景 -->
-    <div class="stars"></div>
+    <!-- 自定义光标 -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
 
-    <!-- 开屏仪式 -->
-    <div id="welcome-screen">
-        <i class="fa-solid fa-envelope-open-text" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 30px;"></i>
-        <button class="btn-open" onclick="startJourney()">致 椰椰丸子：点击开启专属宇宙</button>
+    <!-- 加载屏 -->
+    <div id="loader">
+        <div class="loader-text">INITIALIZING...</div>
     </div>
 
-    <!-- 主内容 -->
-    <div class="container" id="main-content">
-        <header class="gsap-item">
-            <div class="title-25">25</div>
-            <h1>椰椰丸子，生日快乐</h1>
-            <p style="color: var(--accent-gold); letter-spacing: 2px;">港硕同窗 · 山东老乡 · 挚友</p>
-        </header>
+    <!-- 1. Hero 视差首屏 -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-text">25</div>
+        <div class="hero-content">
+            <h1 class="hero-title">椰椰丸子</h1>
+            <p class="hero-subtitle">HONG KONG · WEIFANG</p>
+        </div>
+        <div class="scroll-indicator">
+            SCROLL TO EXPLORE
+            <div class="scroll-line"></div>
+        </div>
+    </section>
 
-        <div class="story-grid">
-            <!-- 卡片1：香港岁月 -->
-            <div class="glass-card gsap-item">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h3>维港的晚风</h3>
-                <p>还记得港硕的日日夜夜吗？那些赶Due的夜晚，那些漫步在香港街头的瞬间。我们并肩走过了这段闪闪发光的求学岁月，恭喜我们，圆满毕业！</p>
+    <!-- 2. Bento Box 故事网格区 -->
+    <section class="bento-section">
+        <div class="bento-grid" id="bento-container">
+            <!-- 核心卡片 -->
+            <div class="bento-card card-large map-card bento-item">
+                <i class="fa-solid fa-route card-icon" style="color: var(--stitch-cyan);"></i>
+                <h2 class="bento-title">轨迹流转</h2>
+                <div style="margin-bottom: 20px;">
+                    <span class="location-tag">📍 HKG (香港)</span>
+                    <i class="fa-solid fa-arrow-right-long" style="color: #66FCF1; margin-right: 10px;"></i>
+                    <span class="location-tag">📍 WEF (潍坊)</span>
+                </div>
+                <p class="bento-desc">从维港湿润的晚风，到鸢都熟悉的微风。恭喜港硕通关，圆满毕业！外面的世界再大，现在，欢迎回家。开启人生职场新副本吧！</p>
             </div>
             
-            <!-- 卡片2：潍坊情结 -->
-            <div class="glass-card gsap-item">
-                <i class="fa-solid fa-kite"></i>
-                <h3>潍坊的风筝</h3>
-                <p>从香港的繁华，回到我们最熟悉的山东。外面的世界再大，也大不过潍坊的风筝。欢迎回家工作，新的人生副本即将开启，你一定会大放异彩。</p>
+            <div class="bento-card bento-item">
+                <i class="fa-solid fa-graduation-cap card-icon"></i>
+                <h2 class="bento-title">港硕同窗</h2>
+                <p class="bento-desc">那些为了Due熬过的夜，都变成了此刻闪闪发光的履历。很荣幸与你同窗。</p>
             </div>
 
-            <!-- 卡片3：未来期许 -->
-            <div class="glass-card gsap-item">
-                <i class="fa-solid fa-star"></i>
-                <h3>25岁的新篇章</h3>
-                <p>25岁，是最美好的年纪。褪去了少年的青涩，带着硕士的荣光，愿你在家乡的每一天都如星辰般璀璨。做快乐的自己，吃遍天下好吃的丸子！</p>
+            <div class="bento-card bento-item">
+                <i class="fa-solid fa-bowl-food card-icon"></i>
+                <h2 class="bento-title">吃货属性</h2>
+                <p class="bento-desc">愿你回到家乡，能吃遍天下好吃的肉丸子，做个快乐的干饭人。</p>
+            </div>
+
+            <div class="bento-card card-wide bento-item">
+                <i class="fa-solid fa-gem card-icon" style="color: var(--stitch-blue);"></i>
+                <h2 class="bento-title">25岁的奥义</h2>
+                <p class="bento-desc">二十五岁，不是青春的尾巴，而是真正掌控人生的开局。褪去青涩，带着高学历的光环，你在潍坊的每一天，都将大放异彩。</p>
             </div>
         </div>
+    </section>
 
-        <!-- 互动区：史迪奇专属翻转卡片 -->
-        <div class="flip-container gsap-item">
-            <div class="flip-card" id="stitchCard" onclick="flipCard()">
-                <div class="flip-front">
-                    <i class="fa-solid fa-hand-sparkles" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;"></i>
-                    <h2>这里有一份星际快递</h2>
-                    <p style="margin-top: 10px; color: rgba(255,255,255,0.7);">（点击卡片签收）</p>
-                </div>
-                <div class="flip-back">
-                    <div class="stitch-text">"Ohana means family."</div>
-                    <p>“家人就是没有人会被抛弃，或者被遗忘。”</p>
-                    <p style="margin-top: 15px;">在我心里，老乡就是像家人一样的存在。</p>
-                    <p>愿你像史迪奇一样，永远保持着调皮、可爱与真诚，拥有最强大的力量，也能被这个世界温柔以待。💙</p>
-                </div>
-            </div>
-        </div>
-
-        <footer class="gsap-item">
-            <p>Designed with ❤️ by 你的山东老乡</p>
-            <p style="margin-top: 5px;">2024</p>
-        </footer>
-    </div>
-
-    <!-- 引入动画和特效库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <script>
-        // 开屏交互：点击按钮进入
-        function startJourney() {
-            const welcome = document.getElementById('welcome-screen');
-            const mainContent = document.getElementById('main-content');
-
-            // 隐藏欢迎屏
-            welcome.style.opacity = '0';
-            setTimeout(() => {
-                welcome.style.display = 'none';
-                mainContent.style.display = 'block';
-                
-                // 触发礼花特效
-                fireConfetti();
-                
-                // 执行内容入场动画
-                animateContent();
-            }, 800);
-        }
-
-        // 企业级滚动入场动画 (GSAP)
-        function animateContent() {
-            gsap.to("#main-content", { duration: 1, opacity: 1, ease: "power2.out" });
-            
-            gsap.from(".gsap-item", {
-                duration: 1,
-                y: 50,
-                opacity: 0,
-                stagger: 0.2, // 元素依次出现的间隔
-                ease: "back.out(1.7)",
-                delay: 0.2
-            });
-        }
-
-        // 3D 卡片翻转交互
-        function flipCard() {
-            const card = document.getElementById('stitchCard');
-            card.classList.toggle('flipped');
-            
-            // 翻面时释放一次小礼花（史迪奇蓝色系）
-            if(card.classList.contains('flipped')) {
-                confetti({
-                    particleCount: 50,
-                    spread: 60,
-                    colors: ['#1e3a8a', '#60a5fa', '#ffffff'],
-                    origin: { y: 0.7 }
-                });
-            }
-        }
-
-        // 生日礼花特效 (Canvas-confetti)
-        function fireConfetti() {
-            var duration = 3 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
-
-            var interval = setInterval(function() {
-                var timeLeft = animationEnd - Date.now();
-
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
-
-                var particleCount = 50 * (timeLeft / duration);
-                // 礼花颜色采用香槟金和史迪奇蓝
-                confetti(Object.assign({}, defaults, { 
-                    particleCount, 
-                    colors: ['#fbbf24', '#1e3a8a', '#ffffff'],
-                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
-                }));
-                confetti(Object.assign({}, defaults, { 
-                    particleCount, 
-                    colors: ['#fbbf24', '#1e3a8a', '#ffffff'],
-                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
-                }));
-            }, 250);
-        }
-    </script>
-</body>
-</html>
+    <!-- 3. 史迪奇重力感应 3D 卡片 -->
+    <section class="interactive-section">
+        <div class="tilt-card" id="tilt-card">
+            <div class="tilt-card-inner">
+                <i class="fa-solid fa-rocket" style="font-size: 3rem; color: var(--stitch-cyan);"></i>
+                <h3 class="stitch-quote">"Ohana means family."</h3>
