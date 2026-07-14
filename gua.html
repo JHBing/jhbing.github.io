@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>✿ 给瓜瓜的 23 岁生日祝福 ✿</title>
+  <title>✿ 给麦len的生日祝福 ✿</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -196,13 +196,61 @@
     }
     .task-pill.show { opacity: 1; transform: none; }
     .clock {
-      margin-left: auto;
       font-family: var(--font-pixel);
       font-size: 9px;
       color: #4a2040;
       background: #ffc8e0;
       border: 2px inset #ffa0c8;
       padding: 6px 10px;
+    }
+    .bgm-btn {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 28px;
+      padding: 0 10px;
+      border: 2px solid #fff;
+      border-right-color: #c04080;
+      border-bottom-color: #c04080;
+      background: linear-gradient(180deg, #ffc0e0, #ff9ec8);
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--tokyo-navy);
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: inset 1px 1px 0 #ffe8f4;
+      flex-shrink: 0;
+    }
+    .bgm-btn:active {
+      border-color: #c04080 #fff #fff #c04080;
+      transform: translate(1px, 1px);
+    }
+    .bgm-btn.off {
+      background: linear-gradient(180deg, #e8d0e0, #d0a8c0);
+      color: #6a4060;
+    }
+    .bgm-btn .bgm-eq {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+    .bgm-btn .bgm-eq i {
+      display: block;
+      width: 3px;
+      background: #c05090;
+      border-radius: 1px;
+      height: 4px;
+    }
+    .bgm-btn:not(.off) .bgm-eq i:nth-child(1) { animation: eq 0.45s ease-in-out infinite alternate; }
+    .bgm-btn:not(.off) .bgm-eq i:nth-child(2) { animation: eq 0.55s ease-in-out infinite alternate 0.1s; height: 8px; }
+    .bgm-btn:not(.off) .bgm-eq i:nth-child(3) { animation: eq 0.4s ease-in-out infinite alternate 0.2s; height: 6px; }
+    .bgm-btn.off .bgm-eq i { background: #a07090; animation: none !important; height: 3px !important; }
+    @keyframes eq {
+      from { transform: scaleY(0.45); }
+      to { transform: scaleY(1); }
     }
 
     /* Desktop icons */
@@ -860,6 +908,8 @@
       }
       .taskbar { height: 46px; }
       .clock { font-size: 8px; padding: 6px 8px; }
+      .bgm-btn { font-size: 11px; padding: 0 8px; }
+      .bgm-btn #bgm-label { display: none; }
     }
 
     @keyframes softPulse {
@@ -1194,8 +1244,17 @@
         <button type="button" class="start-item" data-open="beans">◆ 怪味豆答谢</button>
         <button type="button" class="start-item" data-open="cat">◆ 猫咪角落</button>
         <button type="button" class="start-item" data-open="finale">★ 最终祝福</button>
+        <button type="button" class="start-item" id="start-bgm">♪ 背景音乐 开/关</button>
       </div>
     </div>
+
+    <!-- Background music: put bgm.mp3 (or .ogg / .m4a / .wav) in same folder -->
+    <audio id="bgm" loop preload="auto" playsinline>
+      <source src="bgm.mp3" type="audio/mpeg" />
+      <source src="bgm.ogg" type="audio/ogg" />
+      <source src="bgm.m4a" type="audio/mp4" />
+      <source src="bgm.wav" type="audio/wav" />
+    </audio>
 
     <!-- Taskbar -->
     <footer class="taskbar">
@@ -1203,6 +1262,10 @@
         <span aria-hidden="true">✿</span> 开始
       </button>
       <div class="task-pill" id="task-pill">渋谷MAIL</div>
+      <button type="button" class="bgm-btn off" id="bgm-btn" aria-pressed="false" title="背景音乐 开/关">
+        <span class="bgm-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span id="bgm-label">音乐</span>
+      </button>
       <div class="clock" id="clock">00:00</div>
     </footer>
   </div>
@@ -1403,6 +1466,81 @@
       if (el) el.classList.remove("open");
     }
 
+    /* ---------- background music ---------- */
+    const bgm = document.getElementById("bgm");
+    const bgmBtn = document.getElementById("bgm-btn");
+    const bgmLabel = document.getElementById("bgm-label");
+    const startBgmItem = document.getElementById("start-bgm");
+    bgm.volume = 0.35;
+    let bgmWantOn = true;
+    let bgmReady = false;
+
+    function setBgmUi(playing) {
+      bgmBtn.classList.toggle("off", !playing);
+      bgmBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+      bgmLabel.textContent = playing ? "ON" : "OFF";
+    }
+
+    function playBgm() {
+      bgmWantOn = true;
+      const p = bgm.play();
+      if (p && typeof p.then === "function") {
+        return p.then(() => {
+          setBgmUi(true);
+          return true;
+        }).catch(() => {
+          setBgmUi(false);
+          return false;
+        });
+      }
+      setBgmUi(!bgm.paused);
+      return Promise.resolve(!bgm.paused);
+    }
+
+    function pauseBgm() {
+      bgmWantOn = false;
+      bgm.pause();
+      setBgmUi(false);
+    }
+
+    function toggleBgm() {
+      if (!bgm.paused) {
+        pauseBgm();
+        toast("背景音乐已关闭");
+      } else {
+        playBgm().then((ok) => {
+          toast(ok ? "City Pop 上线 ♪" : "找不到音频？把文件命名为 bgm.mp3");
+        });
+      }
+    }
+
+    bgm.addEventListener("playing", () => setBgmUi(true));
+    bgm.addEventListener("pause", () => { if (!bgmWantOn) setBgmUi(false); });
+    bgm.addEventListener("error", () => {
+      bgmReady = false;
+      setBgmUi(false);
+    });
+    bgm.addEventListener("canplay", () => { bgmReady = true; });
+
+    bgmBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleBgm();
+    });
+    startBgmItem.addEventListener("click", (e) => {
+      e.stopPropagation();
+      document.getElementById("start-menu").classList.remove("open");
+      toggleBgm();
+    });
+
+    /* unlock / resume on first gesture (autoplay policies) */
+    function tryUnlockBgm() {
+      if (!bgmWantOn || !bgm.paused) return;
+      playBgm();
+    }
+    ["pointerdown", "keydown", "touchstart"].forEach((evt) => {
+      document.addEventListener(evt, tryUnlockBgm, { once: true, passive: true });
+    });
+
     /* ---------- boot sequence ---------- */
     const boot = document.getElementById("boot");
     const bootFill = document.getElementById("boot-fill");
@@ -1419,6 +1557,7 @@
         setTimeout(() => {
           openWin("letter");
           toast("欢迎来到 瓜瓜 OS ✿");
+          playBgm();
         }, 900);
       } else {
         bootFill.style.width = bootP + "%";
