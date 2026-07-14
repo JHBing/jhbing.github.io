@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>✿ 给瓜瓜的 23 岁生日祝福 ✿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ff9ec8;
+      --pink-hot: #ff6bac;
+      --pink-soft: #ffd6e8;
+      --pink-cream: #fff0f7;
+      --lilac: #d4b5ff;
+      --sky: #8fd4ff;
+      --mint: #b8f0e0;
+      --lavender: #c9b8ff;
+      --tokyo-navy: #2a1a4a;
+      --win-title: linear-gradient(90deg, #ff8cc8 0%, #c9a0ff 45%, #8ec8ff 100%);
+      --pixel: 3px;
+      --shadow-win: 3px 3px 0 #ff6bac55;
+      --font-ui: "Zen Maru Gothic", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-pixel: "Press Start 2P", "DotGothic16", monospace;
+      --font-jp: "DotGothic16", "Zen Maru Gothic", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      color: var(--tokyo-navy);
+      background: #1a0f2e;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    /* ========== BOOT ========== */
+    #boot {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #12081f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+    #boot.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .boot-logo {
+      width: min(180px, 42vw);
+      aspect-ratio: 1;
+      image-rendering: pixelated;
+      animation: softPulse 1.6s ease-in-out infinite;
+    }
+    .boot-text {
+      font-family: var(--font-pixel);
+      font-size: clamp(8px, 2.2vw, 11px);
+      color: var(--pink-soft);
+      letter-spacing: 0.08em;
+      text-align: center;
+      line-height: 2;
+    }
+    .boot-bar {
+      width: min(280px, 70vw);
+      height: 14px;
+      border: 2px solid var(--pink);
+      background: #2a1538;
+      padding: 2px;
+    }
+    .boot-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: repeating-linear-gradient(
+        90deg,
+        #ff8cc8 0 6px,
+        #a8e0ff 6px 12px,
+        #d4b5ff 12px 18px
+      );
+      transition: width 0.15s linear;
+    }
+
+    /* ========== DESKTOP ========== */
+    #desktop {
+      min-height: 100dvh;
+      position: relative;
+      background:
+        linear-gradient(160deg, rgba(255, 158, 200, 0.35), rgba(141, 200, 255, 0.25) 40%, rgba(200, 160, 255, 0.4)),
+        repeating-linear-gradient(
+          45deg,
+          #ffcce0 0 10px,
+          #ffd9ec 10px 20px,
+          #e8d4ff 20px 30px,
+          #d4efff 30px 40px
+        );
+      overflow: hidden;
+    }
+    #desktop::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 70% 20%, rgba(255, 255, 255, 0.35), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 15% 80%, rgba(168, 224, 255, 0.4), transparent 50%);
+      pointer-events: none;
+    }
+
+    /* floating décor layer */
+    .float-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .floater {
+      position: absolute;
+      animation: floatY linear infinite;
+      opacity: 0.85;
+      will-change: transform;
+    }
+    .floater.spark { font-size: 14px; image-rendering: pixelated; }
+    .floater.star { color: #fff7ae; text-shadow: 0 0 6px #ffc0e0; }
+
+    /* Tokyo skyline silhouette */
+    .skyline {
+      position: absolute;
+      left: 0; right: 0; bottom: 42px;
+      height: 120px;
+      z-index: 2;
+      pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 120' preserveAspectRatio='none'%3E%3Cpath fill='%23ff9ec888' d='M0 120V70h30v-40h20v40h25V30h35v40h20V50h40v20h15V20h25v50h30V40h45v30h20V55h35v65z'/%3E%3Cpath fill='%23c9b8ff99' d='M400 120V55h20V25h15v30h25V40h40v20h15V15h30v40h20V50h50v20h25V35h35v85z'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+      opacity: 0.55;
+    }
+
+    /* Taskbar */
+    .taskbar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      height: 42px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 8px;
+      background: linear-gradient(180deg, #ffa8d0, #ff8cc0 40%, #f070b0);
+      border-top: 2px solid #ffe0f0;
+      box-shadow: 0 -2px 0 #ff6bac44;
+    }
+    .start-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 30px;
+      padding: 0 12px;
+      border: 2px solid #fff;
+      border-right-color: #c04080;
+      border-bottom-color: #c04080;
+      background: linear-gradient(180deg, #ffc0e0, #ff9ec8);
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--tokyo-navy);
+      cursor: pointer;
+      box-shadow: inset 1px 1px 0 #ffe8f4;
+    }
+    .start-btn:active {
+      border-color: #c04080 #fff #fff #c04080;
+      transform: translate(1px, 1px);
+    }
+    .task-pill {
+      flex: 1;
+      max-width: 220px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      background: #ffb0d4;
+      border: 2px solid #ff70b0;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: 0.35s ease;
+    }
+    .task-pill.show { opacity: 1; transform: none; }
+    .clock {
+      margin-left: auto;
+      font-family: var(--font-pixel);
+      font-size: 9px;
+      color: #4a2040;
+      background: #ffc8e0;
+      border: 2px inset #ffa0c8;
+      padding: 6px 10px;
+    }
+
+    /* Desktop icons */
+    .icons {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+      gap: 8px 4px;
+      padding: clamp(16px, 4vw, 32px);
+      padding-bottom: 120px;
+      max-width: 520px;
+    }
+    .icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 4px;
+      background: transparent;
+      border: 1px dashed transparent;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .icon:hover, .icon:focus-visible {
+      background: rgba(255, 255, 255, 0.35);
+      border-color: rgba(255, 120, 180, 0.6);
+      outline: none;
+    }
+    .icon:active { transform: scale(0.94); }
+    .icon-art {
+      width: 52px;
+      height: 52px;
+      image-rendering: pixelated;
+      filter: drop-shadow(2px 3px 0 rgba(255, 100, 170, 0.35));
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .icon:hover .icon-art { transform: translateY(-4px) rotate(-3deg); }
+    .icon-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      color: #3a1848;
+      text-shadow: 0 1px 0 #fff, 1px 1px 0 #ffc0e0;
+      line-height: 1.25;
+      max-width: 88px;
+    }
+
+    /* Windows */
+    .win {
+      position: fixed;
+      z-index: 40;
+      width: min(560px, calc(100vw - 24px));
+      max-height: calc(100dvh - 70px);
+      display: none;
+      flex-direction: column;
+      background: var(--pink-cream);
+      border: 3px solid #fff;
+      box-shadow:
+        4px 4px 0 #ff6bac66,
+        0 0 0 2px #ff9ec8,
+        12px 16px 40px rgba(80, 30, 80, 0.25);
+      animation: winPop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+    .win.open { display: flex; }
+    .win-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      background: var(--win-title);
+      border-bottom: 2px solid #fff;
+      cursor: grab;
+      flex-shrink: 0;
+    }
+    .win-titlebar:active { cursor: grabbing; }
+    .win-title {
+      flex: 1;
+      font-family: var(--font-jp);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 1px 1px 0 #c05090;
+      letter-spacing: 0.04em;
+    }
+    .win-btns { display: flex; gap: 4px; }
+    .win-btn {
+      width: 22px;
+      height: 20px;
+      border: 1px solid #fff;
+      background: #ffb0d8;
+      color: #5a2050;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .win-btn:hover { background: #fff; }
+    .win-btn.close:hover { background: #ff6b9a; color: #fff; }
+    .win-body {
+      overflow-y: auto;
+      padding: 16px;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Chapter nav */
+    .chapter-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+      justify-content: center;
+    }
+    .dot {
+      width: 28px;
+      height: 28px;
+      border: 2px solid #ff9ec8;
+      background: #fff;
+      font-family: var(--font-pixel);
+      font-size: 8px;
+      color: #c05090;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .dot:hover:not(:disabled) { transform: scale(1.1); background: var(--pink-soft); }
+    .dot.active {
+      background: var(--pink-hot);
+      color: #fff;
+      border-color: #fff;
+      box-shadow: 0 0 0 2px #ff9ec8;
+    }
+    .dot:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .dot.unlocked:not(.active) {
+      background: #ffe8f4;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .panel {
+      display: none;
+      animation: fadeUp 0.5s ease;
+    }
+    .panel.active { display: block; }
+
+    /* Hero / welcome */
+    .hero-brand {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .hero-brand .kicker {
+      font-family: var(--font-pixel);
+      font-size: 8px;
+      color: #c070a0;
+      letter-spacing: 0.15em;
+      margin-bottom: 10px;
+    }
+    .hero-brand h1 {
+      font-family: var(--font-jp);
+      font-size: clamp(28px, 8vw, 42px);
+      font-weight: 900;
+      background: linear-gradient(120deg, #ff6bac, #a78bfa, #60b5ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      letter-spacing: 0.06em;
+    }
+    .hero-brand .sub {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #7a5080;
+      font-weight: 500;
+    }
+
+    .pixel-divider {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 14px 0;
+      color: #ff8cc0;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .msg {
+      background: #fff;
+      border: 2px solid #ffc0e0;
+      padding: 14px 16px;
+      margin: 10px 0;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #4a2a58;
+      box-shadow: var(--shadow-win);
+      position: relative;
+    }
+    .msg.reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: 0.5s ease;
+    }
+    .msg.reveal.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    .btn-cute {
+      appearance: none;
+      border: 2px solid #fff;
+      border-bottom-color: #e060a0;
+      border-right-color: #e060a0;
+      background: linear-gradient(180deg, #ffd0e8, #ff9ec8);
+      color: #4a1848;
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 18px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #ff6bac44;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-cute:hover {
+      transform: translateY(-2px);
+      box-shadow: 4px 5px 0 #ff6bac55;
+    }
+    .btn-cute:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 #ff6bac44;
+    }
+    .btn-cute.alt {
+      background: linear-gradient(180deg, #e0d0ff, #c9b8ff);
+    }
+    .btn-cute.sky {
+      background: linear-gradient(180deg, #d0f0ff, #8fd4ff);
+    }
+
+    /* Flip cards */
+    .flip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0;
+    }
+    @media (max-width: 420px) {
+      .flip-grid { grid-template-columns: 1fr; }
+    }
+    .flip {
+      perspective: 900px;
+      height: 130px;
+      cursor: pointer;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      text-align: center;
+      border: 2px solid #ffb0d8;
+      box-shadow: var(--shadow-win);
+    }
+    .flip-front {
+      background:
+        linear-gradient(135deg, #ffe0f0 25%, transparent 25%) -6px 0 / 12px 12px,
+        linear-gradient(225deg, #ffe0f0 25%, transparent 25%) -6px 0 / 12px 12px,
+        linear-gradient(315deg, #ffe0f0 25%, transparent 25%) 0 0 / 12px 12px,
+        linear-gradient(45deg, #ffe0f0 25%, #fff5fa 25%) 0 0 / 12px 12px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #b05080;
+    }
+    .flip-back {
+      background: linear-gradient(160deg, #fff, #f0e8ff);
+      transform: rotateY(180deg);
+      font-size: 13px;
+      line-height: 1.5;
+      color: #4a2a58;
+    }
+    .flip-hint {
+      font-family: var(--font-pixel);
+      font-size: 7px;
+      color: #d080b0;
+      margin-top: 4px;
+    }
+
+    /* Photo frame — CRT / Win photo */
+    .photo-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .crt {
+      width: min(280px, 78vw);
+      padding: 14px 14px 28px;
+      background: linear-gradient(180deg, #ffd0e8, #ffb0d4);
+      border: 3px solid #fff;
+      box-shadow:
+        inset 0 0 0 3px #ffa0c8,
+        4px 6px 0 #ff6bac44,
+        0 0 30px rgba(255, 150, 200, 0.4);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.35s;
+    }
+    .crt:hover { transform: scale(1.02) rotate(-0.5deg); }
+    .crt-screen {
+      aspect-ratio: 3 / 4;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 180, 220, 0.08) 2px,
+          rgba(255, 180, 220, 0.08) 4px
+        ),
+        #2a1838;
+      border: 3px inset #ffc0e0;
+      overflow: hidden;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    .crt-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.5s, transform 0.5s;
+    }
+    .crt.glow .crt-screen img {
+      filter: saturate(1.15) contrast(1.05);
+      transform: scale(1.03);
+    }
+    .crt-placeholder {
+      color: #ffb0d8;
+      font-family: var(--font-pixel);
+      font-size: 8px;
+      text-align: center;
+      line-height: 2;
+      padding: 16px;
+    }
+    .crt-badge {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-pixel);
+      font-size: 7px;
+      color: #803060;
+      white-space: nowrap;
+    }
+    .photo-caption {
+      font-size: 13px;
+      color: #7a5080;
+      text-align: center;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+
+    /* Sailor girl CSS pixel mascot */
+    .mascot-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 16px;
+      margin: 16px 0 8px;
+      flex-wrap: wrap;
+    }
+    .pixel-girl {
+      width: 64px;
+      height: 80px;
+      image-rendering: pixelated;
+      animation: bob 2.4s ease-in-out infinite;
+      filter: drop-shadow(2px 3px 0 #ff9ec855);
+    }
+    .pixel-cat {
+      width: 48px;
+      height: 40px;
+      image-rendering: pixelated;
+      animation: bob 2.4s ease-in-out infinite 0.4s;
+      filter: drop-shadow(2px 3px 0 #a8e0ff55);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .pixel-cat:hover { transform: scale(1.15) rotate(8deg); }
+    .pixel-cat.spin { animation: catSpin 0.7s ease; }
+
+    /* Progress sticky note */
+    .note {
+      background: #fff8c8;
+      border: 2px solid #ffe080;
+      padding: 12px;
+      transform: rotate(-1.5deg);
+      box-shadow: 3px 3px 0 #ffd06055;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+    .note strong { color: #e06090; }
+
+    /* Thanks beans section */
+    .beans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 14px 0;
+    }
+    .bean {
+      width: 36px;
+      height: 28px;
+      border-radius: 50% 50% 45% 45%;
+      background: radial-gradient(circle at 35% 35%, #e8c090, #a06030);
+      border: 1px solid #704018;
+      cursor: pointer;
+      transition: transform 0.2s;
+      position: relative;
+      box-shadow: inset -2px -2px 4px #60301088;
+    }
+    .bean:nth-child(2n) { background: radial-gradient(circle at 35% 35%, #f0d0a0, #c08040); }
+    .bean:nth-child(3n) { background: radial-gradient(circle at 35% 35%, #d0a070, #805028); }
+    .bean.popped {
+      transform: scale(0) rotate(180deg);
+      opacity: 0;
+    }
+    .bean-popup {
+      position: absolute;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ff6bac;
+      pointer-events: none;
+      animation: yum 0.9s ease forwards;
+      white-space: nowrap;
+    }
+
+    .thanks-card {
+      background:
+        linear-gradient(90deg, #ff9ec822 50%, transparent 50%),
+        linear-gradient(#ff9ec822 50%, transparent 50%),
+        #fff;
+      background-size: 16px 16px;
+      border: 3px double #ff9ec8;
+      padding: 18px;
+      text-align: center;
+      margin: 12px 0;
+    }
+    .thanks-card h3 {
+      font-family: var(--font-jp);
+      font-size: 20px;
+      color: #e05090;
+      margin-bottom: 8px;
+    }
+
+    /* Final confetti stage */
+    .finale {
+      text-align: center;
+      padding: 8px 0 20px;
+    }
+    .finale h2 {
+      font-family: var(--font-jp);
+      font-size: clamp(22px, 6vw, 32px);
+      background: linear-gradient(90deg, #ff6bac, #8fd4ff, #d4b5ff, #ff6bac);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 3s linear infinite;
+      margin-bottom: 10px;
+    }
+    .age-badge {
+      display: inline-block;
+      font-family: var(--font-pixel);
+      font-size: clamp(18px, 5vw, 28px);
+      color: #fff;
+      background: linear-gradient(135deg, #ff6bac, #c9b8ff);
+      padding: 14px 20px;
+      border: 3px solid #fff;
+      box-shadow: 4px 4px 0 #ff9ec866;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .age-badge:hover { transform: scale(1.06) rotate(-2deg); }
+    .age-badge.boom { animation: boomPulse 0.6s ease; }
+
+    .wish-wall {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 16px 0;
+    }
+    .wish-chip {
+      padding: 8px 12px;
+      background: #fff;
+      border: 2px solid #ffc0e0;
+      font-size: 13px;
+      font-weight: 700;
+      color: #804070;
+      cursor: pointer;
+      transition: 0.25s;
+      opacity: 0.55;
+    }
+    .wish-chip.on {
+      opacity: 1;
+      background: linear-gradient(135deg, #ffe0f0, #e8d8ff);
+      border-color: #ff8cc0;
+      transform: translateY(-3px);
+      box-shadow: 2px 3px 0 #ff9ec855;
+    }
+
+    /* Mini interact hints */
+    .interact-hint {
+      font-family: var(--font-pixel);
+      font-size: 7px;
+      text-align: center;
+      color: #c080a0;
+      margin: 8px 0 4px;
+      line-height: 1.8;
+    }
+
+    /* Lightbox for photo */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(30, 10, 40, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: zoom-out;
+    }
+    #lightbox.show { display: flex; }
+    #lightbox img {
+      max-width: min(92vw, 480px);
+      max-height: 85dvh;
+      object-fit: contain;
+      border: 4px solid #ffb0d8;
+      box-shadow: 0 0 40px #ff9ec866;
+      animation: winPop 0.35s ease;
+    }
+
+    /* Confetti canvas */
+    #confetti {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      display: none;
+    }
+
+    /* Start menu */
+    #start-menu {
+      position: fixed;
+      bottom: 48px;
+      left: 8px;
+      z-index: 60;
+      width: min(220px, calc(100vw - 16px));
+      background: #fff0f7;
+      border: 2px solid #fff;
+      box-shadow: 3px 3px 0 #ff6bac55, 0 0 0 2px #ff9ec8;
+      display: none;
+      overflow: hidden;
+    }
+    #start-menu.open { display: block; animation: fadeUp 0.25s ease; }
+    .start-banner {
+      background: var(--win-title);
+      color: #fff;
+      font-weight: 900;
+      padding: 10px 12px;
+      font-size: 13px;
+      writing-mode: vertical-rl;
+      float: left;
+      height: 180px;
+      letter-spacing: 0.2em;
+    }
+    .start-items { margin-left: 36px; }
+    .start-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border: none;
+      background: transparent;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      color: #4a2a58;
+      cursor: pointer;
+    }
+    .start-item:hover { background: #ffd0e8; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      z-index: 150;
+      background: #fff;
+      border: 2px solid #ff9ec8;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #c05090;
+      box-shadow: 3px 3px 0 #ff6bac44;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.35s ease;
+      max-width: 90vw;
+      text-align: center;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 600px) {
+      .icons {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: none;
+        padding-top: 12px;
+      }
+      .win {
+        left: 12px !important;
+        top: 12px !important;
+        width: calc(100vw - 24px);
+      }
+      .taskbar { height: 46px; }
+      .clock { font-size: 8px; padding: 6px 8px; }
+    }
+
+    @keyframes softPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.04); opacity: 0.85; }
+    }
+    @keyframes floatY {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(8deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    @keyframes winPop {
+      from { opacity: 0; transform: scale(0.88) translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes catSpin {
+      0% { transform: rotate(0); }
+      50% { transform: rotate(360deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    @keyframes twinkle {
+      0%, 100% { box-shadow: none; }
+      50% { box-shadow: 0 0 8px #ff9ec8; }
+    }
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+    @keyframes boomPulse {
+      0%, 100% { transform: scale(1); }
+      40% { transform: scale(1.2) rotate(4deg); }
+      70% { transform: scale(0.95) rotate(-2deg); }
+    }
+    @keyframes yum {
+      0% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, -40px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Boot -->
+  <div id="boot" role="status" aria-live="polite">
+    <canvas class="boot-logo" id="boot-logo" width="96" height="96" aria-hidden="true"></canvas>
+    <p class="boot-text">GUAGUA OS<br />Loading birthday.dll …</p>
+    <div class="boot-bar"><div class="boot-bar-fill" id="boot-fill"></div></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Confetti -->
+  <canvas id="confetti"></canvas>
+
+  <!-- Lightbox -->
+  <div id="lightbox" aria-hidden="true">
+    <img id="lightbox-img" alt="瓜瓜生日留影" />
+  </div>
+
+  <!-- Desktop -->
+  <div id="desktop">
+    <div class="float-layer" id="float-layer" aria-hidden="true"></div>
+    <div class="skyline" aria-hidden="true"></div>
+
+    <nav class="icons" aria-label="桌面图标">
+      <button type="button" class="icon" data-open="letter" aria-label="打开生日信">
+        <canvas class="icon-art" width="48" height="48" data-draw="letter"></canvas>
+        <span class="icon-label">🍉🍉祝福</span>
+      </button>
+      <button type="button" class="icon" data-open="photo" aria-label="打开生日留影">
+        <canvas class="icon-art" width="48" height="48" data-draw="photo"></canvas>
+        <span class="icon-label">生日留影</span>
+      </button>
+      <button type="button" class="icon" data-open="beans" aria-label="打开怪味豆答谢">
+        <canvas class="icon-art" width="48" height="48" data-draw="bean"></canvas>
+        <span class="icon-label">怪味豆☆</span>
+      </button>
+      <button type="button" class="icon" data-open="cat" aria-label="打开猫咪角落">
+        <canvas class="icon-art" width="48" height="48" data-draw="cat"></canvas>
+        <span class="icon-label">猫咪角落</span>
+      </button>
+      <button type="button" class="icon" id="icon-stars" aria-label="放飞像素星星">
+        <canvas class="icon-art" width="48" height="48" data-draw="spark"></canvas>
+        <span class="icon-label">放飞星星</span>
+      </button>
+      <button type="button" class="icon" data-open="finale" aria-label="打开最终祝福">
+        <canvas class="icon-art" width="48" height="48" data-draw="cake"></canvas>
+        <span class="icon-label">23 岁啦</span>
+      </button>
+    </nav>
+
+    <!-- Letter window -->
+    <section class="win" id="win-letter" style="left: 12%; top: 8%;" aria-label="生日信窗口">
+      <header class="win-titlebar" data-drag="win-letter">
+        <span class="win-title">✿ 渋谷MAIL — 🍉🍉</span>
+        <div class="win-btns">
+          <button type="button" class="win-btn" data-min="win-letter" title="最小化">_</button>
+          <button type="button" class="win-btn close" data-close="win-letter" title="关闭">×</button>
+        </div>
+      </header>
+      <div class="win-body">
+        <div class="chapter-dots" id="chapter-dots"></div>
+
+        <!-- Ch 0 -->
+        <div class="panel active" data-panel="0">
+          <div class="hero-brand">
+            <p class="kicker">CITY POP · 元気少女 · 23rd</p>
+            <h1>瓜瓜</h1>
+            <p class="sub">雾都造梦师 · 维港漫游者 · 创媒天才大触</p>
+          </div>
+          <div class="mascot-row">
+            <canvas class="pixel-girl" id="pixel-girl" width="64" height="80"></canvas>
+            <canvas class="pixel-cat" id="pixel-cat" width="48" height="40" title="戳我！"></canvas>
+          </div>
+          <p class="interact-hint">CLICK THE CAT · 戳戳小猫</p>
+          <div class="msg">
+            7 / 15 神秘日期快乐！<br />
+            作为计算机人， 很喜欢以这种方式给大家送祝福 <br />
+            可是这次面对的是创媒大神、电影人、<br />
+            画师、摄影师...（数不清了）瓜瓜！压力巨大！
+          </div>
+          <div class="cta-row">
+            <button type="button" class="btn-cute" data-next>▶ 下一轨 · 个性标签</button>
+          </div>
+        </div>
+
+        <!-- Ch 1 -->
+        <div class="panel" data-panel="1">
+          <p class="interact-hint">TAP CARDS TO FLIP · 点卡片翻转</p>
+          <div class="flip-grid">
+            <div class="flip" tabindex="0" role="button" aria-label="翻转卡片：港硕同学">
+              <div class="flip-inner">
+                <div class="flip-face flip-front">香港一年<br /><span class="flip-hint">FLIP ▸</span></div>
+                <div class="flip-face flip-back">短暂的一年，装满了维港的记忆与小小的校园。</div>
+              </div>
+            </div>
+            <div class="flip" tabindex="0" role="button" aria-label="翻转卡片：重庆人">
+              <div class="flip-inner">
+                <div class="flip-face flip-front">重庆的瓜瓜<br /><span class="flip-hint">FLIP ▸</span></div>
+                <div class="flip-face flip-back">带着山城的爽朗，回到最熟悉的江风与烟火气里。—— 回家天天火锅小面自由！</div>
+              </div>
+            </div>
+            <div class="flip" tabindex="0" role="button" aria-label="翻转卡片：艺术设计">
+              <div class="flip-inner">
+                <div class="flip-face flip-front">创媒大触<br /><span class="flip-hint">FLIP ▸</span></div>
+                <div class="flip-face flip-back">不知看完后🍉觉得我是否可以成为一枚入门的创媒小白。</div>
+              </div>
+            </div>
+            <div class="flip" tabindex="0" role="button" aria-label="翻转卡片：喜欢小猫">
+              <div class="flip-inner">
+                <div class="flip-face flip-front">喜欢小猫<br /><span class="flip-hint">FLIP ▸</span></div>
+                <div class="flip-face flip-back">往后的日子依旧充满毛茸茸的治愈和不期而遇的惊喜。</div>
+              </div>
+            </div>
+          </div>
+          <div class="msg reveal" id="flip-msg">把上面四张卡全部翻开，下一段会现身 ✨</div>
+          <div class="cta-row">
+            <button type="button" class="btn-cute alt" data-prev>◂ 上一轨</button>
+            <button type="button" class="btn-cute" data-next id="btn-after-flip" disabled style="opacity:0.4">▶ 下一轨 · 留影</button>
+          </div>
+        </div>
+
+        <!-- Ch 2 photo tip -->
+        <div class="panel" data-panel="2">
+          <div class="note">
+            <strong>小提示：</strong>桌面上也有「生日留影」图标。点开那扇粉色 CRT 窗查看彩蛋。
+          </div>
+          <div class="msg">
+            📷 解锁今日份隐藏彩蛋：生日版限定🍉。<br />
+            档案已加载成功，点击下方「打开留影窗」即可查看完整影像。
+          </div>
+          <div class="cta-row">
+            <button type="button" class="btn-cute sky" data-open-photo>打开留影窗 ▸</button>
+            <button type="button" class="btn-cute alt" data-prev>◂ 上一轨</button>
+            <button type="button" class="btn-cute" data-next>▶ 下一轨 · 怪味豆</button>
+          </div>
+        </div>
+
+        <!-- Ch 3 beans -->
+        <div class="panel" data-panel="3">
+          <div class="thanks-card">
+            <h3>究极感谢怪味豆</h3>
+            <p style="font-size:14px;line-height:1.7;color:#5a3a60;">
+              毕业时你送的重庆特产怪味豆——<br />
+              不只是零食，更是重庆山水的浓缩与传承（美食节目配音）。<br />
+              拆开的瞬间又麻又香，工作效率翻倍<br />
+              <strong style="color:#e05090;">真的好好吃，超级大感谢。</strong>
+            </p>
+          </div>
+          <p class="interact-hint">TAP BEANS · 点光全部怪味豆</p>
+          <div class="beans" id="beans-tray"></div>
+          <div class="msg reveal" id="beans-msg">把豆子点光，解锁感谢彩蛋～</div>
+          <div class="cta-row">
+            <button type="button" class="btn-cute alt" data-prev>◂ 上一轨</button>
+            <button type="button" class="btn-cute" data-next id="btn-after-beans" disabled style="opacity:0.4">▶ 最终祝福</button>
+          </div>
+        </div>
+
+        <!-- Ch 4 finale link -->
+        <div class="panel" data-panel="4">
+          <div class="finale">
+            <h2>Happy Birthday, 瓜瓜</h2>
+            <button type="button" class="age-badge" id="age-badge" aria-label="点击庆祝 23 岁">✦ 23 ✦</button>
+            <p class="msg" style="text-align:left;margin-top:14px;">
+              回到家乡，愿日子柔软得像小猫肚皮；<br />
+              愿创意永远有光，山城永远有夜景陪你加班也陪你发呆。<br />
+              ——同窗谨上。生日大快乐。
+            </p>
+            <p class="interact-hint" style="margin-top:12px;">点亮你想要的祝福</p>
+            <div class="wish-wall" id="wish-wall">
+              <button type="button" class="wish-chip">被小猫治愈</button>
+              <button type="button" class="wish-chip">作品被人看见</button>
+              <button type="button" class="wish-chip">山城夜景</button>
+              <button type="button" class="wish-chip">灵感满满</button>
+              <button type="button" class="wish-chip">一直很酷</button>
+              <button type="button" class="wish-chip">好好休息</button>
+            </div>
+            <div class="cta-row">
+              <button type="button" class="btn-cute" id="btn-confetti">★ 放一场派对</button>
+              <button type="button" class="btn-cute alt" data-open-finale>打开大祝福窗</button>
+              <button type="button" class="btn-cute sky" data-prev>◂ 上一轨</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo window -->
+    <section class="win" id="win-photo" style="left: 18%; top: 10%;" aria-label="留影窗口">
+      <header class="win-titlebar" data-drag="win-photo">
+        <span class="win-title">✿ PHOTO — 生日帽的瓜瓜</span>
+        <div class="win-btns">
+          <button type="button" class="win-btn" data-min="win-photo">_</button>
+          <button type="button" class="win-btn close" data-close="win-photo">×</button>
+        </div>
+      </header>
+      <div class="win-body">
+        <div class="photo-stage">
+          <div class="crt" id="crt" title="点击放大">
+            <div class="crt-screen" id="crt-screen">
+              <div class="crt-placeholder" id="photo-ph">photo.jpg<br />放这里<br />★</div>
+            </div>
+            <span class="crt-badge">GUAGUA · BIRTHDAY CAM</span>
+          </div>
+          <p class="photo-caption">带着生日帽的一帧——快乐定格。</p>
+          <button type="button" class="btn-cute" id="btn-photo-glow">给屏幕加点粉光 ✦</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Beans window -->
+    <section class="win" id="win-beans" style="left: 14%; top: 14%;" aria-label="怪味豆窗口">
+      <header class="win-titlebar" data-drag="win-beans">
+        <span class="win-title">✿ 重庆特产 · 怪味豆答谢状</span>
+        <div class="win-btns">
+          <button type="button" class="win-btn" data-min="win-beans">_</button>
+          <button type="button" class="win-btn close" data-close="win-beans">×</button>
+        </div>
+      </header>
+      <div class="win-body">
+        <div class="thanks-card">
+          <h3>正式致谢</h3>
+          <p style="font-size:15px;line-height:1.8;color:#5a3a60;">
+            神奇的怪味豆，<br />
+            甜、咸、麻、香，层次分明，停不下来——<br />
+            <strong style="color:#e05090;">真的超赞</strong><br />
+            今日回礼，换成一封可以慢慢点开的生日快乐。
+          </p>
+        </div>
+ 
+      </div>
+    </section>
+
+    <!-- Cat window -->
+    <section class="win" id="win-cat" style="left: 22%; top: 12%;" aria-label="猫咪窗口">
+      <header class="win-titlebar" data-drag="win-cat">
+        <span class="win-title">✿ にゃんにゃん · 猫咪角落</span>
+        <div class="win-btns">
+          <button type="button" class="win-btn" data-min="win-cat">_</button>
+          <button type="button" class="win-btn close" data-close="win-cat">×</button>
+        </div>
+      </header>
+      <div class="win-body" style="text-align:center;">
+        <canvas id="big-cat" width="128" height="96" style="image-rendering:pixelated;width:128px;height:96px;cursor:pointer;margin:8px auto;"></canvas>
+        <p class="msg" style="text-align:left;">
+          像小猫一样可以随时停驻，晒随处偶遇的暖阳☀️
+        </p>
+        <p class="interact-hint">CLICK CAT · 它会变表情</p>
+        <button type="button" class="btn-cute" id="btn-pet">抚摸一下</button>
+      </div>
+    </section>
+
+    <!-- Finale window -->
+    <section class="win" id="win-finale" style="left: 10%; top: 6%;" aria-label="最终祝福">
+      <header class="win-titlebar" data-drag="win-finale">
+        <span class="win-title">✿ ★ HAPPY 23rd ★ 瓜瓜麦len OS</span>
+        <div class="win-btns">
+          <button type="button" class="win-btn" data-min="win-finale">_</button>
+          <button type="button" class="win-btn close" data-close="win-finale">×</button>
+        </div>
+      </header>
+      <div class="win-body">
+        <div class="finale">
+          <p class="kicker" style="font-family:var(--font-pixel);font-size:8px;color:#c070a0;letter-spacing:0.12em;">SHIBUYA SUNSET · MACARON CITY POP</p>
+          <h2>生日快乐，瓜瓜</h2>
+          <div class="pixel-divider">★ ◆ ✦ ◆ ★</div>
+          <p class="msg" style="text-align:left;">
+            恭喜瓜瓜平稳降落到 23 岁的宇宙。<br /><br />
+            愿你在设计的路上持续开挂，回到家乡的日子每天都巴适顺心。<br />
+            愿走在路上总有可爱的小猫给你碰瓷，生活里的惊喜就像怪味豆一样接连不断。<br /><br />
+            虽然已经毕业，但仍要跨城发来贺电：<br />
+            <strong style="color:#e05090;">滴！瓜瓜 23.0 版本更新成功！</strong>
+          </p>
+          <button type="button" class="btn-cute" id="btn-confetti-2" style="margin-top:12px;">再来一次烟花派对</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Start menu -->
+    <div id="start-menu" role="menu">
+      <div class="start-banner">GUAGUA</div>
+      <div class="start-items">
+        <button type="button" class="start-item" data-open="letter">◆ 打开生日信</button>
+        <button type="button" class="start-item" data-open="photo">◆ 生日留影</button>
+        <button type="button" class="start-item" data-open="beans">◆ 怪味豆答谢</button>
+        <button type="button" class="start-item" data-open="cat">◆ 猫咪角落</button>
+        <button type="button" class="start-item" data-open="finale">★ 最终祝福</button>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <footer class="taskbar">
+      <button type="button" class="start-btn" id="start-btn" aria-haspopup="true" aria-expanded="false">
+        <span aria-hidden="true">✿</span> 开始
+      </button>
+      <div class="task-pill" id="task-pill">渋谷MAIL</div>
+      <div class="clock" id="clock">00:00</div>
+    </footer>
+  </div>
+
+  <script>
+  (() => {
+    "use strict";
+
+    /* ---------- pixel draw helpers ---------- */
+    const P = {
+      set(ctx, x, y, c, s = 1) {
+        ctx.fillStyle = c;
+        ctx.fillRect(x * s, y * s, s, s);
+      },
+      rect(ctx, x, y, w, h, c, s = 1) {
+        ctx.fillStyle = c;
+        ctx.fillRect(x * s, y * s, w * s, h * s);
+      },
+    };
+
+    function drawSpark(ctx, ox, oy, s, c = "#ff6bac") {
+      const map = [
+        "    #    ",
+        "    #    ",
+        "  #####  ",
+        " ## # ## ",
+        "#########",
+        " ## # ## ",
+        "  #####  ",
+        "    #    ",
+        "    #    ",
+      ];
+      map.forEach((row, y) => {
+        [...row].forEach((ch, x) => {
+          if (ch === "#") P.set(ctx, ox + x, oy + y, c, s);
+        });
+      });
+    }
+
+    function drawSailorGirl(canvasOrCtx) {
+      const ctx = canvasOrCtx.getContext ? canvasOrCtx.getContext("2d") : canvasOrCtx;
+      if (!ctx) return;
+      const s = 2;
+      ctx.clearRect(0, 0, 64, 80);
+      // hair
+      P.rect(ctx, 8, 4, 16, 10, "#3a2048", s);
+      P.rect(ctx, 6, 8, 20, 8, "#4a2860", s);
+      // face
+      P.rect(ctx, 10, 10, 12, 10, "#ffe0e8", s);
+      P.set(ctx, 12, 14, "#2a1a4a", s);
+      P.set(ctx, 18, 14, "#2a1a4a", s);
+      P.rect(ctx, 14, 17, 4, 1, "#ff8cb0", s);
+      // sailor collar
+      P.rect(ctx, 8, 20, 16, 3, "#fff", s);
+      P.rect(ctx, 8, 20, 16, 1, "#6ec0ff", s);
+      P.rect(ctx, 14, 22, 4, 2, "#ff6bac", s);
+      // dress
+      P.rect(ctx, 9, 24, 14, 10, "#ffe8f4", s);
+      P.rect(ctx, 8, 34, 16, 2, "#6ec0ff", s);
+      // arms
+      P.rect(ctx, 5, 22, 3, 8, "#ffe0e8", s);
+      P.rect(ctx, 24, 22, 3, 8, "#ffe0e8", s);
+      // legs
+      P.rect(ctx, 12, 36, 3, 6, "#ffe0e8", s);
+      P.rect(ctx, 17, 36, 3, 6, "#ffe0e8", s);
+      P.rect(ctx, 11, 41, 4, 2, "#ff9ec8", s);
+      P.rect(ctx, 17, 41, 4, 2, "#ff9ec8", s);
+      // birthday hat
+      P.rect(ctx, 12, 0, 8, 1, "#ff9ec8", s);
+      P.rect(ctx, 13, 1, 6, 2, "#c9b8ff", s);
+      P.rect(ctx, 14, 3, 4, 2, "#8fd4ff", s);
+      P.set(ctx, 15, 0, "#fff76a", s);
+    }
+
+    function drawCat(canvasOrCtx, mood = 0) {
+      const ctx = canvasOrCtx.getContext ? canvasOrCtx.getContext("2d") : canvasOrCtx;
+      if (!ctx || !ctx.canvas) return;
+      const s = 2;
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      // body
+      P.rect(ctx, 6, 10, 14, 8, "#f5e6ff", s);
+      P.rect(ctx, 4, 12, 18, 6, "#e8d4ff", s);
+      // head
+      P.rect(ctx, 8, 2, 12, 10, "#f5e6ff", s);
+      // ears
+      P.rect(ctx, 8, 0, 3, 4, "#e8d4ff", s);
+      P.rect(ctx, 17, 0, 3, 4, "#e8d4ff", s);
+      P.set(ctx, 9, 1, "#ff9ec8", s);
+      P.set(ctx, 18, 1, "#ff9ec8", s);
+      // eyes
+      if (mood === 0) {
+        P.set(ctx, 11, 6, "#3a2048", s);
+        P.set(ctx, 16, 6, "#3a2048", s);
+      } else if (mood === 1) {
+        P.rect(ctx, 10, 6, 3, 1, "#3a2048", s);
+        P.rect(ctx, 15, 6, 3, 1, "#3a2048", s);
+      } else {
+        P.set(ctx, 11, 5, "#3a2048", s);
+        P.set(ctx, 11, 7, "#3a2048", s);
+        P.set(ctx, 10, 6, "#3a2048", s);
+        P.set(ctx, 12, 6, "#3a2048", s);
+        P.set(ctx, 16, 5, "#3a2048", s);
+        P.set(ctx, 16, 7, "#3a2048", s);
+        P.set(ctx, 15, 6, "#3a2048", s);
+        P.set(ctx, 17, 6, "#3a2048", s);
+      }
+      // nose / mouth
+      P.set(ctx, 13, 8, "#ff6bac", s);
+      P.rect(ctx, 12, 9, 4, 1, "#c070a0", s);
+      // tail
+      P.rect(ctx, 20, 12, 3, 2, "#e8d4ff", s);
+      P.rect(ctx, 22, 10, 2, 3, "#f5e6ff", s);
+      // paws
+      P.rect(ctx, 8, 17, 3, 2, "#ffe0f0", s);
+      P.rect(ctx, 15, 17, 3, 2, "#ffe0f0", s);
+    }
+
+    function drawIcon(canvas, type) {
+      const ctx = canvas.getContext("2d");
+      const s = 3;
+      ctx.clearRect(0, 0, 48, 48);
+      if (type === "letter") {
+        P.rect(ctx, 2, 4, 12, 9, "#fff", s);
+        P.rect(ctx, 2, 4, 12, 9, "#ffd0e8", s);
+        ctx.strokeStyle = "#ff6bac";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(6, 12, 36, 27);
+        ctx.beginPath();
+        ctx.moveTo(6, 12);
+        ctx.lineTo(24, 26);
+        ctx.lineTo(42, 12);
+        ctx.stroke();
+        drawSpark(ctx, 4, 0, 2, "#ff6bac");
+      } else if (type === "photo") {
+        P.rect(ctx, 2, 3, 12, 10, "#ffb0d8", s);
+        P.rect(ctx, 3, 4, 10, 7, "#2a1838", s);
+        P.rect(ctx, 5, 6, 3, 3, "#ff9ec8", s);
+        P.rect(ctx, 9, 8, 2, 2, "#8fd4ff", s);
+      } else if (type === "bean") {
+        P.rect(ctx, 4, 5, 8, 6, "#c08040", s);
+        P.rect(ctx, 5, 4, 6, 1, "#e0a860", s);
+        P.set(ctx, 6, 7, "#805028", s);
+      } else if (type === "cat") {
+        drawCat(ctx, 0);
+      } else if (type === "spark") {
+        drawSpark(ctx, 3, 1, 4, "#ff9ec8");
+      } else if (type === "cake") {
+        P.rect(ctx, 4, 8, 8, 5, "#ffe0f0", s);
+        P.rect(ctx, 3, 10, 10, 4, "#ff9ec8", s);
+        P.rect(ctx, 7, 4, 2, 4, "#fff76a", s);
+        P.set(ctx, 7, 3, "#ff6bac", s);
+      }
+    }
+
+    function drawBootLogo(canvas) {
+      const ctx = canvas.getContext("2d");
+      const s = 6;
+      ctx.clearRect(0, 0, 96, 96);
+      // window chrome
+      P.rect(ctx, 1, 2, 14, 12, "#ff9ec8", s);
+      P.rect(ctx, 1, 2, 14, 2, "#c9b8ff", s);
+      P.rect(ctx, 2, 5, 12, 8, "#fff0f7", s);
+      drawSpark(ctx, 4, 5, 3, "#ff6bac");
+      // sparkles
+      P.set(ctx, 0, 0, "#8fd4ff", s);
+      P.set(ctx, 15, 1, "#fff76a", s);
+      P.set(ctx, 0, 14, "#d4b5ff", s);
+    }
+
+    /* ---------- windows (before boot, so openWin is always ready) ---------- */
+    const winMap = {
+      letter: "win-letter",
+      photo: "win-photo",
+      beans: "win-beans",
+      cat: "win-cat",
+      finale: "win-finale",
+    };
+    const taskPill = document.getElementById("task-pill");
+    let zTop = 40;
+
+    function openWin(key) {
+      const id = winMap[key];
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.add("open");
+      el.style.zIndex = ++zTop;
+      taskPill.classList.add("show");
+      taskPill.textContent = el.querySelector(".win-title").textContent;
+      if (window.matchMedia("(max-width: 600px)").matches) {
+        el.style.left = "12px";
+        el.style.top = "12px";
+      }
+      document.getElementById("start-menu").classList.remove("open");
+    }
+    function closeWin(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("open");
+    }
+
+    /* ---------- boot sequence ---------- */
+    const boot = document.getElementById("boot");
+    const bootFill = document.getElementById("boot-fill");
+    drawBootLogo(document.getElementById("boot-logo"));
+
+    let bootP = 0;
+    const bootTimer = setInterval(() => {
+      bootP += Math.random() * 14 + 4;
+      if (bootP >= 100) {
+        bootP = 100;
+        clearInterval(bootTimer);
+        bootFill.style.width = "100%";
+        setTimeout(() => boot.classList.add("hidden"), 400);
+        setTimeout(() => {
+          openWin("letter");
+          toast("欢迎来到 瓜瓜 OS ✿");
+        }, 900);
+      } else {
+        bootFill.style.width = bootP + "%";
+      }
+    }, 120);
+
+    /* ---------- icons ---------- */
+    document.querySelectorAll("canvas[data-draw]").forEach((c) => drawIcon(c, c.dataset.draw));
+    drawSailorGirl(document.getElementById("pixel-girl"));
+    drawCat(document.getElementById("pixel-cat"), 0);
+    drawCat(document.getElementById("big-cat"), 0);
+
+    /* ---------- floating décor ---------- */
+    const floatLayer = document.getElementById("float-layer");
+    const glyphs = ["★", "✦", "◆", "·", "✿", "♪"];
+    for (let i = 0; i < 18; i++) {
+      const el = document.createElement("span");
+      el.className = "floater " + (i % 3 === 0 ? "spark" : "star");
+      el.textContent = glyphs[i % glyphs.length];
+      el.style.left = Math.random() * 100 + "%";
+      el.style.top = Math.random() * 85 + "%";
+      el.style.fontSize = 10 + Math.random() * 14 + "px";
+      el.style.color = ["#ff6bac", "#c9b8ff", "#8fd4ff", "#fff76a", "#ff9ec8"][i % 5];
+      el.style.animationDuration = 3 + Math.random() * 5 + "s";
+      el.style.animationDelay = -Math.random() * 5 + "s";
+      floatLayer.appendChild(el);
+    }
+
+    /* ---------- clock ---------- */
+    const clockEl = document.getElementById("clock");
+    function tick() {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      clockEl.textContent = hh + ":" + mm;
+    }
+    tick();
+    setInterval(tick, 10000);
+
+    document.querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => openWin(btn.dataset.open));
+    });
+    document.querySelectorAll("[data-close]").forEach((btn) => {
+      btn.addEventListener("click", () => closeWin(btn.dataset.close));
+    });
+    document.querySelectorAll("[data-min]").forEach((btn) => {
+      btn.addEventListener("click", () => closeWin(btn.dataset.min));
+    });
+
+    /* drag windows (desktop only) */
+    document.querySelectorAll("[data-drag]").forEach((bar) => {
+      let ox, oy, dragging = false;
+      bar.addEventListener("pointerdown", (e) => {
+        if (window.matchMedia("(max-width: 600px)").matches) return;
+        if (e.target.closest(".win-btn")) return;
+        const win = document.getElementById(bar.dataset.drag);
+        dragging = true;
+        win.style.zIndex = ++zTop;
+        const rect = win.getBoundingClientRect();
+        ox = e.clientX - rect.left;
+        oy = e.clientY - rect.top;
+        bar.setPointerCapture(e.pointerId);
+      });
+      bar.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        const win = document.getElementById(bar.dataset.drag);
+        win.style.left = Math.max(0, e.clientX - ox) + "px";
+        win.style.top = Math.max(0, e.clientY - oy) + "px";
+      });
+      bar.addEventListener("pointerup", () => { dragging = false; });
+    });
+
+    /* start menu */
+    const startBtn = document.getElementById("start-btn");
+    const startMenu = document.getElementById("start-menu");
+    startBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      startMenu.classList.toggle("open");
+      startBtn.setAttribute("aria-expanded", startMenu.classList.contains("open"));
+    });
+    document.addEventListener("click", () => startMenu.classList.remove("open"));
+
+    /* ---------- chapters ---------- */
+    const panels = [...document.querySelectorAll("#win-letter [data-panel]")];
+    const dotsWrap = document.getElementById("chapter-dots");
+    let chapter = 0;
+    const unlocked = new Set([0]);
+    const titles = ["欢迎", "认识你", "留影", "怪味豆", "祝福"];
+
+    titles.forEach((t, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "dot" + (i === 0 ? " active unlocked" : "");
+      b.textContent = String(i + 1);
+      b.title = t;
+      b.disabled = i !== 0;
+      b.addEventListener("click", () => goChapter(i));
+      dotsWrap.appendChild(b);
+    });
+
+    function goChapter(i) {
+      if (!unlocked.has(i)) return;
+      chapter = i;
+      panels.forEach((p) => p.classList.toggle("active", Number(p.dataset.panel) === i));
+      [...dotsWrap.children].forEach((d, idx) => {
+        d.classList.toggle("active", idx === i);
+        d.classList.toggle("unlocked", unlocked.has(idx));
+        d.disabled = !unlocked.has(idx);
+      });
+      // reveal msgs in panel
+      panels[i].querySelectorAll(".msg.reveal").forEach((m) => {
+        requestAnimationFrame(() => m.classList.add("show"));
+      });
+    }
+
+    function unlock(i) {
+      unlocked.add(i);
+      const d = dotsWrap.children[i];
+      if (d) {
+        d.disabled = false;
+        d.classList.add("unlocked");
+      }
+    }
+
+    document.querySelectorAll("[data-next]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.disabled) return;
+        const next = Math.min(chapter + 1, panels.length - 1);
+        unlock(next);
+        goChapter(next);
+      });
+    });
+    document.querySelectorAll("[data-prev]").forEach((btn) => {
+      btn.addEventListener("click", () => goChapter(Math.max(chapter - 1, 0)));
+    });
+    document.querySelector("[data-open-photo]").addEventListener("click", () => openWin("photo"));
+    document.querySelector("[data-open-finale]").addEventListener("click", () => openWin("finale"));
+
+    /* flip cards */
+    let flipCount = 0;
+    document.querySelectorAll(".flip").forEach((card) => {
+      const flip = () => {
+        if (card.classList.contains("flipped")) return;
+        card.classList.add("flipped");
+        flipCount++;
+        if (flipCount >= 4) {
+          const msg = document.getElementById("flip-msg");
+          msg.textContent = "四张卡牌已全部解锁！准备进入下一篇章 →";
+          msg.classList.add("show");
+          const nextBtn = document.getElementById("btn-after-flip");
+          nextBtn.disabled = false;
+          nextBtn.style.opacity = "1";
+          unlock(2);
+        }
+      };
+      card.addEventListener("click", flip);
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); }
+      });
+    });
+
+    /* beans tray */
+    const tray = document.getElementById("beans-tray");
+    let beansLeft = 8;
+    const yumWords = ["好好吃！", "麻香～", "重庆味", "谢谢瓜瓜", "还要！", "绝了"];
+    for (let i = 0; i < 8; i++) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "bean";
+      b.setAttribute("aria-label", "怪味豆");
+      b.addEventListener("click", (e) => {
+        if (b.classList.contains("popped")) return;
+        b.classList.add("popped");
+        const pop = document.createElement("span");
+        pop.className = "bean-popup";
+        pop.textContent = yumWords[i % yumWords.length];
+        pop.style.left = e.clientX + "px";
+        pop.style.top = e.clientY + "px";
+        pop.style.position = "fixed";
+        pop.style.transform = "translateX(-50%)";
+        document.body.appendChild(pop);
+        setTimeout(() => pop.remove(), 900);
+        beansLeft--;
+        if (beansLeft <= 0) {
+          const msg = document.getElementById("beans-msg");
+          msg.textContent = "吃光啦。再次感谢——怪味豆大胜利！";
+          msg.classList.add("show");
+          const nb = document.getElementById("btn-after-beans");
+          nb.disabled = false;
+          nb.style.opacity = "1";
+          unlock(4);
+          toast("怪味豆全部消灭！超好吃 ★");
+        }
+      });
+      tray.appendChild(b);
+    }
+
+    /* wishes */
+    document.querySelectorAll(".wish-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        chip.classList.toggle("on");
+        if (chip.classList.contains("on")) toast("已点亮：" + chip.textContent);
+      });
+    });
+
+    /* cats */
+    let catMood = 0;
+    document.getElementById("pixel-cat").addEventListener("click", function () {
+      this.classList.remove("spin");
+      void this.offsetWidth;
+      this.classList.add("spin");
+      catMood = (catMood + 1) % 3;
+      drawCat(this, catMood);
+      toast(["喵～", "呼呼睡着了", "★ 开心！"][catMood]);
+    });
+    document.getElementById("btn-pet").addEventListener("click", () => {
+      catMood = (catMood + 1) % 3;
+      drawCat(document.getElementById("big-cat"), catMood);
+      toast(["呼噜呼噜…", "眯眼中", "太太太可爱了"][catMood]);
+    });
+    document.getElementById("big-cat").addEventListener("click", () => {
+      document.getElementById("btn-pet").click();
+    });
+
+    /* stars rain */
+    document.getElementById("icon-stars").addEventListener("click", () => {
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => spawnStar(), i * 60);
+      }
+      toast("像素星星起飞 ✈");
+    });
+    function spawnStar() {
+      const el = document.createElement("span");
+      const marks = ["★", "✦", "◆", "♪"];
+      el.textContent = marks[Math.floor(Math.random() * marks.length)];
+      el.style.cssText = `
+        position:fixed;z-index:80;pointer-events:none;
+        left:${Math.random() * 100}vw;top:100vh;
+        color:${["#ff6bac","#ff9ec8","#c9b8ff","#8fd4ff"][Math.floor(Math.random()*4)]};
+        font-size:${14 + Math.random() * 20}px;
+        transition:transform 2.8s ease-out, opacity 2.8s ease-out;
+      `;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => {
+        el.style.transform = `translateY(-110vh) rotate(${Math.random() * 60 - 30}deg)`;
+        el.style.opacity = "0";
+      });
+      setTimeout(() => el.remove(), 3000);
+    }
+
+    /* photo */
+    const crtScreen = document.getElementById("crt-screen");
+    const photoPh = document.getElementById("photo-ph");
+    const img = new Image();
+    img.alt = "瓜瓜带着生日帽";
+    img.onload = () => {
+      photoPh.remove();
+      crtScreen.appendChild(img);
+    };
+    img.onerror = () => {
+      /* keep placeholder — user adds photo.jpg */
+    };
+    img.src = "photo.jpg?" + Date.now();
+
+    const crt = document.getElementById("crt");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    crt.addEventListener("click", () => {
+      if (!img.complete || !img.naturalWidth) {
+        toast("请把照片命名为 photo.jpg 放在同一文件夹");
+        return;
+      }
+      lightboxImg.src = img.src;
+      lightbox.classList.add("show");
+      lightbox.setAttribute("aria-hidden", "false");
+    });
+    lightbox.addEventListener("click", () => {
+      lightbox.classList.remove("show");
+      lightbox.setAttribute("aria-hidden", "true");
+    });
+    document.getElementById("btn-photo-glow").addEventListener("click", () => {
+      crt.classList.toggle("glow");
+      toast(crt.classList.contains("glow") ? "粉光 ON" : "粉光 OFF");
+    });
+
+    /* age badge + confetti */
+    document.getElementById("age-badge").addEventListener("click", function () {
+      this.classList.remove("boom");
+      void this.offsetWidth;
+      this.classList.add("boom");
+      fireConfetti();
+    });
+    document.getElementById("btn-confetti").addEventListener("click", fireConfetti);
+    document.getElementById("btn-confetti-2").addEventListener("click", fireConfetti);
+
+    function fireConfetti() {
+      const canvas = document.getElementById("confetti");
+      canvas.style.display = "block";
+      const ctx = canvas.getContext("2d");
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      const parts = Array.from({ length: 90 }, () => ({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * canvas.height * 0.3,
+        r: 3 + Math.random() * 5,
+        c: ["#ff6bac", "#8fd4ff", "#c9b8ff", "#fff76a", "#ff9ec8", "#b8f0e0"][Math.floor(Math.random() * 6)],
+        vy: 2 + Math.random() * 4,
+        vx: -2 + Math.random() * 4,
+        rot: Math.random() * Math.PI,
+        vr: -0.1 + Math.random() * 0.2,
+      }));
+      let frames = 0;
+      function frame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        parts.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vr;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.c;
+          ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+          ctx.restore();
+        });
+        frames++;
+        if (frames < 120) requestAnimationFrame(frame);
+        else {
+          canvas.style.display = "none";
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      requestAnimationFrame(frame);
+      toast("生日快乐！！瓜瓜 ✿");
+    }
+
+    /* toast */
+    let toastTimer;
+    function toast(text) {
+      const t = document.getElementById("toast");
+      t.textContent = text;
+      t.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+    }
+
+    /* reduce motion */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll(".floater").forEach((f) => { f.style.animation = "none"; });
+    }
+  })();
+  </script>
+</body>
+</html>
