@@ -41,16 +41,6 @@
       margin: 0 auto;
       padding: 24px 20px 40px;
     }
-    h1 {
-      margin: 0 0 6px;
-      font-size: 1.45rem;
-      font-weight: 700;
-    }
-    .subtitle {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
     .toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -194,37 +184,10 @@
       font-weight: 700;
       color: #0b5fff !important;
     }
-    details.mapping {
-      margin-top: 18px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 14px;
-    }
-    details.mapping summary {
-      cursor: pointer;
-      font-weight: 600;
-    }
-    table.mapping {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 12.5px;
-    }
-    table.mapping th, table.mapping td {
-      border-bottom: 1px solid #e5e7eb;
-      text-align: left;
-      padding: 6px 8px;
-      vertical-align: top;
-    }
-    table.mapping th { color: var(--muted); font-weight: 600; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>NCBI Taxonomy Tree</h1>
-    <p class="subtitle">70 crop / economic species · lineage from NCBI Taxonomy · colored by category</p>
-
     <div class="toolbar">
       <input id="search" type="search" placeholder="Search" autocomplete="off" />
       <button class="btn" id="btn-expand" type="button">Expand all</button>
@@ -241,21 +204,6 @@
     <div class="panel">
       <div id="tree"></div>
     </div>
-
-    <details class="mapping">
-      <summary>Name mapping (common → scientific → TaxID)</summary>
-      <table class="mapping" id="mapping-table">
-        <thead>
-          <tr>
-            <th>Common</th>
-            <th>Category</th>
-            <th>Scientific name</th>
-            <th>TaxID</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </details>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -263,2066 +211,2026 @@
   <script>
     const TREE_DATA = [
   {
-    "id": "tax_2759",
-    "text": "Eukaryota [domain]",
+    "id": "tax_3398",
+    "text": "Magnoliopsida [class]",
     "type": "rank_upper",
     "state": {
       "opened": true
     },
     "children": [
       {
-        "id": "tax_33090",
-        "text": "Viridiplantae [kingdom]",
-        "type": "rank_upper",
+        "id": "tax_4209",
+        "text": "Asterales [order]",
+        "type": "rank_child",
         "state": {
           "opened": true
         },
         "children": [
           {
-            "id": "tax_35493",
-            "text": "Streptophyta [phylum]",
-            "type": "rank_upper",
+            "id": "tax_4210",
+            "text": "Asteraceae [family]",
+            "type": "rank_deep",
             "state": {
               "opened": true
             },
             "children": [
               {
-                "id": "tax_131221",
-                "text": "Streptophytina [subphylum]",
-                "type": "rank_upper",
+                "id": "tax_4231",
+                "text": "Helianthus [genus]",
+                "type": "rank_deep",
                 "state": {
                   "opened": true
                 },
                 "children": [
                   {
-                    "id": "tax_3398",
-                    "text": "Magnoliopsida [class]",
-                    "type": "rank_upper",
+                    "id": "sp_4232_Sunflower",
+                    "text": "Helianthus annuus (Sunflower)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 4232"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_4235",
+                "text": "Lactuca [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_4236_Lettuce",
+                    "text": "Lactuca sativa (Lettuce)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 4236"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_3699",
+        "text": "Brassicales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3700",
+            "text": "Brassicaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3705",
+                "text": "Brassica [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3712_Cauliflower",
+                    "text": "Brassica oleracea (Cauliflower)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3712"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3725",
+                "text": "Raphanus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3726_Radish",
+                    "text": "Raphanus sativus (Radish)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3726"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_3647",
+            "text": "Caricaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3648",
+                "text": "Carica [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3649_Papaya",
+                    "text": "Carica papaya (Papaya)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3649"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_71239",
+        "text": "Cucurbitales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3650",
+            "text": "Cucurbitaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3653",
+                "text": "Citrullus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3654_Watermelon",
+                    "text": "Citrullus lanatus (Watermelon)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3654"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3655",
+                "text": "Cucumis [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3659_Cucumber",
+                    "text": "Cucumis sativus (Cucumber)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3659"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3660",
+                "text": "Cucurbita [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3661_Pumpkin",
+                    "text": "Cucurbita maxima (Pumpkin)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3661"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  },
+                  {
+                    "id": "sp_3663_Zucchini",
+                    "text": "Cucurbita pepo (Zucchini)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3663"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3667",
+                "text": "Lagenaria [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3668_Bottle_Gourd",
+                    "text": "Lagenaria siceraria (Bottle_Gourd)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3668"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3669",
+                "text": "Luffa [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_56866_Ridge_Gourd",
+                    "text": "Luffa acutangula (Ridge_Gourd)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 56866"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  },
+                  {
+                    "id": "sp_3670_Luffa",
+                    "text": "Luffa aegyptiaca (Luffa)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3670"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3671",
+                "text": "Momordica [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3673_Bitter_Gourd",
+                    "text": "Momordica charantia (Bitter_Gourd)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3673"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3676",
+                "text": "Trichosanthes [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_50543_Snake_Gourd",
+                    "text": "Trichosanthes cucumerina (Snake_Gourd)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 50543"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_41945",
+        "text": "Ericales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_27065",
+            "text": "Theaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_4441",
+                "text": "Camellia [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_4442_Tea",
+                    "text": "Camellia sinensis (Tea)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 4442"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_72025",
+        "text": "Fabales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3803",
+            "text": "Fabaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3817",
+                "text": "Arachis [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3818_Groundnut",
+                    "text": "Arachis hypogaea (Groundnut)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 3818"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3826",
+                "text": "Cicer [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3827_Gram",
+                    "text": "Cicer arietinum (Gram)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3827"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3846",
+                "text": "Glycine [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3847_Soybean",
+                    "text": "Glycine max (Soybean)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 3847"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3853",
+                "text": "Lathyrus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3888_Pea",
+                    "text": "Lathyrus oleraceus (Pea)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3888"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3883",
+                "text": "Phaseolus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3885_Bean",
+                    "text": "Phaseolus vulgaris (Bean)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3885"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_3502",
+        "text": "Fagales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_16714",
+            "text": "Juglandaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_16718",
+                "text": "Juglans [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_51240_Walnut",
+                    "text": "Juglans regia (Walnut)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 51240"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_4055",
+        "text": "Gentianales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_24966",
+            "text": "Rubiaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_13442",
+                "text": "Coffea [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_13443_Coffee",
+                    "text": "Coffea arabica (Coffee)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 13443"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_4143",
+        "text": "Lamiales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_4136",
+            "text": "Lamiaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_39173",
+                "text": "Ocimum [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_204149_Holy_Basil",
+                    "text": "Ocimum tenuiflorum (Holy_Basil)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 204149"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_4144",
+            "text": "Oleaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_4145",
+                "text": "Olea [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_4146_Olive",
+                    "text": "Olea europaea (Olive)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 4146"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_3646",
+        "text": "Malpighiales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3977",
+            "text": "Euphorbiaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3982",
+                "text": "Manihot [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3983_Cassava",
+                    "text": "Manihot esculenta (Cassava)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 3983"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_41938",
+        "text": "Malvales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3629",
+            "text": "Malvaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_183218",
+                "text": "Abelmoschus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_455045_Okra",
+                    "text": "Abelmoschus esculentus (Okra)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 455045"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_93758",
+                "text": "Corchorus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_93759_Jute",
+                    "text": "Corchorus olitorius (Jute)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 93759"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_66655",
+                "text": "Durio [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_66656_Durian",
+                    "text": "Durio zibethinus (Durian)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 66656"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3633",
+                "text": "Gossypium [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3635_Cotton",
+                    "text": "Gossypium hirsutum (Cotton)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 3635"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_47605",
+                "text": "Hibiscus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_183298_Hibiscus",
+                    "text": "Hibiscus rosa-sinensis (Hibiscus)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 183298"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_41944",
+        "text": "Myrtales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3931",
+            "text": "Myrtaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_120289",
+                "text": "Psidium [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_120290_Guava",
+                    "text": "Psidium guajava (Guava)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 120290"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_178174",
+                "text": "Syzygium [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_260142_Jamun",
+                    "text": "Syzygium cumini (Jamun)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 260142"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_71243",
+        "text": "Oxalidales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_4033",
+            "text": "Oxalidaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_21563",
+                "text": "Averrhoa [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_28974_Carambola",
+                    "text": "Averrhoa carambola (Carambola)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 28974"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_1437197",
+        "text": "Petrosaviidae [subclass]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_40551",
+            "text": "Arecales [order]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_4710",
+                "text": "Arecaceae [family]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "tax_13893",
+                    "text": "Cocos [genus]",
+                    "type": "rank_deep",
                     "state": {
                       "opened": true
                     },
                     "children": [
                       {
-                        "id": "tax_4209",
-                        "text": "Asterales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
+                        "id": "sp_13894_Palm",
+                        "text": "Cocos nucifera (Palm)",
+                        "type": "species_other",
+                        "li_attr": {
+                          "class": "species-leaf cat-other",
+                          "title": "Other economical species | TaxID 13894"
                         },
-                        "children": [
-                          {
-                            "id": "tax_4210",
-                            "text": "Asteraceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4231",
-                                "text": "Helianthus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_4232_Sunflower",
-                                    "text": "Helianthus annuus (Sunflower)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 4232"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_4235",
-                                "text": "Lactuca [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_4236_Lettuce",
-                                    "text": "Lactuca sativa (Lettuce)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 4236"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_3699",
-                        "text": "Brassicales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3700",
-                            "text": "Brassicaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3705",
-                                "text": "Brassica [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3712_Cauliflower",
-                                    "text": "Brassica oleracea (Cauliflower)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3712"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3725",
-                                "text": "Raphanus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3726_Radish",
-                                    "text": "Raphanus sativus (Radish)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3726"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_3647",
-                            "text": "Caricaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3648",
-                                "text": "Carica [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3649_Papaya",
-                                    "text": "Carica papaya (Papaya)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3649"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_71239",
-                        "text": "Cucurbitales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3650",
-                            "text": "Cucurbitaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3653",
-                                "text": "Citrullus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3654_Watermelon",
-                                    "text": "Citrullus lanatus (Watermelon)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3654"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3655",
-                                "text": "Cucumis [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3659_Cucumber",
-                                    "text": "Cucumis sativus (Cucumber)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3659"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3660",
-                                "text": "Cucurbita [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3661_Pumpkin",
-                                    "text": "Cucurbita maxima (Pumpkin)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3661"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  },
-                                  {
-                                    "id": "sp_3663_Zucchini",
-                                    "text": "Cucurbita pepo (Zucchini)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3663"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3667",
-                                "text": "Lagenaria [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3668_Bottle_Gourd",
-                                    "text": "Lagenaria siceraria (Bottle_Gourd)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3668"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3669",
-                                "text": "Luffa [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_56866_Ridge_Gourd",
-                                    "text": "Luffa acutangula (Ridge_Gourd)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 56866"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  },
-                                  {
-                                    "id": "sp_3670_Luffa",
-                                    "text": "Luffa aegyptiaca (Luffa)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3670"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3671",
-                                "text": "Momordica [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3673_Bitter_Gourd",
-                                    "text": "Momordica charantia (Bitter_Gourd)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3673"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3676",
-                                "text": "Trichosanthes [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_50543_Snake_Gourd",
-                                    "text": "Trichosanthes cucumerina (Snake_Gourd)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 50543"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_41945",
-                        "text": "Ericales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_27065",
-                            "text": "Theaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4441",
-                                "text": "Camellia [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_4442_Tea",
-                                    "text": "Camellia sinensis (Tea)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 4442"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_72025",
-                        "text": "Fabales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3803",
-                            "text": "Fabaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3817",
-                                "text": "Arachis [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3818_Groundnut",
-                                    "text": "Arachis hypogaea (Groundnut)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 3818"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3826",
-                                "text": "Cicer [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3827_Gram",
-                                    "text": "Cicer arietinum (Gram)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3827"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3846",
-                                "text": "Glycine [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3847_Soybean",
-                                    "text": "Glycine max (Soybean)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 3847"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3853",
-                                "text": "Lathyrus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3888_Pea",
-                                    "text": "Lathyrus oleraceus (Pea)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3888"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3883",
-                                "text": "Phaseolus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3885_Bean",
-                                    "text": "Phaseolus vulgaris (Bean)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3885"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_3502",
-                        "text": "Fagales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_16714",
-                            "text": "Juglandaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_16718",
-                                "text": "Juglans [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_51240_Walnut",
-                                    "text": "Juglans regia (Walnut)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 51240"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_4055",
-                        "text": "Gentianales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_24966",
-                            "text": "Rubiaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_13442",
-                                "text": "Coffea [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_13443_Coffee",
-                                    "text": "Coffea arabica (Coffee)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 13443"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_4143",
-                        "text": "Lamiales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_4136",
-                            "text": "Lamiaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_39173",
-                                "text": "Ocimum [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_204149_Holy_Basil",
-                                    "text": "Ocimum tenuiflorum (Holy_Basil)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 204149"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_4144",
-                            "text": "Oleaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4145",
-                                "text": "Olea [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_4146_Olive",
-                                    "text": "Olea europaea (Olive)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 4146"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_3646",
-                        "text": "Malpighiales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3977",
-                            "text": "Euphorbiaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3982",
-                                "text": "Manihot [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3983_Cassava",
-                                    "text": "Manihot esculenta (Cassava)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 3983"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_41938",
-                        "text": "Malvales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3629",
-                            "text": "Malvaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_183218",
-                                "text": "Abelmoschus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_455045_Okra",
-                                    "text": "Abelmoschus esculentus (Okra)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 455045"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_93758",
-                                "text": "Corchorus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_93759_Jute",
-                                    "text": "Corchorus olitorius (Jute)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 93759"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_66655",
-                                "text": "Durio [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_66656_Durian",
-                                    "text": "Durio zibethinus (Durian)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 66656"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3633",
-                                "text": "Gossypium [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3635_Cotton",
-                                    "text": "Gossypium hirsutum (Cotton)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 3635"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_47605",
-                                "text": "Hibiscus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_183298_Hibiscus",
-                                    "text": "Hibiscus rosa-sinensis (Hibiscus)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 183298"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_41944",
-                        "text": "Myrtales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3931",
-                            "text": "Myrtaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_120289",
-                                "text": "Psidium [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_120290_Guava",
-                                    "text": "Psidium guajava (Guava)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 120290"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_178174",
-                                "text": "Syzygium [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_260142_Jamun",
-                                    "text": "Syzygium cumini (Jamun)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 260142"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_71243",
-                        "text": "Oxalidales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_4033",
-                            "text": "Oxalidaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_21563",
-                                "text": "Averrhoa [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_28974_Carambola",
-                                    "text": "Averrhoa carambola (Carambola)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 28974"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_1437197",
-                        "text": "Petrosaviidae [subclass]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_40551",
-                            "text": "Arecales [order]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4710",
-                                "text": "Arecaceae [family]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "tax_13893",
-                                    "text": "Cocos [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_13894_Palm",
-                                        "text": "Cocos nucifera (Palm)",
-                                        "type": "species_other",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-other",
-                                          "title": "Other economical species | TaxID 13894"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-other"
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_73496",
-                            "text": "Asparagales [order]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_51383",
-                                "text": "Asphodelaceae [family]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "tax_25641",
-                                    "text": "Aloe [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_34199_Aloevera",
-                                        "text": "Aloe vera (Aloevera)",
-                                        "type": "species_other",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-other",
-                                          "title": "Other economical species | TaxID 34199"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-other"
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_38820",
-                            "text": "Poales [order]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4613",
-                                "text": "Bromeliaceae [family]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "tax_4614",
-                                    "text": "Ananas [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_4615_Pineapple",
-                                        "text": "Ananas comosus (Pineapple)",
-                                        "type": "species_fruits",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-fruits",
-                                          "title": "Fruits | TaxID 4615"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-fruits"
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_4479",
-                                "text": "Poaceae [family]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "tax_4527",
-                                    "text": "Oryza [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_4530_Rice",
-                                        "text": "Oryza sativa (Rice)",
-                                        "type": "species_cereals",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-cereals",
-                                          "title": "Cereals | TaxID 4530"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-cereals"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "id": "tax_4546",
-                                    "text": "Saccharum [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_4547_Sugarcane",
-                                        "text": "Saccharum officinarum (Sugarcane)",
-                                        "type": "species_other",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-other",
-                                          "title": "Other economical species | TaxID 4547"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-other"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "id": "tax_4554",
-                                    "text": "Setaria [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_4555_Millet",
-                                        "text": "Setaria italica (Millet)",
-                                        "type": "species_cereals",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-cereals",
-                                          "title": "Cereals | TaxID 4555"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-cereals"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "id": "tax_4564",
-                                    "text": "Triticum [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_4565_Wheat",
-                                        "text": "Triticum aestivum (Wheat)",
-                                        "type": "species_cereals",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-cereals",
-                                          "title": "Cereals | TaxID 4565"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-cereals"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "id": "tax_4575",
-                                    "text": "Zea [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_4577_Corn",
-                                        "text": "Zea mays (Corn)",
-                                        "type": "species_cereals",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-cereals",
-                                          "title": "Cereals | TaxID 4577"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-cereals"
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_4618",
-                            "text": "Zingiberales [order]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4637",
-                                "text": "Musaceae [family]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "tax_4640",
-                                    "text": "Musa [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_4641_Banana",
-                                        "text": "Musa acuminata (Banana)",
-                                        "type": "species_fruits",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-fruits",
-                                          "title": "Fruits | TaxID 4641"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-fruits"
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_4642",
-                                "text": "Zingiberaceae [family]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "tax_99568",
-                                    "text": "Curcuma [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_136217_Turmeric",
-                                        "text": "Curcuma longa (Turmeric)",
-                                        "type": "species_other",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-other",
-                                          "title": "Other economical species | TaxID 136217"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-other"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "id": "tax_105180",
-                                    "text": "Elettaria [genus]",
-                                    "type": "rank_deep",
-                                    "state": {
-                                      "opened": true
-                                    },
-                                    "children": [
-                                      {
-                                        "id": "sp_105181_Cardamom",
-                                        "text": "Elettaria cardamomum (Cardamom)",
-                                        "type": "species_other",
-                                        "li_attr": {
-                                          "class": "species-leaf cat-other",
-                                          "title": "Other economical species | TaxID 105181"
-                                        },
-                                        "a_attr": {
-                                          "class": "species-box cat-other"
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_16736",
-                        "text": "Piperales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_16739",
-                            "text": "Piperaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_13215",
-                                "text": "Piper [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_13216_Black_Pepper",
-                                    "text": "Piper nigrum (Black_Pepper)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 13216"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_232378",
-                        "text": "Proteales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_4401",
-                            "text": "Platanaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4402",
-                                "text": "Platanus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_122832_Chinar",
-                                    "text": "Platanus orientalis (Chinar)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 122832"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_3744",
-                        "text": "Rosales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3481",
-                            "text": "Cannabaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3484",
-                                "text": "Humulus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3486_Hops",
-                                    "text": "Humulus lupulus (Hops)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 3486"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_3487",
-                            "text": "Moraceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3488",
-                                "text": "Artocarpus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3489_Jackfruit",
-                                    "text": "Artocarpus heterophyllus (Jackfruit)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3489"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3493",
-                                "text": "Ficus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3494_Fig",
-                                    "text": "Ficus carica (Fig)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3494"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3497",
-                                "text": "Morus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3498_Mulberry",
-                                    "text": "Morus alba (Mulberry)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3498"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_3608",
-                            "text": "Rhamnaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_72171",
-                                "text": "Ziziphus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_326968_Jujube",
-                                    "text": "Ziziphus jujuba (Jujube)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 326968"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_3745",
-                            "text": "Rosaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3746",
-                                "text": "Fragaria [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3747_Strawberry",
-                                    "text": "Fragaria x ananassa (Strawberry)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3747"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3749",
-                                "text": "Malus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_3750_Apple",
-                                    "text": "Malus domestica (Apple)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3750"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3754",
-                                "text": "Prunus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_42229_Cherry",
-                                    "text": "Prunus avium (Cherry)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 42229"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  },
-                                  {
-                                    "id": "sp_3760_Peach",
-                                    "text": "Prunus persica (Peach)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 3760"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3766",
-                                "text": "Pyrus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_23211_Pear",
-                                    "text": "Pyrus communis (Pear)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 23211"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_3764",
-                                "text": "Rosa [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_74649_Rose",
-                                    "text": "Rosa chinensis (Rose)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 74649"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_41937",
-                        "text": "Sapindales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_4011",
-                            "text": "Anacardiaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_171928",
-                                "text": "Anacardium [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_171929_Cashew",
-                                    "text": "Anacardium occidentale (Cashew)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 171929"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_23461",
-                                "text": "Mangifera [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_29780_Mango",
-                                    "text": "Mangifera indica (Mango)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 29780"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_43707",
-                            "text": "Meliaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_124942",
-                                "text": "Azadirachta [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_124943_Neem",
-                                    "text": "Azadirachta indica (Neem)",
-                                    "type": "species_other",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-other",
-                                      "title": "Other economical species | TaxID 124943"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-other"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_23513",
-                            "text": "Rutaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_68526",
-                                "text": "Aegle [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_68527_Bael",
-                                    "text": "Aegle marmelos (Bael)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 68527"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_2706",
-                                "text": "Citrus [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_2711_Citrus",
-                                    "text": "Citrus sinensis (Citrus)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 2711"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  },
-                                  {
-                                    "id": "sp_2708_Lemon",
-                                    "text": "Citrus x limon (Lemon)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 2708"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "tax_23672",
-                            "text": "Sapindaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_151068",
-                                "text": "Litchi [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_151069_Lychee",
-                                    "text": "Litchi chinensis (Lychee)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 151069"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_4069",
-                        "text": "Solanales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_4070",
-                            "text": "Solanaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_4071",
-                                "text": "Capsicum [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_4072_Bell_Pepper",
-                                    "text": "Capsicum annuum (Bell_Pepper)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 4072"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  },
-                                  {
-                                    "id": "sp_4073_Chili",
-                                    "text": "Capsicum frutescens (Chili)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 4073"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "id": "tax_4107",
-                                "text": "Solanum [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_4081_Tomato",
-                                    "text": "Solanum lycopersicum (Tomato)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 4081"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  },
-                                  {
-                                    "id": "sp_4111_Eggplant",
-                                    "text": "Solanum melongena (Eggplant)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 4111"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  },
-                                  {
-                                    "id": "sp_4113_Potato",
-                                    "text": "Solanum tuberosum (Potato)",
-                                    "type": "species_vegetables",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-vegetables",
-                                      "title": "Vegetables | TaxID 4113"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-vegetables"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "tax_403667",
-                        "text": "Vitales [order]",
-                        "type": "rank_child",
-                        "state": {
-                          "opened": true
-                        },
-                        "children": [
-                          {
-                            "id": "tax_3602",
-                            "text": "Vitaceae [family]",
-                            "type": "rank_deep",
-                            "state": {
-                              "opened": true
-                            },
-                            "children": [
-                              {
-                                "id": "tax_3603",
-                                "text": "Vitis [genus]",
-                                "type": "rank_deep",
-                                "state": {
-                                  "opened": true
-                                },
-                                "children": [
-                                  {
-                                    "id": "sp_29760_Grape",
-                                    "text": "Vitis vinifera (Grape)",
-                                    "type": "species_fruits",
-                                    "li_attr": {
-                                      "class": "species-leaf cat-fruits",
-                                      "title": "Fruits | TaxID 29760"
-                                    },
-                                    "a_attr": {
-                                      "class": "species-box cat-fruits"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
+                        "a_attr": {
+                          "class": "species-box cat-other"
+                        }
                       }
                     ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_73496",
+            "text": "Asparagales [order]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_51383",
+                "text": "Asphodelaceae [family]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "tax_25641",
+                    "text": "Aloe [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_34199_Aloevera",
+                        "text": "Aloe vera (Aloevera)",
+                        "type": "species_other",
+                        "li_attr": {
+                          "class": "species-leaf cat-other",
+                          "title": "Other economical species | TaxID 34199"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-other"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_38820",
+            "text": "Poales [order]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_4613",
+                "text": "Bromeliaceae [family]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "tax_4614",
+                    "text": "Ananas [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_4615_Pineapple",
+                        "text": "Ananas comosus (Pineapple)",
+                        "type": "species_fruits",
+                        "li_attr": {
+                          "class": "species-leaf cat-fruits",
+                          "title": "Fruits | TaxID 4615"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-fruits"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "tax_4479",
+                "text": "Poaceae [family]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "tax_4527",
+                    "text": "Oryza [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_4530_Rice",
+                        "text": "Oryza sativa (Rice)",
+                        "type": "species_cereals",
+                        "li_attr": {
+                          "class": "species-leaf cat-cereals",
+                          "title": "Cereals | TaxID 4530"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-cereals"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "tax_4546",
+                    "text": "Saccharum [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_4547_Sugarcane",
+                        "text": "Saccharum officinarum (Sugarcane)",
+                        "type": "species_other",
+                        "li_attr": {
+                          "class": "species-leaf cat-other",
+                          "title": "Other economical species | TaxID 4547"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-other"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "tax_4554",
+                    "text": "Setaria [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_4555_Millet",
+                        "text": "Setaria italica (Millet)",
+                        "type": "species_cereals",
+                        "li_attr": {
+                          "class": "species-leaf cat-cereals",
+                          "title": "Cereals | TaxID 4555"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-cereals"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "tax_4564",
+                    "text": "Triticum [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_4565_Wheat",
+                        "text": "Triticum aestivum (Wheat)",
+                        "type": "species_cereals",
+                        "li_attr": {
+                          "class": "species-leaf cat-cereals",
+                          "title": "Cereals | TaxID 4565"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-cereals"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "tax_4575",
+                    "text": "Zea [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_4577_Corn",
+                        "text": "Zea mays (Corn)",
+                        "type": "species_cereals",
+                        "li_attr": {
+                          "class": "species-leaf cat-cereals",
+                          "title": "Cereals | TaxID 4577"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-cereals"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_4618",
+            "text": "Zingiberales [order]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_4637",
+                "text": "Musaceae [family]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "tax_4640",
+                    "text": "Musa [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_4641_Banana",
+                        "text": "Musa acuminata (Banana)",
+                        "type": "species_fruits",
+                        "li_attr": {
+                          "class": "species-leaf cat-fruits",
+                          "title": "Fruits | TaxID 4641"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-fruits"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "tax_4642",
+                "text": "Zingiberaceae [family]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "tax_99568",
+                    "text": "Curcuma [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_136217_Turmeric",
+                        "text": "Curcuma longa (Turmeric)",
+                        "type": "species_other",
+                        "li_attr": {
+                          "class": "species-leaf cat-other",
+                          "title": "Other economical species | TaxID 136217"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-other"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "tax_105180",
+                    "text": "Elettaria [genus]",
+                    "type": "rank_deep",
+                    "state": {
+                      "opened": true
+                    },
+                    "children": [
+                      {
+                        "id": "sp_105181_Cardamom",
+                        "text": "Elettaria cardamomum (Cardamom)",
+                        "type": "species_other",
+                        "li_attr": {
+                          "class": "species-leaf cat-other",
+                          "title": "Other economical species | TaxID 105181"
+                        },
+                        "a_attr": {
+                          "class": "species-box cat-other"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_16736",
+        "text": "Piperales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_16739",
+            "text": "Piperaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_13215",
+                "text": "Piper [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_13216_Black_Pepper",
+                    "text": "Piper nigrum (Black_Pepper)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 13216"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_232378",
+        "text": "Proteales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_4401",
+            "text": "Platanaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_4402",
+                "text": "Platanus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_122832_Chinar",
+                    "text": "Platanus orientalis (Chinar)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 122832"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_3744",
+        "text": "Rosales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3481",
+            "text": "Cannabaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3484",
+                "text": "Humulus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3486_Hops",
+                    "text": "Humulus lupulus (Hops)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 3486"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_3487",
+            "text": "Moraceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3488",
+                "text": "Artocarpus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3489_Jackfruit",
+                    "text": "Artocarpus heterophyllus (Jackfruit)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3489"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3493",
+                "text": "Ficus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3494_Fig",
+                    "text": "Ficus carica (Fig)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3494"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3497",
+                "text": "Morus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3498_Mulberry",
+                    "text": "Morus alba (Mulberry)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3498"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_3608",
+            "text": "Rhamnaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_72171",
+                "text": "Ziziphus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_326968_Jujube",
+                    "text": "Ziziphus jujuba (Jujube)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 326968"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_3745",
+            "text": "Rosaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3746",
+                "text": "Fragaria [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3747_Strawberry",
+                    "text": "Fragaria x ananassa (Strawberry)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3747"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3749",
+                "text": "Malus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_3750_Apple",
+                    "text": "Malus domestica (Apple)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3750"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3754",
+                "text": "Prunus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_42229_Cherry",
+                    "text": "Prunus avium (Cherry)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 42229"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  },
+                  {
+                    "id": "sp_3760_Peach",
+                    "text": "Prunus persica (Peach)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 3760"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3766",
+                "text": "Pyrus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_23211_Pear",
+                    "text": "Pyrus communis (Pear)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 23211"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_3764",
+                "text": "Rosa [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_74649_Rose",
+                    "text": "Rosa chinensis (Rose)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 74649"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_41937",
+        "text": "Sapindales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_4011",
+            "text": "Anacardiaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_171928",
+                "text": "Anacardium [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_171929_Cashew",
+                    "text": "Anacardium occidentale (Cashew)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 171929"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_23461",
+                "text": "Mangifera [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_29780_Mango",
+                    "text": "Mangifera indica (Mango)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 29780"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_43707",
+            "text": "Meliaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_124942",
+                "text": "Azadirachta [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_124943_Neem",
+                    "text": "Azadirachta indica (Neem)",
+                    "type": "species_other",
+                    "li_attr": {
+                      "class": "species-leaf cat-other",
+                      "title": "Other economical species | TaxID 124943"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-other"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_23513",
+            "text": "Rutaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_68526",
+                "text": "Aegle [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_68527_Bael",
+                    "text": "Aegle marmelos (Bael)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 68527"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_2706",
+                "text": "Citrus [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_2711_Citrus",
+                    "text": "Citrus sinensis (Citrus)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 2711"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  },
+                  {
+                    "id": "sp_2708_Lemon",
+                    "text": "Citrus x limon (Lemon)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 2708"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tax_23672",
+            "text": "Sapindaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_151068",
+                "text": "Litchi [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_151069_Lychee",
+                    "text": "Litchi chinensis (Lychee)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 151069"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_4069",
+        "text": "Solanales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_4070",
+            "text": "Solanaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_4071",
+                "text": "Capsicum [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_4072_Bell_Pepper",
+                    "text": "Capsicum annuum (Bell_Pepper)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 4072"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  },
+                  {
+                    "id": "sp_4073_Chili",
+                    "text": "Capsicum frutescens (Chili)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 4073"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "tax_4107",
+                "text": "Solanum [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_4081_Tomato",
+                    "text": "Solanum lycopersicum (Tomato)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 4081"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  },
+                  {
+                    "id": "sp_4111_Eggplant",
+                    "text": "Solanum melongena (Eggplant)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 4111"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  },
+                  {
+                    "id": "sp_4113_Potato",
+                    "text": "Solanum tuberosum (Potato)",
+                    "type": "species_vegetables",
+                    "li_attr": {
+                      "class": "species-leaf cat-vegetables",
+                      "title": "Vegetables | TaxID 4113"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-vegetables"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tax_403667",
+        "text": "Vitales [order]",
+        "type": "rank_child",
+        "state": {
+          "opened": true
+        },
+        "children": [
+          {
+            "id": "tax_3602",
+            "text": "Vitaceae [family]",
+            "type": "rank_deep",
+            "state": {
+              "opened": true
+            },
+            "children": [
+              {
+                "id": "tax_3603",
+                "text": "Vitis [genus]",
+                "type": "rank_deep",
+                "state": {
+                  "opened": true
+                },
+                "children": [
+                  {
+                    "id": "sp_29760_Grape",
+                    "text": "Vitis vinifera (Grape)",
+                    "type": "species_fruits",
+                    "li_attr": {
+                      "class": "species-leaf cat-fruits",
+                      "title": "Fruits | TaxID 29760"
+                    },
+                    "a_attr": {
+                      "class": "species-box cat-fruits"
+                    }
                   }
                 ]
               }
@@ -2333,505 +2241,6 @@
     ]
   }
 ];
-    const MAPPING = [
-  {
-    "common": "Corn",
-    "category": "cereals",
-    "category_label": "Cereals",
-    "scientific": "Zea mays",
-    "taxid": 4577
-  },
-  {
-    "common": "Rice",
-    "category": "cereals",
-    "category_label": "Cereals",
-    "scientific": "Oryza sativa",
-    "taxid": 4530
-  },
-  {
-    "common": "Wheat",
-    "category": "cereals",
-    "category_label": "Cereals",
-    "scientific": "Triticum aestivum",
-    "taxid": 4565
-  },
-  {
-    "common": "Millet",
-    "category": "cereals",
-    "category_label": "Cereals",
-    "scientific": "Setaria italica",
-    "taxid": 4555
-  },
-  {
-    "common": "Apple",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Malus domestica",
-    "taxid": 3750
-  },
-  {
-    "common": "Bael",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Aegle marmelos",
-    "taxid": 68527
-  },
-  {
-    "common": "Banana",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Musa acuminata",
-    "taxid": 4641
-  },
-  {
-    "common": "Carambola",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Averrhoa carambola",
-    "taxid": 28974
-  },
-  {
-    "common": "Cherry",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Prunus avium",
-    "taxid": 42229
-  },
-  {
-    "common": "Citrus",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Citrus sinensis",
-    "taxid": 2711
-  },
-  {
-    "common": "Durian",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Durio zibethinus",
-    "taxid": 66656
-  },
-  {
-    "common": "Fig",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Ficus carica",
-    "taxid": 3494
-  },
-  {
-    "common": "Grape",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Vitis vinifera",
-    "taxid": 29760
-  },
-  {
-    "common": "Guava",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Psidium guajava",
-    "taxid": 120290
-  },
-  {
-    "common": "Jackfruit",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Artocarpus heterophyllus",
-    "taxid": 3489
-  },
-  {
-    "common": "Jamun",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Syzygium cumini",
-    "taxid": 260142
-  },
-  {
-    "common": "Lemon",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Citrus x limon",
-    "taxid": 2708
-  },
-  {
-    "common": "Lychee",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Litchi chinensis",
-    "taxid": 151069
-  },
-  {
-    "common": "Mango",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Mangifera indica",
-    "taxid": 29780
-  },
-  {
-    "common": "Mulberry",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Morus alba",
-    "taxid": 3498
-  },
-  {
-    "common": "Olive",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Olea europaea",
-    "taxid": 4146
-  },
-  {
-    "common": "Peach",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Prunus persica",
-    "taxid": 3760
-  },
-  {
-    "common": "Pear",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Pyrus communis",
-    "taxid": 23211
-  },
-  {
-    "common": "Strawberry",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Fragaria x ananassa",
-    "taxid": 3747
-  },
-  {
-    "common": "Watermelon",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Citrullus lanatus",
-    "taxid": 3654
-  },
-  {
-    "common": "Jujube",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Ziziphus jujuba",
-    "taxid": 326968
-  },
-  {
-    "common": "Pineapple",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Ananas comosus",
-    "taxid": 4615
-  },
-  {
-    "common": "Papaya",
-    "category": "fruits",
-    "category_label": "Fruits",
-    "scientific": "Carica papaya",
-    "taxid": 3649
-  },
-  {
-    "common": "Bean",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Phaseolus vulgaris",
-    "taxid": 3885
-  },
-  {
-    "common": "Bell_Pepper",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Capsicum annuum",
-    "taxid": 4072
-  },
-  {
-    "common": "Bitter_Gourd",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Momordica charantia",
-    "taxid": 3673
-  },
-  {
-    "common": "Bottle_Gourd",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Lagenaria siceraria",
-    "taxid": 3668
-  },
-  {
-    "common": "Cassava",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Manihot esculenta",
-    "taxid": 3983
-  },
-  {
-    "common": "Cauliflower",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Brassica oleracea",
-    "taxid": 3712
-  },
-  {
-    "common": "Chili",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Capsicum frutescens",
-    "taxid": 4073
-  },
-  {
-    "common": "Cucumber",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Cucumis sativus",
-    "taxid": 3659
-  },
-  {
-    "common": "Eggplant",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Solanum melongena",
-    "taxid": 4111
-  },
-  {
-    "common": "Gram",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Cicer arietinum",
-    "taxid": 3827
-  },
-  {
-    "common": "Lettuce",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Lactuca sativa",
-    "taxid": 4236
-  },
-  {
-    "common": "Luffa",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Luffa aegyptiaca",
-    "taxid": 3670
-  },
-  {
-    "common": "Okra",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Abelmoschus esculentus",
-    "taxid": 455045
-  },
-  {
-    "common": "Pea",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Lathyrus oleraceus",
-    "taxid": 3888
-  },
-  {
-    "common": "Potato",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Solanum tuberosum",
-    "taxid": 4113
-  },
-  {
-    "common": "Pumpkin",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Cucurbita maxima",
-    "taxid": 3661
-  },
-  {
-    "common": "Radish",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Raphanus sativus",
-    "taxid": 3726
-  },
-  {
-    "common": "Ridge_Gourd",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Luffa acutangula",
-    "taxid": 56866
-  },
-  {
-    "common": "Snake_Gourd",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Trichosanthes cucumerina",
-    "taxid": 50543
-  },
-  {
-    "common": "Tomato",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Solanum lycopersicum",
-    "taxid": 4081
-  },
-  {
-    "common": "Zucchini",
-    "category": "vegetables",
-    "category_label": "Vegetables",
-    "scientific": "Cucurbita pepo",
-    "taxid": 3663
-  },
-  {
-    "common": "Aloevera",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Aloe vera",
-    "taxid": 34199
-  },
-  {
-    "common": "Black_Pepper",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Piper nigrum",
-    "taxid": 13216
-  },
-  {
-    "common": "Cardamom",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Elettaria cardamomum",
-    "taxid": 105181
-  },
-  {
-    "common": "Cashew",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Anacardium occidentale",
-    "taxid": 171929
-  },
-  {
-    "common": "Chinar",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Platanus orientalis",
-    "taxid": 122832
-  },
-  {
-    "common": "Coffee",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Coffea arabica",
-    "taxid": 13443
-  },
-  {
-    "common": "Cotton",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Gossypium hirsutum",
-    "taxid": 3635
-  },
-  {
-    "common": "Groundnut",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Arachis hypogaea",
-    "taxid": 3818
-  },
-  {
-    "common": "Hibiscus",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Hibiscus rosa-sinensis",
-    "taxid": 183298
-  },
-  {
-    "common": "Holy_Basil",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Ocimum tenuiflorum",
-    "taxid": 204149
-  },
-  {
-    "common": "Hops",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Humulus lupulus",
-    "taxid": 3486
-  },
-  {
-    "common": "Jute",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Corchorus olitorius",
-    "taxid": 93759
-  },
-  {
-    "common": "Neem",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Azadirachta indica",
-    "taxid": 124943
-  },
-  {
-    "common": "Palm",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Cocos nucifera",
-    "taxid": 13894
-  },
-  {
-    "common": "Rose",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Rosa chinensis",
-    "taxid": 74649
-  },
-  {
-    "common": "Soybean",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Glycine max",
-    "taxid": 3847
-  },
-  {
-    "common": "Sugarcane",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Saccharum officinarum",
-    "taxid": 4547
-  },
-  {
-    "common": "Sunflower",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Helianthus annuus",
-    "taxid": 4232
-  },
-  {
-    "common": "Tea",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Camellia sinensis",
-    "taxid": 4442
-  },
-  {
-    "common": "Turmeric",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Curcuma longa",
-    "taxid": 136217
-  },
-  {
-    "common": "Walnut",
-    "category": "other",
-    "category_label": "Other economical species",
-    "scientific": "Juglans regia",
-    "taxid": 51240
-  }
-];
-
-    const tbody = document.querySelector("#mapping-table tbody");
-    MAPPING.forEach(row => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${row.common}</td><td>${row.category_label}</td><td><i>${row.scientific}</i></td><td>${row.taxid}</td>`;
-      tbody.appendChild(tr);
-    });
 
     $("#tree").jstree({
       core: {
