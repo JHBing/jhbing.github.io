@@ -43,11 +43,13 @@ const activeApp = document.getElementById("activeApp");
 
 let pin = "";
 let meatScore = 0;
-let audioCtx = null;
 let musicOn = false;
-let musicTimer = null;
 let zCounter = 40;
 let mailOpened = false;
+const bgm = new Audio("ryy_assets/ryy.mp3");
+bgm.loop = true;
+bgm.preload = "auto";
+bgm.volume = 0.55;
 
 function pad(n) {
   return String(n).padStart(2, "0");
@@ -95,6 +97,7 @@ function unlock() {
     stage.hidden = false;
     showToast("ryyOS 26.0 启动成功 ♡");
     burstConfetti();
+    startBgm();
   }, 480);
 }
 
@@ -405,38 +408,37 @@ function tickParticles() {
   requestAnimationFrame(tickParticles);
 }
 
-function startMusic() {
-  audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-  const notes = [523.25, 659.25, 783.99, 659.25, 587.33, 523.25];
-  let i = 0;
-  const play = () => {
-    if (!musicOn) return;
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.type = "triangle";
-    o.frequency.value = notes[i % notes.length];
-    g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.03, audioCtx.currentTime + 0.03);
-    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
-    o.connect(g).connect(audioCtx.destination);
-    o.start();
-    o.stop(audioCtx.currentTime + 0.52);
-    i += 1;
-    musicTimer = setTimeout(play, 500);
-  };
-  play();
+async function startBgm() {
+  try {
+    bgm.currentTime = 0;
+    await bgm.play();
+    musicOn = true;
+    soundBtn.classList.add("on");
+  } catch (_) {
+    musicOn = false;
+    soundBtn.classList.remove("on");
+  }
 }
 
-soundBtn.addEventListener("click", async () => {
-  musicOn = !musicOn;
-  soundBtn.classList.toggle("on", musicOn);
-  if (musicOn) {
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === "suspended") await audioCtx.resume();
-    startMusic();
-  } else if (musicTimer) {
-    clearTimeout(musicTimer);
+async function toggleBgm() {
+  if (musicOn && !bgm.paused) {
+    bgm.pause();
+    musicOn = false;
+    soundBtn.classList.remove("on");
+    return;
   }
+  try {
+    await bgm.play();
+    musicOn = true;
+    soundBtn.classList.add("on");
+  } catch (_) {
+    musicOn = false;
+    soundBtn.classList.remove("on");
+  }
+}
+
+soundBtn.addEventListener("click", () => {
+  toggleBgm();
 });
 
 window.addEventListener("resize", () => {
