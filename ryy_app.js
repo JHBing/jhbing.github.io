@@ -83,7 +83,7 @@ function tryUnlock() {
     return;
   }
   gate.classList.add("shake");
-  gateHint.textContent = "口令不对哦 · 想想生日";
+  gateHint.textContent = "口令不对哦";
   pin = "";
   renderPin();
   setTimeout(() => gate.classList.remove("shake"), 400);
