@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffd6e4" />
+  <title>ryyOS · 26.0 🍰</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="ryy_styles.css" />
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- LOCK SCREEN -->
+  <section id="gate" class="lock" aria-label="系统登录">
+    <div class="lock-bg"></div>
+    <div class="lock-time" id="lockClock">
+      <div class="lock-hm" id="lockHm">00:00</div>
+      <div class="lock-date" id="lockDate">Tuesday, September 30</div>
+    </div>
+    <div class="login-panel">
+      <div class="avatar">
+        <img src="ryy_assets/head.jpg" alt="ryy" />
+      </div>
+      <p class="login-user">ryy</p>
+      <p class="login-sub">ryyOS 26.0</p>
+      <div class="pin-row" id="pinBoxes" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+      </div>
+      <input
+        id="pinInput"
+        class="pin-hidden"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        autocomplete="off"
+        aria-label="登录口令"
+      />
+      <div class="keypad" id="keypad">
+        <button type="button" data-key="1">1</button>
+        <button type="button" data-key="2">2</button>
+        <button type="button" data-key="3">3</button>
+        <button type="button" data-key="4">4</button>
+        <button type="button" data-key="5">5</button>
+        <button type="button" data-key="6">6</button>
+        <button type="button" data-key="7">7</button>
+        <button type="button" data-key="8">8</button>
+        <button type="button" data-key="9">9</button>
+        <button type="button" data-key="del" class="ghost">⌫</button>
+        <button type="button" data-key="0">0</button>
+        <button type="button" data-key="ok" class="ok">↵</button>
+      </div>
+      <p class="gate-hint" id="gateHint">输入口令</p>
+    </div>
+  </section>
+
+  <!-- DESKTOP -->
+  <main id="stage" class="desktop" hidden>
+    <header class="menubar">
+      <div class="menubar-left">
+        <button type="button" class="apple" id="logoBtn" title="ryyOS">★</button>
+        <span class="app-name" id="activeApp">Finder</span>
+        <nav class="menu-links">
+          <button type="button" data-open="about">File</button>
+          <button type="button" data-open="profile">View</button>
+          <button type="button" data-open="mail">Window</button>
+        </nav>
+      </div>
+      <div class="menubar-right">
+        <button type="button" class="mb-btn" id="soundBtn" aria-label="音效">♪</button>
+        <span class="status-feel">feel the way</span>
+        <span class="status-clock" id="deskClock">00:00</span>
+      </div>
+    </header>
+
+    <div class="wallpaper"></div>
+
+    <div class="icon-grid" id="iconGrid">
+      <button type="button" class="desk-icon" data-open="about">
+        <span class="ico about-ico">26</span>
+        <em>🎂</em>
+      </button>
+      <button type="button" class="desk-icon" data-open="photos">
+        <span class="ico"><img src="ryy_assets/kitty.jpeg" alt="" /></span>
+        <em>相册</em>
+      </button>
+      <button type="button" class="desk-icon" data-open="profile">
+        <span class="ico profile-ico">OS</span>
+        <em>系统信息</em>
+      </button>
+      <button type="button" class="desk-icon" data-open="canteen">
+        <span class="ico canteen-ico">🍖</span>
+        <em>食谱.exe</em>
+      </button>
+      <button type="button" class="desk-icon" data-open="mail">
+        <span class="ico mail-ico">✉</span>
+        <em>邮件</em>
+      </button>
+      <button type="button" class="desk-icon" data-open="scratch">
+        <span class="ico scratch-ico">◆</span>
+        <em>运势.dat</em>
+      </button>
+      <button type="button" class="desk-icon" data-open="wish">
+        <span class="ico wish-ico">★</span>
+        <em>许愿</em>
+      </button>
+    </div>
+
+    <!-- WINDOWS -->
+    <div class="window" id="win-about" data-win="about" style="--x:8%;--y:10%;--w:min(520px,92vw);--h:auto" hidden>
+      <div class="titlebar" data-drag>
+        <div class="traffic">
+          <button type="button" class="t close" data-close aria-label="关闭"></button>
+          <button type="button" class="t min" data-min aria-label="最小化"></button>
+          <button type="button" class="t max" data-max aria-label="最大化"></button>
+        </div>
+        <span class="title">关于本机 — ryyOS 26.0</span>
+      </div>
+      <div class="win-body about-body">
+        <div class="about-hero">
+          <div class="os-badge">ryyOS</div>
+          <h1>生日快乐，yy</h1>
+          <p class="ver">Version 26.0 (Build 0930)</p>
+        </div>
+        <p class="about-copy">从维港回到草原，从校园走到工位。二十六岁，请继续顺着自己喜欢的方向坚定前行。</p>
+        <dl class="specs">
+          <div><dt>User</dt><dd>yy</dd></div>
+          <div><dt>Region</dt><dd>青青草原</dd></div>
+          <div><dt>Status</dt><dd>Hard working</dd></div>
+          <div><dt>Motto</dt><dd>feel the way🐳</dd></div>
+          <div><dt>Release</dt><dd>2026.09.30</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="window" id="win-photos" data-win="photos" style="--x:18%;--y:8%;--w:min(640px,94vw);--h:auto" hidden>
+      <div class="titlebar" data-drag>
+        <div class="traffic">
+          <button type="button" class="t close" data-close></button>
+          <button type="button" class="t min" data-min></button>
+          <button type="button" class="t max" data-max></button>
+        </div>
+        <span class="title">相册 — Favorites</span>
+      </div>
+      <div class="win-body">
+        <div class="photo-grid">
+          <button type="button" class="photo-tile" data-quote="kitty">
+            <img src="ryy_assets/kitty.jpeg" alt="Hello Kitty" />
+            <span>Hello Kitty</span>
+          </button>
+          <button type="button" class="photo-tile" data-quote="tay">
+            <img src="ryy_assets/tay.jpeg" alt="小tay子" />
+            <span>小tay子</span>
+          </button>
+          <button type="button" class="photo-tile" data-quote="miffy">
+            <img src="ryy_assets/miffy.jpeg" alt="米菲" />
+            <span>米菲兔</span>
+          </button>
+          <button type="button" class="photo-tile" data-quote="bear">
+            <img src="ryy_assets/rilakkuma.png" alt="轻松熊" />
+            <span>轻松熊</span>
+          </button>
+        </div>
+        <div class="console-line" id="quoteBoard">选择一张图片查看详情。</div>
+      </div>
+    </div>
+
+    <div class="window" id="win-profile" data-win="profile" style="--x:12%;--y:14%;--w:min(480px,92vw);--h:auto" hidden>
+      <div class="titlebar" data-drag>
+        <div class="traffic">
+          <button type="button" class="t close" data-close></button>
+          <button type="button" class="t min" data-min></button>
+          <button type="button" class="t max" data-max></button>
+        </div>
+        <span class="title">系统信息</span>
+      </div>
+      <div class="win-body">
+        <table class="sys-table">
+          <tr><th>Hardware</th><td>草原蓝蝴蝶结猫猫</td></tr>
+          <tr><th>OS</th><td>ryyOS 26.0</td></tr>
+          <tr><th>Occupation</th><td>工位 · 在线</td></tr>
+          <tr><th>Diet Profile</th><td>食肉修猫咪</td></tr>
+          <tr><th>Signature</th><td class="mono">feel the way</td></tr>
+          <tr><th>Uptime</th><td>26 years</td></tr>
+        </table>
+        <p class="sys-note">工作可以很忙，进程不必一直满载。</p>
+      </div>
+    </div>
+
+    <div class="window" id="win-canteen" data-win="canteen" style="--x:22%;--y:10%;--w:min(560px,94vw);--h:auto" hidden>
+      <div class="titlebar" data-drag>
+        <div class="traffic">
+          <button type="button" class="t close" data-close></button>
+          <button type="button" class="t min" data-min></button>
+          <button type="button" class="t max" data-max></button>
+        </div>
+        <span class="title">食谱.exe — 请选择拿上桌的饭菜</span>
+      </div>
+      <div class="win-body">
+        <div class="toolbar">
+          <span>MEAT <b id="meatScore">0</b>/4</span>
+          <span id="gameMsg" class="mono">ready</span>
+          <button type="button" class="os-btn" id="resetGame">Restart</button>
+        </div>
+        <p class="hint-line">点击肉类保留 · 点击蔬菜 → Access Denied（会逃走）</p>
+        <div class="plate" id="plate"></div>
+      </div>
+    </div>
+
+    <div class="window" id="win-mail" data-win="mail" style="--x:15%;--y:12%;--w:min(500px,92vw);--h:auto" hidden>
+      <div class="titlebar" data-drag>
+        <div class="traffic">
+          <button type="button" class="t close" data-close></button>
+          <button type="button" class="t min" data-min></button>
+          <button type="button" class="t max" data-max></button>
+        </div>
+        <span class="title">邮件 — Inbox (1)</span>
+      </div>
+      <div class="win-body mail-body">
+        <div class="mail-meta">
+          <div><span>From</span> friend@local</div>
+          <div><span>To</span> ryy@26</div>
+          <div><span>Subject</span> Happy Birthday · 0930</div>
+        </div>
+        <button type="button" class="envelope" id="envelope" aria-label="打开邮件">
+          <span class="mail-closed" id="mailClosed">
+            <strong>未读邮件</strong>
+            <em>点击打开</em>
+          </span>
+          <span class="mail-open" id="mailOpen" hidden>
+            <i>Dear ryy,</i>
+            <p>二十六岁这天，把最大的一块肉、最软的轻松熊、最亮的蝴蝶结都堆到你面前。</p>
+            <p>工作可以上心，生活请别忘了开心。</p>
+            <p>愿你被喜欢的事物围住，也被自己温柔地接住。</p>
+            <b>— Happy Birthday · 0930</b>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="window" id="win-scratch" data-win="scratch" style="--x:20%;--y:16%;--w:min(520px,92vw);--h:auto" hidden>
+      <div class="titlebar" data-drag>
+        <div class="traffic">
+          <button type="button" class="t close" data-close></button>
+          <button type="button" class="t min" data-min></button>
+          <button type="button" class="t max" data-max></button>
+        </div>
+        <span class="title">运势.dat — 刮开解密</span>
+      </div>
+      <div class="win-body">
+        <div class="scratch-card">
+          <div class="scratch-prize">
+            <small>TODAY'S FORTUNE</small>
+            <strong>feel the way</strong>
+            <p>顺着喜欢走。肉要多吃，菜可以逃跑，心事也不必硬扛。</p>
+          </div>
+          <canvas id="scratch" width="640" height="360"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="win-wish" data-win="wish" style="--x:28%;--y:12%;--w:min(420px,92vw);--h:auto" hidden>
+      <div class="titlebar" data-drag>
+        <div class="traffic">
+          <button type="button" class="t close" data-close></button>
+          <button type="button" class="t min" data-min></button>
+          <button type="button" class="t max" data-max></button>
+        </div>
+        <span class="title">许愿 — Process</span>
+      </div>
+      <div class="win-body wish-body">
+        <div class="cake" id="cake">
+          <div class="candles" id="candles"></div>
+          <div class="frosting"></div>
+          <div class="layer l1"></div>
+          <div class="layer l2"></div>
+          <div class="plate-ring"></div>
+        </div>
+        <div class="cake-actions">
+          <button type="button" class="os-btn primary" id="lightBtn">Light</button>
+          <button type="button" class="os-btn" id="blowBtn" disabled>Blow</button>
+        </div>
+        <p class="wish mono" id="wish">awaiting ignition…</p>
+      </div>
+    </div>
+
+    <footer class="dock">
+      <div class="dock-inner">
+        <button type="button" class="dock-item" data-open="about" title="关于"><span>26</span></button>
+        <button type="button" class="dock-item" data-open="photos" title="相册"><img src="ryy_assets/miffy.jpeg" alt="" /></button>
+        <button type="button" class="dock-item" data-open="profile" title="系统信息"><span class="di">i</span></button>
+        <button type="button" class="dock-item" data-open="canteen" title="食谱">🍖</button>
+        <button type="button" class="dock-item" data-open="mail" title="邮件">✉</button>
+        <button type="button" class="dock-item" data-open="scratch" title="运势">◆</button>
+        <button type="button" class="dock-item" data-open="wish" title="许愿">★</button>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="ryy_app.js"></script>
+</body>
+</html>
