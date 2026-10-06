@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>⚠ 禁忌 · 🐴👀 · 伊斯诞辰祭</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,17 +29,8 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; height: 100%; }
+    html { scroll-behavior: smooth; }
     html, body { height: 100%; }
-    body.rune-locked {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      overscroll-behavior: none;
-      touch-action: manipulation;
-    }
 
     body {
       background: var(--void);
@@ -49,14 +40,8 @@
       cursor: none;
     }
 
-    body.gate-locked,
-    body.rune-locked { overflow: hidden; }
+    body.gate-locked { overflow: hidden; }
     body.entered { cursor: none; }
-    body.rune-locked #gate {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
 
     /* ===== CUSTOM CURSOR ===== */
     .cursor-eye {
@@ -105,6 +90,7 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      overflow-y: auto;
       transition: opacity 1.4s ease, visibility 1.4s;
     }
     #gate.gone {
@@ -114,9 +100,10 @@
     }
     .gate-inner {
       text-align: center;
-      max-width: 28rem;
-      padding: 2rem;
+      max-width: 40rem;
+      padding: 1.5rem 1.25rem 2rem;
       position: relative;
+      z-index: 1;
     }
     .gate-warn {
       font-family: var(--font-glitch);
@@ -195,7 +182,180 @@
       font-style: italic;
       color: rgba(212, 196, 168, 0.7);
       line-height: 1.8;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ===== STONE DIAL ===== */
+    .stone-dial {
+      --size: min(78vw, 360px);
+      width: var(--size);
+      height: var(--size);
+      margin: 0.4rem auto 1.1rem;
+      position: relative;
+      user-select: none;
+      touch-action: none;
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.75));
+    }
+    .stone-dial.denied {
+      animation: dial-deny 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+    @keyframes dial-deny {
+      10%, 90% { transform: translateX(-6px) rotate(-1deg); }
+      20%, 80% { transform: translateX(7px) rotate(1.2deg); }
+      30%, 70% { transform: translateX(-10px) rotate(-1.5deg); }
+      40%, 60% { transform: translateX(10px) rotate(1deg); }
+      50% { transform: translateX(0); filter: drop-shadow(0 0 24px #8b1515); }
+    }
+    .stone-dial.unlocked .dial-base {
+      box-shadow:
+        inset 0 0 40px rgba(143, 239, 154, 0.25),
+        0 0 50px rgba(143, 239, 154, 0.35);
+      border-color: var(--bile);
+    }
+    .dial-base {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 38% 30%, rgba(120, 110, 90, 0.28), transparent 42%),
+        radial-gradient(circle at 70% 72%, rgba(0, 0, 0, 0.55), transparent 50%),
+        repeating-conic-gradient(from 8deg, #2a261c 0 6deg, #3a3428 6deg 12deg, #241f18 12deg 18deg),
+        #2c281f;
+      border: 3px solid #4a4336;
+      box-shadow:
+        inset 0 0 50px rgba(0, 0, 0, 0.75),
+        inset 0 0 8px rgba(196, 163, 90, 0.15),
+        0 0 0 6px #1a1712,
+        0 0 0 7px #5a5344;
+      pointer-events: none;
+    }
+    .dial-base::before {
+      content: "";
+      position: absolute;
+      inset: 7%;
+      border-radius: 50%;
+      border: 1px dashed rgba(196, 163, 90, 0.22);
+    }
+    .dial-marker {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 8;
+      width: 0;
+      height: 0;
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-top: 16px solid var(--gold);
+      filter: drop-shadow(0 0 8px rgba(196, 163, 90, 0.7));
+      pointer-events: none;
+    }
+    .dial-marker::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      width: 2px;
+      height: 22px;
+      background: linear-gradient(var(--gold), transparent);
+      transform: translateX(-50%);
+    }
+    .dial-band {
+      position: absolute;
+      inset: var(--inset);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .dial-band-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: var(--bw) solid #3d382c;
+      border-top-color: #4a4438;
+      border-left-color: #2a261c;
+      box-shadow:
+        inset 0 0 14px rgba(0, 0, 0, 0.85),
+        0 0 0 1px #6a6354,
+        0 0 0 3px #1c1914;
+      background: transparent;
+    }
+    .dial-rot {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+    .dial-digit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1.35em;
+      height: 1.35em;
+      margin-left: -0.675em;
+      margin-top: -0.675em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-ritual);
+      font-size: clamp(0.72rem, 2.6vw, 1.05rem);
+      color: #cbb892;
+      text-shadow: 0 1px 0 #000, 0 0 8px rgba(0, 0, 0, 0.8);
+      transform: rotate(var(--a)) translateY(var(--rad)) rotate(calc(-1 * var(--a)));
+      pointer-events: auto;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .dial-digit:hover {
+      color: var(--bile);
+      text-shadow: 0 0 12px rgba(143, 239, 154, 0.7);
+    }
+    .dial-hit {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      cursor: grab;
+      z-index: 7;
+    }
+    .dial-hit:active { cursor: grabbing; }
+    .dial-core {
+      position: absolute;
+      inset: 38%;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .stone-dial .gate-eye {
+      width: min(28vw, 92px);
+      height: min(16vw, 54px);
+      margin: 0;
+    }
+    .stone-hint {
+      font-family: var(--font-glitch);
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      color: rgba(196, 163, 90, 0.7);
+      margin-bottom: 0.85rem;
+    }
+    .stone-error {
+      font-family: var(--font-tome);
+      font-style: italic;
+      min-height: 1.4em;
+      font-size: 0.95rem;
+      color: #ef6a6a;
+      margin-bottom: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .stone-error.show { opacity: 1; }
+    .stone-readout {
+      font-family: var(--font-ritual);
+      letter-spacing: 0.45em;
+      color: var(--gold);
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+      text-shadow: 0 0 12px rgba(196, 163, 90, 0.35);
     }
     .gate-btn {
       font-family: var(--font-ritual);
@@ -240,401 +400,6 @@
     @keyframes glyph-rain {
       from { transform: translateY(0); }
       to { transform: translateY(-50%); }
-    }
-
-    /* ===== STONE CIPHER (before the existing gate) ===== */
-    #rune-lock {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 20000;
-      width: 100%;
-      height: 100%;
-      height: 100svh;
-      max-height: 100svh;
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr) auto;
-      align-items: center;
-      justify-items: center;
-      padding: 1.5rem 1.25rem 1.75rem;
-      padding-top: max(1.5rem, env(safe-area-inset-top));
-      padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
-      gap: 0.9rem;
-      background: #070604;
-      overflow: hidden;
-      overscroll-behavior: none;
-      touch-action: manipulation;
-      transition: opacity 1.6s ease, visibility 1.6s;
-    }
-    #rune-lock.gone {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .rune-cave {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 90% 55% at 50% -10%, rgba(90, 62, 28, 0.22), transparent 58%),
-        radial-gradient(ellipse 70% 40% at 50% 110%, rgba(12, 28, 18, 0.55), transparent 60%),
-        radial-gradient(ellipse 50% 50% at 8% 80%, rgba(80, 20, 16, 0.18), transparent 50%),
-        radial-gradient(circle at 50% 48%, rgba(28, 22, 14, 0.2), #050402 62%);
-    }
-    .rune-cave::before,
-    .rune-cave::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-    }
-    .rune-cave::before {
-      background:
-        radial-gradient(1px 1px at 18% 22%, rgba(212, 196, 168, 0.35) 0, transparent 100%),
-        radial-gradient(1.4px 1.4px at 72% 18%, rgba(196, 163, 90, 0.22) 0, transparent 100%),
-        radial-gradient(1px 1px at 40% 64%, rgba(212, 196, 168, 0.18) 0, transparent 100%),
-        radial-gradient(1px 1px at 86% 72%, rgba(143, 180, 120, 0.12) 0, transparent 100%),
-        radial-gradient(2px 2px at 28% 44%, rgba(196, 163, 90, 0.16) 0, transparent 100%),
-        radial-gradient(1px 1px at 60% 36%, rgba(232, 220, 200, 0.2) 0, transparent 100%);
-      animation: rune-mote 36s linear infinite;
-    }
-    .rune-cave::after {
-      background:
-        radial-gradient(ellipse 100% 42% at 50% 100%, rgba(0, 0, 0, 0.72), transparent 70%),
-        radial-gradient(ellipse 80% 36% at 50% 0%, rgba(0, 0, 0, 0.55), transparent 70%);
-    }
-    .rune-fog {
-      position: absolute;
-      left: -20%;
-      right: -20%;
-      height: 46%;
-      pointer-events: none;
-      filter: blur(18px);
-      opacity: 0.28;
-    }
-    .rune-fog--a {
-      bottom: -8%;
-      background: radial-gradient(ellipse at 50% 80%, rgba(58, 72, 48, 0.55), transparent 70%);
-      animation: rune-fog-drift 14s ease-in-out infinite alternate;
-    }
-    .rune-fog--b {
-      top: 8%;
-      height: 30%;
-      background: radial-gradient(ellipse at 40% 0%, rgba(90, 70, 40, 0.22), transparent 70%);
-      animation: rune-fog-drift 18s ease-in-out infinite alternate-reverse;
-    }
-    @keyframes rune-mote {
-      from { transform: translateY(0); }
-      to { transform: translateY(-28px); }
-    }
-    @keyframes rune-fog-drift {
-      from { transform: translateX(-3%) scale(1); opacity: 0.2; }
-      to { transform: translateX(4%) scale(1.08); opacity: 0.38; }
-    }
-    .rune-head,
-    .rune-foot {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 28rem;
-    }
-    .rune-kicker {
-      font-family: var(--font-tome);
-      font-size: 0.72rem;
-      letter-spacing: 0.38em;
-      color: rgba(168, 132, 72, 0.7);
-      margin-bottom: 0.55rem;
-    }
-    .rune-title {
-      font-family: var(--font-ritual);
-      font-size: clamp(1.15rem, 3.6vw, 1.7rem);
-      letter-spacing: 0.22em;
-      color: #cbb890;
-      text-shadow: 0 0 28px rgba(120, 80, 30, 0.35), 0 2px 0 #000;
-      margin-bottom: 0.45rem;
-    }
-    .rune-hint {
-      font-family: var(--font-tome);
-      font-style: italic;
-      font-size: clamp(0.85rem, 1.8vw, 0.98rem);
-      color: rgba(196, 176, 140, 0.48);
-      line-height: 1.7;
-    }
-    .rune-stage {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 0;
-    }
-    .rune-dial-wrap {
-      --dial: min(72vw, 320px);
-      --size: var(--dial);
-      position: relative;
-      width: var(--dial);
-      height: var(--dial);
-      flex: none;
-      contain: layout size;
-    }
-    .rune-inscription {
-      position: absolute;
-      inset: -14%;
-      border-radius: 50%;
-      pointer-events: none;
-      animation: rune-orbit 80s linear infinite;
-    }
-    .rune-inscription span {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 1.2em;
-      margin: -0.6em;
-      color: rgba(168, 132, 72, 0.28);
-      font-family: var(--font-ritual);
-      font-size: clamp(0.55rem, 1.6vw, 0.72rem);
-      transform: rotate(var(--a)) translateY(calc(var(--dial, 360px) * -0.62)) rotate(calc(-1 * var(--a)));
-    }
-    @keyframes rune-orbit {
-      to { transform: rotate(360deg); }
-    }
-    .rune-dial {
-      --size: var(--dial);
-      width: 100%;
-      height: 100%;
-      position: relative;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 50%, #14110c 0 18%, transparent 19%),
-        radial-gradient(circle at 32% 28%, rgba(110, 92, 58, 0.28), transparent 42%),
-        radial-gradient(circle at 70% 76%, rgba(0, 0, 0, 0.55), transparent 46%),
-        radial-gradient(circle at 50% 50%, #2a241c 38%, #16130f 72%, #0b0907 100%);
-      box-shadow:
-        0 0 0 3px #1a1610,
-        0 0 0 5px #6a5838,
-        0 0 0 14px #12100c,
-        inset 0 0 50px rgba(0, 0, 0, 0.75),
-        0 30px 70px rgba(0, 0, 0, 0.65),
-        0 0 80px rgba(90, 60, 20, 0.12);
-      transition: box-shadow 0.4s, filter 0.4s;
-    }
-    .rune-dial::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(196, 163, 90, 0.16), transparent 32%);
-      mix-blend-mode: soft-light;
-      animation: rune-breathe 6s ease-in-out infinite;
-    }
-    @keyframes rune-breathe {
-      0%, 100% { opacity: 0.35; }
-      50% { opacity: 0.8; }
-    }
-    .rune-cracks {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      opacity: 0.35;
-      mix-blend-mode: multiply;
-    }
-    .rune-dial.denied {
-      animation: rune-shake 0.55s ease-in-out;
-      box-shadow:
-        0 0 0 3px #1a1610,
-        0 0 0 5px #6b2e2e,
-        0 0 0 14px #12100c,
-        0 0 50px rgba(139, 21, 21, 0.4);
-    }
-    .rune-dial.opened {
-      filter: brightness(1.18);
-      box-shadow:
-        0 0 0 3px #1a1610,
-        0 0 0 5px #c4a35a,
-        0 0 0 14px #12100c,
-        0 0 90px rgba(143, 239, 154, 0.22);
-    }
-    @keyframes rune-shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-8px) rotate(-1deg); }
-      40% { transform: translateX(9px) rotate(1deg); }
-      60% { transform: translateX(-5px); }
-      80% { transform: translateX(4px); }
-    }
-    .rune-notch {
-      position: absolute;
-      top: -18px;
-      left: 50%;
-      width: 16px;
-      height: 28px;
-      transform: translateX(-50%);
-      z-index: 6;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, #c4a35a 0%, #6b2e2e 70%, transparent 100%);
-      clip-path: polygon(50% 100%, 8% 0, 92% 0);
-      filter: drop-shadow(0 0 10px rgba(196, 163, 90, 0.55));
-      opacity: 0.9;
-    }
-    .rune-ring {
-      position: absolute;
-      inset: var(--inset);
-      border-radius: 50%;
-      transform: rotate(var(--rot, 0deg));
-      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-      pointer-events: none;
-      background: none;
-      overflow: visible;
-    }
-    .rune-ring::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(90, 78, 52, 0.45), transparent 50%),
-        #3a3428;
-      -webkit-mask: radial-gradient(circle, transparent 71%, #000 73%, #000 100%);
-      mask: radial-gradient(circle, transparent 71%, #000 73%, #000 100%);
-      box-shadow: 0 0 0 1px rgba(20, 16, 10, 0.8);
-      pointer-events: none;
-    }
-    .rune-ring[data-ring="0"] { --inset: 2%; --r: calc(var(--size) * 0.445); z-index: 1; }
-    .rune-ring[data-ring="1"] { --inset: 14%; --r: calc(var(--size) * 0.34); z-index: 2; }
-    .rune-ring[data-ring="2"] { --inset: 26%; --r: calc(var(--size) * 0.24); z-index: 3; }
-    .rune-ring[data-ring="3"] { --inset: 36%; --r: calc(var(--size) * 0.155); z-index: 4; }
-    .rune-num {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 1.85rem;
-      height: 1.85rem;
-      margin: -0.925rem;
-      border: none;
-      padding: 0;
-      background: transparent;
-      color: rgba(186, 162, 118, 0.42);
-      font-family: var(--font-ritual);
-      font-size: clamp(0.78rem, 2.2vw, 0.95rem);
-      letter-spacing: 0;
-      line-height: 1.85rem;
-      cursor: pointer;
-      pointer-events: auto;
-      transform: rotate(var(--a)) translateY(calc(-1 * var(--r))) rotate(calc(-1 * var(--a)));
-      text-shadow: 0 1px 0 #000;
-      transition: color 0.2s, text-shadow 0.2s, opacity 0.2s;
-    }
-    .rune-ring[data-ring="3"] .rune-num {
-      width: 1.55rem;
-      height: 1.55rem;
-      margin: -0.775rem;
-      font-size: clamp(0.7rem, 1.9vw, 0.82rem);
-      line-height: 1.55rem;
-    }
-    .rune-num:hover {
-      color: #f0e2c0;
-      text-shadow: 0 0 10px rgba(196, 163, 90, 0.8);
-    }
-    .rune-num.is-mark {
-      color: #d7c48a;
-      text-shadow: 0 0 12px rgba(196, 163, 90, 0.65), 0 1px 0 #000;
-    }
-    .rune-core {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 13%;
-      height: 13%;
-      min-width: 46px;
-      min-height: 46px;
-      transform: translate(-50%, -50%);
-      z-index: 5;
-      border-radius: 50%;
-      border: 1px solid #6a5838;
-      background:
-        radial-gradient(circle at 40% 32%, #5a4a30, #1c160e 62%, #070604);
-      color: #bba67a;
-      font-family: var(--font-ritual);
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      cursor: pointer;
-      box-shadow:
-        inset 0 0 10px #000,
-        0 0 16px rgba(0, 0, 0, 0.5);
-      transition: color 0.3s, box-shadow 0.3s, transform 0.2s;
-    }
-    .rune-core:hover {
-      color: #e6d3a0;
-      box-shadow:
-        inset 0 0 10px #000,
-        0 0 22px rgba(196, 163, 90, 0.28);
-    }
-    .rune-core:active { transform: translate(-50%, -50%) scale(0.96); }
-    .rune-core:disabled {
-      opacity: 0.55;
-      cursor: default;
-    }
-    .rune-readout {
-      font-family: var(--font-ritual);
-      font-size: 1.05rem;
-      letter-spacing: 0.62em;
-      color: rgba(196, 163, 90, 0.78);
-      min-height: 1.4em;
-      text-shadow: 0 0 16px rgba(196, 163, 90, 0.25);
-    }
-    .rune-msg {
-      font-family: var(--font-tome);
-      font-style: italic;
-      font-size: 0.88rem;
-      color: rgba(196, 176, 140, 0.42);
-      min-height: 1.4em;
-      margin-top: 0.15rem;
-    }
-    .rune-msg.warn { color: #c07070; }
-    .rune-msg.ok { color: #8fef9a; }
-    @media (max-width: 820px), (hover: none) {
-      .rune-cave::before,
-      .rune-fog--a,
-      .rune-fog--b,
-      .rune-inscription,
-      .rune-dial::after {
-        animation: none;
-      }
-      .rune-hint { display: none; }
-      .rune-kicker {
-        font-size: 0.62rem;
-        letter-spacing: 0.22em;
-        margin-bottom: 0.3rem;
-      }
-      .rune-title {
-        font-size: 1.15rem;
-        letter-spacing: 0.14em;
-        margin-bottom: 0;
-      }
-      .rune-head, .rune-foot { max-width: 22rem; }
-      .rune-dial-wrap { --dial: min(78vw, 280px); }
-      .rune-inscription { display: none; }
-      .rune-notch { top: -14px; height: 22px; }
-      .rune-num {
-        width: 2.15rem;
-        height: 2.15rem;
-        margin: -1.075rem;
-        font-size: 0.92rem;
-        line-height: 2.15rem;
-      }
-      .rune-ring[data-ring="3"] .rune-num {
-        width: 1.7rem;
-        height: 1.7rem;
-        margin: -0.85rem;
-        font-size: 0.78rem;
-        line-height: 1.7rem;
-      }
-      .rune-readout { font-size: 0.95rem; letter-spacing: 0.4em; }
-      .rune-msg { font-size: 0.82rem; }
     }
 
     /* ===== HUD ===== */
@@ -1308,7 +1073,8 @@
       .entry::before { font-size: 2rem; }
       body { cursor: auto; }
       .cursor-eye, .cursor-trail { display: none !important; }
-      .descend, .entry, .seal-btn, .gate-btn, .true-name, .rune-num, .rune-core { cursor: pointer; }
+      .descend, .entry, .seal-btn, .gate-btn, .true-name, .dial-digit, .dial-hit { cursor: pointer; }
+      .stone-dial { --size: min(86vw, 340px); }
     }
 
     @media (hover: none) {
@@ -1317,64 +1083,49 @@
     }
   </style>
 </head>
-<body class="gate-locked rune-locked">
-  <!-- STONE CIPHER — independent first lock, not mixed with the sanity gate -->
-  <div id="rune-lock" role="dialog" aria-modal="true" aria-label="岩石转盘口令">
-    <div class="rune-cave" aria-hidden="true"></div>
-    <div class="rune-fog rune-fog--a" aria-hidden="true"></div>
-    <div class="rune-fog rune-fog--b" aria-hidden="true"></div>
-    <header class="rune-head">
-      <p class="rune-kicker">前人类石印 · 纳科特残篇</p>
-      <h2 class="rune-title">对准被遗忘的纪年</h2>
-      <p class="rune-hint">点选石上数字，旋至顶上裂隙，再按中央石核。</p>
-    </header>
-    <div class="rune-stage">
-      <div class="rune-dial-wrap">
-        <div class="rune-inscription" aria-hidden="true">
-          <span style="--a:0deg">Φ</span><span style="--a:36deg">Ψ</span><span style="--a:72deg">Ω</span>
-          <span style="--a:108deg">†</span><span style="--a:144deg">※</span><span style="--a:180deg">Я</span>
-          <span style="--a:216deg">☯</span><span style="--a:252deg">✧</span><span style="--a:288deg">Ѳ</span>
-          <span style="--a:324deg">◈</span>
-        </div>
-        <div class="rune-dial" id="runeDial">
-          <svg class="rune-cracks" viewBox="0 0 200 200" aria-hidden="true">
-            <path d="M18 92 C40 88, 55 70, 62 48" fill="none" stroke="#0a0806" stroke-width="1.2"/>
-            <path d="M150 30 C142 60, 160 90, 178 110" fill="none" stroke="#0a0806" stroke-width="1"/>
-            <path d="M40 160 C70 150, 90 170, 120 168" fill="none" stroke="#0a0806" stroke-width="1.1"/>
-            <path d="M96 20 L102 70" fill="none" stroke="#1a140c" stroke-width="0.8"/>
-          </svg>
-          <div class="rune-notch" aria-hidden="true"></div>
-          <div class="rune-ring" data-ring="0"></div>
-          <div class="rune-ring" data-ring="1"></div>
-          <div class="rune-ring" data-ring="2"></div>
-          <div class="rune-ring" data-ring="3"></div>
-          <button type="button" class="rune-core" id="runeSubmit">开印</button>
-        </div>
-      </div>
-    </div>
-    <footer class="rune-foot">
-      <p class="rune-readout" id="runeReadout" aria-live="polite">····</p>
-      <p class="rune-msg" id="runeMsg">石门尚未苏醒</p>
-    </footer>
-  </div>
-
+<body class="gate-locked">
   <!-- GATE -->
   <div id="gate">
     <div class="gate-glyphs" aria-hidden="true" id="gateGlyphs"></div>
     <div class="gate-inner">
       <p class="gate-warn">⚠ SANITY HAZARD · 精神污染警告 ⚠</p>
-      <div class="gate-eye" aria-hidden="true">
-        <div class="gate-eye-ball">
-          <div class="gate-pupil" id="gatePupil"></div>
-        </div>
-      </div>
       <h1 class="gate-title">伊斯档案馆</h1>
       <p class="gate-text">
-        你即将开启一份被封印的诞辰祭礼。<br />
-        阅读者将直视不可名状者 <strong style="color:#8fef9a">🐴👀</strong>。<br />
-        理智未必能完好归来。
+        四枚岩石转盘封住入口。对准裂隙中的口令，<br />
+        方可直视不可名状者 <strong style="color:#8fef9a">🐴👀</strong>。
       </p>
-      <button type="button" class="gate-btn" id="enterBtn">凝视 · 并进入</button>
+      <div class="stone-dial" id="stoneDial" aria-label="岩石口令转盘">
+        <div class="dial-base"></div>
+        <div class="dial-marker" aria-hidden="true"></div>
+        <div class="dial-band" data-i="0" style="--inset: calc(var(--size) * 0.02); --bw: calc(var(--size) * 0.078); --rad: calc(var(--size) * -0.441);">
+          <div class="dial-band-face"></div>
+          <div class="dial-rot" data-rot="0"></div>
+        </div>
+        <div class="dial-band" data-i="1" style="--inset: calc(var(--size) * 0.122); --bw: calc(var(--size) * 0.072); --rad: calc(var(--size) * -0.342);">
+          <div class="dial-band-face"></div>
+          <div class="dial-rot" data-rot="1"></div>
+        </div>
+        <div class="dial-band" data-i="2" style="--inset: calc(var(--size) * 0.216); --bw: calc(var(--size) * 0.068); --rad: calc(var(--size) * -0.25);">
+          <div class="dial-band-face"></div>
+          <div class="dial-rot" data-rot="2"></div>
+        </div>
+        <div class="dial-band" data-i="3" style="--inset: calc(var(--size) * 0.304); --bw: calc(var(--size) * 0.064); --rad: calc(var(--size) * -0.164);">
+          <div class="dial-band-face"></div>
+          <div class="dial-rot" data-rot="3"></div>
+        </div>
+        <div class="dial-core">
+          <div class="gate-eye" aria-hidden="true">
+            <div class="gate-eye-ball">
+              <div class="gate-pupil" id="gatePupil"></div>
+            </div>
+          </div>
+        </div>
+        <div class="dial-hit" id="dialHit"></div>
+      </div>
+      <p class="stone-readout" id="stoneReadout">0  0  0  0</p>
+      <p class="stone-hint">拖动 / 滚轮转动岩环 · 金针所指即口令</p>
+      <p class="stone-error" id="stoneError">岩石沉默了。口令未对准裂隙。</p>
+      <button type="button" class="gate-btn" id="enterBtn">开启封印</button>
     </div>
   </div>
 
@@ -1434,13 +1185,13 @@
       <p class="label">FILE · 00 · UNNAMABLE</p>
       <h2 class="sec-title">他不是人——是活着的裂隙</h2>
       <p class="sec-body">
-        世人唤他<strong>马眼儿哥</strong>。他自称
+        世人唤他<strong>马眼哥</strong>。他自称
         <span class="true-name" id="trueName" data-names="伊斯之伟大种族|Great Race of Yith|不可名状者|🐴👀|Ph'nglui|彼端来客">伊斯之伟大种族</span>。
         意识可穿越亿万年，肉身只是暂居的壳。
         哲学是他的星图，魔术是他的仪式，把脉正骨是凡人无法理解的触感，
-        太极是对抗混沌的舞步。西餐的烛火听他号令；
-        <em>俄式酸黄瓜英语</em>从他嘴里溢出，像拉莱耶的潮汐。
-        神奇大鸟停在他肩上时——那不是宠物，是<strong>信使</strong>。
+        太极是对抗混沌的舞步。西餐的火焰听他号令；
+        <em>俄式英语</em>从他嘴里溢出，像拉莱耶的潮汐。
+        玄凤鹦鹉停在他肩上时——那不是宠物，是<strong>信使</strong>。
       </p>
     </section>
 
@@ -1449,7 +1200,7 @@
     <div class="codex">
       <div class="awaken" style="text-align:center;margin-bottom:2.5rem;padding:0 1rem">
         <p class="label">FORBIDDEN ATTRIBUTES · 禁忌属性</p>
-        <h2 class="sec-title">不可名状之秘技</h2>
+        <h2 class="sec-title">不可名状之技能</h2>
         <p class="sec-body" style="max-width:28em;margin:0 auto">悬停以唤醒条目。每一次阅读，都将吞噬少许理智。</p>
       </div>
 
@@ -1458,15 +1209,15 @@
         <p class="entry-desc">追问存在本身。当别人看见答案，他看见答案背后的裂口。</p>
       </article>
       <article class="entry awaken" data-rune="✡" data-cost="7">
-        <h3 class="entry-name">魔术 · 规则篡改者</h3>
+        <h3 class="entry-name">魔术 · 职业级仪式师</h3>
         <p class="entry-desc">牌面、硬币、目光——皆可在他指尖消失又重生。观众只记得「不可能」。</p>
       </article>
       <article class="entry awaken" data-rune="脉" data-cost="6">
-        <h3 class="entry-name">中医 · 骨节的重构者</h3>
+        <h3 class="entry-name">中医 · 脉象与骨节的解读者</h3>
         <p class="entry-desc">三指按脉，便知气血走向；正骨如复位时空坐标，痛楚在他手下退潮。</p>
       </article>
       <article class="entry awaken" data-rune="拳" data-cost="8">
-        <h3 class="entry-name">武术 · 太极与神兵</h3>
+        <h3 class="entry-name">竞赛武术 · 太极与神兵</h3>
         <p class="entry-desc">绵里藏针，以柔克刚。太极之外，流星锤、剑、枪皆听他驱使——兵器在他手中，像触须在不可名状者指间弯折。</p>
       </article>
       <article class="entry awaken" data-rune="火" data-cost="5">
@@ -1475,11 +1226,11 @@
       </article>
       <article class="entry awaken" data-rune="Я" data-cost="7">
         <h3 class="entry-name">大列巴英语 · 异界口音</h3>
-        <p class="entry-desc">早年西伯利亚挖土豆的经历，赋予了他神秘语调的低吟， “Yes, comrade… the stars are right tonight.” 那口音本身，已是一则微型神话。</p>
+        <p class="entry-desc">“Yes, comrade… the stars are right tonight.” 那口音本身，已是一则微型神话。</p>
       </article>
       <article class="entry awaken" data-rune="鳥" data-cost="5">
         <h3 class="entry-name">小鸟芋圆 · 肩上的信使</h3>
-        <p class="entry-desc">羽冠微动，便似传递来自伊斯的加密讯息。</p>
+        <p class="entry-desc">羽冠微动，便似传递来自伊斯的加密讯息。马马听得懂；我们只听见鸣叫。</p>
       </article>
       <article class="entry awaken" data-rune="全" data-cost="9">
         <h3 class="entry-name">百科全书 · 活体档案馆</h3>
@@ -1493,9 +1244,9 @@
       <p class="label">BIRTHDAY INVOCATION · 诞辰祝祷</p>
       <h2 class="sec-title">以伊斯之名封印此愿</h2>
       <blockquote class="ritual-quote">
-        愿新一年，时间对你温柔一些——哪怕你早已不属于线性时间。
+        愿这一年，时间对你温柔一些——哪怕你早已不属于线性时间。
         愿哲学给你更深的静，魔术给你更亮的惊叹，
-        脉象清晰，拳意绵长，炉火永不熄，大鸟常相伴。
+        脉象清晰，拳意绵长，炉火永不熄，鹦鹉常伴肩。
         🐴👀，生日快乐。愿伊斯的伟大种族，在地球再多驻留一个辉煌的轮回。
       </blockquote>
       <div class="sign-block">
@@ -1516,108 +1267,6 @@
     (() => {
       const $ = (s, r = document) => r.querySelector(s);
       const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-
-      /* —— Stone cipher (first lock, independent of the sanity gate) —— */
-      const RUNE_SECRET = "1008";
-      const runeValues = [0, 0, 0, 0];
-      const runeDial = $("#runeDial");
-      const runeMsg = $("#runeMsg");
-      const runeReadout = $("#runeReadout");
-      const runeSubmit = $("#runeSubmit");
-      let runeFails = 0;
-      let runeBusy = false;
-
-      function setRuneDigit(index, digit) {
-        runeValues[index] = ((digit % 10) + 10) % 10;
-        const ring = $$(".rune-ring")[index];
-        ring.style.setProperty("--rot", (-runeValues[index] * 36) + "deg");
-        ring.querySelectorAll(".rune-num").forEach((btn) => {
-          btn.classList.toggle("is-mark", Number(btn.dataset.digit) === runeValues[index]);
-        });
-        runeReadout.textContent = runeValues.join(" · ");
-      }
-
-      $$(".rune-ring").forEach((ring, ri) => {
-        for (let n = 0; n < 10; n++) {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "rune-num";
-          btn.dataset.digit = String(n);
-          btn.textContent = String(n);
-          btn.setAttribute("aria-label", `第${ri + 1}轮数字 ${n}`);
-          btn.style.setProperty("--a", (n * 36) + "deg");
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (runeBusy) return;
-            setRuneDigit(ri, n);
-            runeMsg.className = "rune-msg";
-            runeMsg.textContent = "石轮发出细微的砂响。";
-          });
-          ring.appendChild(btn);
-        }
-        ring.addEventListener("wheel", (e) => {
-          e.preventDefault();
-          if (runeBusy) return;
-          setRuneDigit(ri, runeValues[ri] + (e.deltaY > 0 ? 1 : -1));
-        }, { passive: false });
-        do {
-          runeValues[ri] = Math.floor(Math.random() * 10);
-        } while (runeValues.join("") === RUNE_SECRET);
-      });
-      runeValues.forEach((d, i) => setRuneDigit(i, d));
-
-      function denyRune() {
-        runeFails += 1;
-        runeDial.classList.remove("denied");
-        void runeDial.offsetWidth;
-        runeDial.classList.add("denied");
-        runeMsg.className = "rune-msg warn";
-        runeMsg.textContent = runeFails < 3
-          ? "纪年谬误。石层另一侧有什么东西挪动了一下。"
-          : "它已经记住你的错误。不要再试那些凡人的数字。";
-        setTimeout(() => runeDial.classList.remove("denied"), 560);
-      }
-
-      function openRune() {
-        runeBusy = true;
-        runeSubmit.disabled = true;
-        runeDial.classList.add("opened");
-        runeMsg.className = "rune-msg ok";
-        runeMsg.textContent = "石印应允。门缝里漏出不属于这个世纪的光。";
-        const lock = $("#rune-lock");
-        setTimeout(() => {
-          lock.classList.add("gone");
-          document.body.classList.remove("rune-locked");
-        }, 900);
-        setTimeout(() => lock.remove(), 2600);
-      }
-
-      runeSubmit.addEventListener("click", () => {
-        if (runeBusy) return;
-        if (runeValues.join("") === RUNE_SECRET) openRune();
-        else denyRune();
-      });
-
-      const runeLock = $("#rune-lock");
-      const runeWrap = $(".rune-dial-wrap");
-      function freezeRuneDial() {
-        if (!runeWrap || !runeLock || runeLock.classList.contains("gone")) return;
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        const mobile = w <= 820 || matchMedia("(hover: none)").matches;
-        const cap = mobile ? 280 : 340;
-        const size = Math.max(188, Math.min(
-          Math.round(w * (mobile ? 0.78 : 0.58)),
-          Math.round(h * (mobile ? 0.44 : 0.5)),
-          cap
-        ));
-        runeWrap.style.setProperty("--dial", size + "px");
-      }
-      freezeRuneDial();
-      window.addEventListener("orientationchange", () => {
-        setTimeout(freezeRuneDial, 280);
-      });
-      runeLock.addEventListener("touchmove", (e) => { e.preventDefault(); }, { passive: false });
 
       /* —— Gate glyphs —— */
       const glyphs = "ΦΨΩѲЯЖДѰ҂†‡※卍☯✡✧◈◎◉◌◍◐◑◒◓◔◕◖◗◘◙◚◛◜◝◞◟◠◡┊┋┌┐└┘├┤┬┴┼═╬░▒▓█▀▄■□▪▫▬▲△▼▽◆◇○◌◍◎●◐";
@@ -1722,10 +1371,102 @@
         droneGain.gain.linearRampToValueAtTime(0.012, now + 0.4);
       }
 
-      /* —— Enter —— */
-      $("#enterBtn").onclick = () => {
+      /* —— Stone dial lock —— */
+      const SECRET = "1008";
+      const dialDigits = [0, 0, 0, 0];
+      const ringRots = $$("[data-rot]");
+      ringRots.forEach((el, i) => {
+        for (let d = 0; d < 10; d++) {
+          const s = document.createElement("span");
+          s.className = "dial-digit";
+          s.textContent = String(d);
+          s.style.setProperty("--a", `${d * 36}deg`);
+          el.appendChild(s);
+        }
+      });
+      const readout = $("#stoneReadout");
+      function paintDial() {
+        ringRots.forEach((el, i) => {
+          el.style.transform = `rotate(${-dialDigits[i] * 36}deg)`;
+        });
+        if (readout) readout.textContent = dialDigits.join("   ");
+      }
+      paintDial();
+
+      function ringFromEvent(e, el) {
+        const r = el.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const dx = e.clientX - cx;
+        const dy = e.clientY - cy;
+        const dist = Math.hypot(dx, dy) / (r.width / 2);
+        const ang = Math.atan2(dx, -dy);
+        let idx = -1;
+        if (dist >= 0.80 && dist < 0.99) idx = 0;
+        else if (dist >= 0.61 && dist < 0.78) idx = 1;
+        else if (dist >= 0.43 && dist < 0.59) idx = 2;
+        else if (dist >= 0.26 && dist < 0.41) idx = 3;
+        return { idx, ang, dist };
+      }
+
+      const dialEl = $("#stoneDial");
+      const hit = $("#dialHit");
+      let drag = null;
+      function unwrapDeg(delta) {
+        while (delta > 180) delta -= 360;
+        while (delta < -180) delta += 360;
+        return delta;
+      }
+
+      hit.addEventListener("pointerdown", (e) => {
+        const { idx, ang } = ringFromEvent(e, dialEl);
+        if (idx < 0) return;
+        hit.setPointerCapture(e.pointerId);
+        drag = { idx, startAng: ang, startDigit: dialDigits[idx], moved: false };
+      });
+      hit.addEventListener("pointermove", (e) => {
+        if (!drag) return;
+        const { ang } = ringFromEvent(e, dialEl);
+        const delta = unwrapDeg((ang - drag.startAng) * 180 / Math.PI);
+        if (Math.abs(delta) > 6) drag.moved = true;
+        const next = ((drag.startDigit - Math.round(delta / 36)) % 10 + 10) % 10;
+        if (next !== dialDigits[drag.idx]) {
+          dialDigits[drag.idx] = next;
+          paintDial();
+        }
+      });
+      hit.addEventListener("pointerup", () => { drag = null; });
+      hit.addEventListener("pointercancel", () => { drag = null; });
+      dialEl.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const { idx } = ringFromEvent(e, dialEl);
+        if (idx < 0) return;
+        dialDigits[idx] = (dialDigits[idx] + (e.deltaY > 0 ? 1 : -1) + 10) % 10;
+        paintDial();
+      }, { passive: false });
+
+      function denyDial() {
+        const err = $("#stoneError");
+        err.classList.add("show");
+        dialEl.classList.remove("denied");
+        void dialEl.offsetWidth;
+        dialEl.classList.add("denied");
+        const flash = $("#flash");
+        flash.style.transition = "opacity 0.05s";
+        flash.style.background = "#8b1515";
+        flash.style.opacity = "0.45";
+        setTimeout(() => {
+          flash.style.transition = "opacity 0.6s";
+          flash.style.opacity = "0";
+          flash.style.background = "#8fef9a";
+        }, 80);
+        pulseDrone();
+      }
+
+      function unlockGate() {
         startDrone();
         const flash = $("#flash");
+        flash.style.background = "#8fef9a";
         flash.style.transition = "opacity 0.08s";
         flash.style.opacity = "0.7";
         setTimeout(() => {
@@ -1737,6 +1478,18 @@
         document.body.classList.add("entered");
         pulseDrone();
         setTimeout(() => spawnWhisper(), 800);
+      }
+
+      /* —— Enter —— */
+      $("#enterBtn").onclick = () => {
+        if (document.body.classList.contains("entered")) return;
+        if (dialDigits.join("") !== SECRET) {
+          denyDial();
+          return;
+        }
+        $("#stoneError").classList.remove("show");
+        dialEl.classList.add("unlocked");
+        setTimeout(unlockGate, 280);
       };
 
       /* —— Sanity —— */
